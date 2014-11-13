@@ -1,0 +1,155 @@
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.exe
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.pdb
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\MonoGame.Framework.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Lidgren.Network.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.dll
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.xml
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.csprojResolveAssemblyReference.cache
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.exe
+c:\users\lasse\documents\visual studio 2012\Projects\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.pdb
+C:\Users\Lasse\Documents\Visual Studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\flowers.jpg
+C:\Users\Lasse\Documents\Visual Studio 2012\Projects\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\MyFont.xnb
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.exe
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.pdb
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\flowers.jpg
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\MyFont.xnb
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.exe
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.pdb
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\MonoGame.Framework.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Lidgren.Network.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\tk\Desktop\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.csprojResolveAssemblyReference.cache
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.exe
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.pdb
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.csprojResolveAssemblyReference.cache
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\flowers.jpg
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\MyFont.xnb
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.exe
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.pdb
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\MonoGame.Framework.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Lidgren.Network.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\OuterSpace.jpg
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\spaceshipl.png
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\spaceshipr.png
+C:\Users\Lasse\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\space.jpg
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.exe
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.pdb
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\flowers.jpg
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\OuterSpace.jpg
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\space.jpg
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\spaceshipl.png
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\spaceshipr.png
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\MyFont.xnb
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.exe
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.pdb
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Lidgren.Network.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\MonoGame.Framework.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\spacetower.png
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\kugelding.png
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.exe
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.pdb
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\flowers.jpg
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\kugelding.png
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\OuterSpace.jpg
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\space.jpg
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\spaceshipl.png
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\spaceshipr.png
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\spacetower.png
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\MyFont.xnb
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.exe
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\BachelorPrototype.pdb
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Lidgren.Network.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\MonoGame.Framework.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.dll
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.MediaFoundation.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XAudio2.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D11.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.DXGI.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct2D1.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.XInput.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.RawInput.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\SharpDX.Direct3D9.xml
+C:\Users\Lasse\Documents\BachelorPrototype\BachelorPrototype\obj\x86\Debug\BachelorPrototype.csprojResolveAssemblyReference.cache
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\P1.png
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\P2.png
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\TowerP1.png
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\TowerP2.png
+C:\Users\Student\Desktop\BachelorPrototype\BachelorPrototype\bin\Windows\Debug\Content\Planet.png
