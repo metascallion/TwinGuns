@@ -36,12 +36,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Game1.cs" />
-    <Compile Include="StateMachine.cs" />
+    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="StateMachine\StateListener.cs" />
+    <Compile Include="StateMachine\StateMachine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Renderable.cs" />
-    <Compile Include="RenderExecuter.cs" />
-    <Compile Include="UpdateExecuter.cs" />
+    <Compile Include="Drawables\Drawable.cs" />
+    <Compile Include="GameLoop\DrawExecuter.cs" />
+    <Compile Include="GameLoop\UpdateExecuter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

@@ -36,8 +36,7 @@ namespace WhiteSpace
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            new Drawable<gamestate>(gamestate.main);
-            StateMachine<testenum>.getInstance().changeState(testenum.main);
+            new GameObject<gamestate>(gamestate.gameover);
             StateMachine<gamestate>.getInstance().changeState(gamestate.lobby);
         }
 
@@ -72,6 +71,15 @@ namespace WhiteSpace
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            if(Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                StateMachine<gamestate>.getInstance().changeState(gamestate.gameover);
+            }
+
+            else
+            {
+                StateMachine<gamestate>.getInstance().changeState(gamestate.game);
+            }
             // TODO: Add your update logic here
             UpdateExecuter.executeUpdates(gameTime);
 

@@ -13,14 +13,6 @@ namespace WhiteSpace
         gameover
     }
 
-    public enum testenum
-    {
-        main,
-        game,
-        lobby, 
-        gameover
-    }
-
     public class StateMachine <StateType> 
     {
         private static StateMachine<StateType> instance;
