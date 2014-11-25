@@ -35,7 +35,6 @@ namespace WhiteSpace
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -71,6 +70,7 @@ namespace WhiteSpace
                 Exit();
 
             // TODO: Add your update logic here
+            UpdateExecuter.executeUpdates(gameTime);
 
             base.Update(gameTime);
         }
@@ -84,7 +84,7 @@ namespace WhiteSpace
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
-
+            DrawExecuter.executeRegisteredDrawMethods(spriteBatch);
             base.Draw(gameTime);
         }
     }

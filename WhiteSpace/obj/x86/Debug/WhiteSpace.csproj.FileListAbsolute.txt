@@ -1,0 +1,10 @@
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\SDL.dll
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\WhiteSpace.exe
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\WhiteSpace.pdb
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.exe
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.pdb
