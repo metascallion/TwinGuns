@@ -8,11 +8,24 @@ using Microsoft.Xna.Framework.Graphics;
 namespace WhiteSpace
 {
 
-    public class Drawable
+    public class Drawable <T>
     {
-        public Drawable()
+        public T activeState;
+
+        public Drawable(T activeState)
         {
+            this.activeState = activeState;
             registerInDrawExecuter();
+            StateMachine<T>.getInstance().stateChangeMethods += processStateChange;
+        }
+
+        private void processStateChange(T active)
+        {
+            if(!EqualityComparer<T>.Default.Equals(activeState, active))
+            {
+                unregisterInDrawExecuter();
+            }
+            
         }
 
         protected virtual void draw(SpriteBatch spriteBatch)
@@ -30,7 +43,7 @@ namespace WhiteSpace
         }
     }
 
-
+    /*
     public class TestDrawer : Drawable
     {
         protected override void draw(SpriteBatch spriteBatch)
@@ -38,7 +51,7 @@ namespace WhiteSpace
             base.draw(spriteBatch);
         }
     }
-
+    */
 
     public class GameObject
     {
@@ -51,25 +64,25 @@ namespace WhiteSpace
         {  
         }
 
-        public void registerInUpdateExecuter()
+        private void registerInUpdateExecuter()
         {
             UpdateExecuter.registerUpdateable(this.update);
         }
 
-        public void unregisterInUpdateExecuter()
+        private void unregisterInUpdateExecuter()
         {
             UpdateExecuter.unregisterUpdateable(this.update);
         }
     }
 
-    /*
+    
     public class Unit : GameObject
     {
-        TestDrawer drawer;
+        //TestDrawer drawer;
 
         public Unit()
         {
-            drawer = new TestDrawer();
+            //drawer = new TestDrawer();
         }
 
         protected override void update(GameTime gameTime)
@@ -77,7 +90,6 @@ namespace WhiteSpace
             base.update(gameTime);
         }
     }
- */
 
 
 }

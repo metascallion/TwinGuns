@@ -36,6 +36,9 @@ namespace WhiteSpace
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+            new Drawable<gamestate>(gamestate.main);
+            StateMachine<testenum>.getInstance().changeState(testenum.main);
+            StateMachine<gamestate>.getInstance().changeState(gamestate.lobby);
         }
 
         /// <summary>
