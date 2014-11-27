@@ -50,8 +50,9 @@ namespace WhiteSpace
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            new Unit<gamestate>(gamestate.game, new Temp.Transform(new Vector2(), new Vector2(), new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
-            StateMachine<gamestate>.getInstance().changeState(gamestate.game);
+            //Unit<gamestate> unit = new Unit<gamestate>(gamestate.game, Temp.Transform.createTransformWithSizeOnPosition(new Vector2(200,200), new Vector2(100, 100)), Content.Load<Texture2D>("Knight"));
+            new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
+            StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             // TODO: use this.Content to load your game content here
         }
 

@@ -5,10 +5,16 @@ using System.Text;
 
 namespace WhiteSpace
 {
-    public class StateListener<StateType>
+    public class StateListener<StateType> where StateType : struct
     {
         StateType activeState;
         bool invalidTriggered = false;
+
+        public StateListener()
+        {
+            Enum.TryParse<StateType>("0", out this.activeState);
+            registerInStateMachine();
+        }
 
         public StateListener(StateType activeState)
         {

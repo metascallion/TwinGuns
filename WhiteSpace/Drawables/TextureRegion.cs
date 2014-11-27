@@ -8,7 +8,7 @@ using WhiteSpace.Temp;
 
 namespace WhiteSpace.Drawables
 {
-    public class TextureRegion<StateType> : Drawable<StateType>
+    public class TextureRegion<StateType> : Drawable<StateType> where StateType : struct
     {
         Texture2D textureToDraw;
         Rectangle visibleArea;
@@ -18,10 +18,15 @@ namespace WhiteSpace.Drawables
             this.textureToDraw = texture;
         }
 
+        public TextureRegion(Transform transform, Texture2D texture) : base(transform)
+        {
+            this.textureToDraw = texture;
+        }
+
         protected override void draw(SpriteBatch spriteBatch)
         {
             base.draw(spriteBatch);
-            Rectangle drawRectangle = new Rectangle((int)this.transform.position.X, (int)this.transform.position.Y, (int)this.transform.size.X, (int)this.transform.size.Y);
+            Rectangle drawRectangle = new Rectangle((int)this.transform.Position.X, (int)this.transform.Position.Y, (int)this.transform.Size.X, (int)this.transform.Size.Y);
             spriteBatch.Draw(this.textureToDraw, drawRectangle, Color.White);  
         }
 

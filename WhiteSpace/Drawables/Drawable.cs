@@ -8,11 +8,17 @@ using WhiteSpace.Temp;
 
 namespace WhiteSpace
 {
-    public class Drawable <StateType> : StateListener<StateType>
+    public class Drawable <StateType> : StateListener<StateType> where StateType : struct
     {
         protected Transform transform;
 
         public Drawable(StateType activeState, Transform transform) : base (activeState)
+        {
+            this.transform = transform;
+            registerInDrawExecuter();
+        }
+
+        public Drawable(Transform transform)
         {
             this.transform = transform;
             registerInDrawExecuter();
