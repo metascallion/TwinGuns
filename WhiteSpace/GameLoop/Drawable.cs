@@ -6,7 +6,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Temp;
 
-namespace WhiteSpace
+namespace WhiteSpace.GameLoop
 {
     public class Drawable <StateType> : StateListener<StateType> where StateType : struct
     {

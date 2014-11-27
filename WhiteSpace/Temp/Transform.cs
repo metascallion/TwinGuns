@@ -88,5 +88,10 @@ namespace WhiteSpace.Temp
             this.Size = sizeToSet;
         }
 
+        public Rectangle getRect()
+        {
+            return new Rectangle((int)this.Position.X, (int)this.Position.Y, (int)this.Size.X, (int)this.Size.Y);
+        }
+
     }
 }

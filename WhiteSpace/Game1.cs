@@ -8,6 +8,9 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using WhiteSpace.GameObjects;
+using WhiteSpace.GameLoop;
+using WhiteSpace.Temp;
+
 #endregion
 
 namespace WhiteSpace
@@ -37,6 +40,7 @@ namespace WhiteSpace
         {
             // TODO: Add your initialization logic here
             base.Initialize();
+            IsMouseVisible = true;
             //new GameObject<gamestate>(gamestate.gameover);
             //StateMachine<gamestate>.getInstance().changeState(gamestate.lobby);
         }
@@ -51,7 +55,8 @@ namespace WhiteSpace
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
             //Unit<gamestate> unit = new Unit<gamestate>(gamestate.game, Temp.Transform.createTransformWithSizeOnPosition(new Vector2(200,200), new Vector2(100, 100)), Content.Load<Texture2D>("Knight"));
-            new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
+            //new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
+            new Clickable<gamestate>(Transform.createTransformWithSize(new Vector2(100, 100)));
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             // TODO: use this.Content to load your game content here
         }

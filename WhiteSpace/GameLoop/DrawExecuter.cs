@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WhiteSpace
+namespace WhiteSpace.GameLoop
 {
     public static class DrawExecuter
     {

@@ -37,15 +37,17 @@
   <ItemGroup>
     <Compile Include="Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameLoop\Updateable.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Unit.cs" />
     <Compile Include="StateMachine\StateListener.cs" />
     <Compile Include="StateMachine\StateMachine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Drawables\Drawable.cs" />
+    <Compile Include="GameLoop\Drawable.cs" />
     <Compile Include="GameLoop\DrawExecuter.cs" />
     <Compile Include="GameLoop\UpdateExecuter.cs" />
+    <Compile Include="Temp\Clickable.cs" />
     <Compile Include="Temp\Transform.cs" />
   </ItemGroup>
   <ItemGroup>
