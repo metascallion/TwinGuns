@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
+using WhiteSpace.GameObjects;
 #endregion
 
 namespace WhiteSpace
@@ -36,8 +37,8 @@ namespace WhiteSpace
         {
             // TODO: Add your initialization logic here
             base.Initialize();
-            new GameObject<gamestate>(gamestate.gameover);
-            StateMachine<gamestate>.getInstance().changeState(gamestate.lobby);
+            //new GameObject<gamestate>(gamestate.gameover);
+            //StateMachine<gamestate>.getInstance().changeState(gamestate.lobby);
         }
 
         /// <summary>
@@ -49,6 +50,8 @@ namespace WhiteSpace
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            new Unit<gamestate>(gamestate.game, new Temp.Transform(new Vector2(), new Vector2(), new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
+            StateMachine<gamestate>.getInstance().changeState(gamestate.game);
             // TODO: use this.Content to load your game content here
         }
 
@@ -71,15 +74,15 @@ namespace WhiteSpace
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            if(Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                StateMachine<gamestate>.getInstance().changeState(gamestate.gameover);
-            }
+            //if(Keyboard.GetState().IsKeyDown(Keys.A))
+            //{
+            //    StateMachine<gamestate>.getInstance().changeState(gamestate.gameover);
+            //}
 
-            else
-            {
-                StateMachine<gamestate>.getInstance().changeState(gamestate.game);
-            }
+            //else
+            //{
+            //    StateMachine<gamestate>.getInstance().changeState(gamestate.game);
+            //}
             // TODO: Add your update logic here
             UpdateExecuter.executeUpdates(gameTime);
 
@@ -95,7 +98,10 @@ namespace WhiteSpace
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            spriteBatch.Begin();
             DrawExecuter.executeRegisteredDrawMethods(spriteBatch);
+            spriteBatch.End();
+
             base.Draw(gameTime);
         }
     }

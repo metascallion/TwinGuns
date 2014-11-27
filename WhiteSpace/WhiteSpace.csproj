@@ -35,8 +35,10 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameObjects\Unit.cs" />
     <Compile Include="StateMachine\StateListener.cs" />
     <Compile Include="StateMachine\StateMachine.cs" />
     <Compile Include="Program.cs" />
@@ -44,6 +46,7 @@
     <Compile Include="Drawables\Drawable.cs" />
     <Compile Include="GameLoop\DrawExecuter.cs" />
     <Compile Include="GameLoop\UpdateExecuter.cs" />
+    <Compile Include="Temp\Transform.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -66,11 +69,12 @@
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\Knight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Content\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -4,13 +4,17 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using WhiteSpace.Temp;
 
 namespace WhiteSpace
 {
     public class Drawable <StateType> : StateListener<StateType>
     {
-        public Drawable(StateType activeState) : base (activeState)
+        protected Transform transform;
+
+        public Drawable(StateType activeState, Transform transform) : base (activeState)
         {
+            this.transform = transform;
             registerInDrawExecuter();
         }
 
