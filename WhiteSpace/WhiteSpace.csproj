@@ -47,7 +47,9 @@
     <Compile Include="GameLoop\Drawable.cs" />
     <Compile Include="GameLoop\DrawExecuter.cs" />
     <Compile Include="GameLoop\UpdateExecuter.cs" />
+    <Compile Include="Temp\Animator.cs" />
     <Compile Include="Temp\Clickable.cs" />
+    <Compile Include="Temp\ContentLoader.cs" />
     <Compile Include="Temp\Transform.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +74,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Knight.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\RunningBastard.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\runningGrant.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Walcycle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Icon.ico" />

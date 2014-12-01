@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using WhiteSpace.GameObjects;
 using WhiteSpace.GameLoop;
 using WhiteSpace.Temp;
+using WhiteSpace.Drawables;
 
 #endregion
 
@@ -56,7 +57,11 @@ namespace WhiteSpace
 
             //Unit<gamestate> unit = new Unit<gamestate>(gamestate.game, Temp.Transform.createTransformWithSizeOnPosition(new Vector2(200,200), new Vector2(100, 100)), Content.Load<Texture2D>("Knight"));
             //new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
-            new Clickable<gamestate>(Transform.createTransformWithSize(new Vector2(100, 100)));
+            //new Clickable<gamestate>(Transform.createTransformWithSize(new Vector2(100, 100)));
+
+
+            SpriteSheet sheet = new SpriteSheet(Content.Load<Texture2D>("RunningBastard"), 6, 5);
+            Unit<gamestate> u = new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(150, 150)), sheet);
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             // TODO: use this.Content to load your game content here
         }

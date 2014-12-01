@@ -9,3 +9,6 @@ C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.exe
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.pdb
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Knight.png
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\runningGrant.png
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Walcycle.png
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\RunningBastard.png
