@@ -65,7 +65,7 @@ namespace WhiteSpace
 
 
             TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(200, 200)), sheet);
-            test.Position = new Vector2(400, 400);
+            test.Position = new Vector2(0, 0);
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             // TODO: use this.Content to load your game content here
         }
