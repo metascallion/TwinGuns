@@ -60,8 +60,12 @@ namespace WhiteSpace
             //new Clickable<gamestate>(Transform.createTransformWithSize(new Vector2(100, 100)));
 
 
-            SpriteSheet sheet = new SpriteSheet(Content.Load<Texture2D>("RunningBastard"), 6, 5);
-            Unit<gamestate> u = new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(150, 150)), sheet);
+            SpriteSheet sheet = new SpriteSheet(Content.Load<Texture2D>("Knight"), 6, 5);
+            //Unit<gamestate> u = new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(150, 150)), sheet);
+
+
+            TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(200, 200)), sheet);
+            test.Position = new Vector2(400, 400);
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             // TODO: use this.Content to load your game content here
         }

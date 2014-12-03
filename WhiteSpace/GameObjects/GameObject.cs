@@ -54,7 +54,7 @@ namespace WhiteSpace
             }
         }
 
-        public Vector2 Rotation
+        public float Rotation
         {
             get
             {

@@ -9,14 +9,41 @@ namespace WhiteSpace.Temp
     public class Transform
     {
         public Vector2 Position{get; set;}
-        public Vector2 Rotation{get; set;}
+        public float Rotation{get; set;}
         public Vector2 Size{get; set;}
+
+        public Vector2 Direction
+        {
+            get
+            {
+                Vector2 sVelocity = Vector2.One;
+
+                sVelocity = new Vector2((float)Math.Sin(Rotation), -(float)Math.Cos(Rotation));
+
+                if(Rotation < 90)
+                {
+                    sVelocity = new Vector2((float)Math.Sin(Rotation), -(float)Math.Cos(Rotation));
+                }
+
+                else if (Rotation < 180)
+                {
+
+                }
+
+                return sVelocity;
+            }
+
+            set
+            {
+                Direction = value;
+            }
+        }
 
         public Transform()
         {
         }
 
-        public Transform(Vector2 position, Vector2 rotation, Vector2 size)
+        public Transform(Vector2 position, float rotation, Vector2 size)
         {
             this.Position = position;
             this.Rotation = rotation;
@@ -25,30 +52,30 @@ namespace WhiteSpace.Temp
 
         public static Transform createTransformOnPosition(Vector2 position)
         {
-            return new Transform(position, new Vector2(), new Vector2());
+            return new Transform(position, 0, new Vector2());
         }
 
         public static Transform createTransformWithSize(Vector2 size)
         {
-            return new Transform(new Vector2(), new Vector2(), size);
+            return new Transform(new Vector2(), 0, size);
         }
 
-        public static Transform createRotatedTransform(Vector2 rotation)
+        public static Transform createRotatedTransform(float rotation)
         {
             return new Transform(new Vector2(), rotation, new Vector2());
         }
 
         public static Transform createTransformWithSizeOnPosition(Vector2 position, Vector2 size)
         {
-            return new Transform(position, new Vector2(), size);
+            return new Transform(position, 0, size);
         }
 
-        public static Transform createRotatedTransformOnPosition(Vector2 position, Vector2 rotation)
+        public static Transform createRotatedTransformOnPosition(Vector2 position, float rotation)
         {
             return new Transform(position, rotation, new Vector2());
         }
 
-        public static Transform createRotatedTransformWithSize(Vector2 rotation, Vector2 size)
+        public static Transform createRotatedTransformWithSize(float rotation, Vector2 size)
         {
             return new Transform(new Vector2(), rotation, size);
         }
