@@ -24,7 +24,7 @@ namespace WhiteSpace.Temp
         {
         }
 
-        public void test(Vector2 test)
+        public void lookAt(Vector2 test)
         {
             Vector2 direction = test - this.Position;
             direction.Normalize();
