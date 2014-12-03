@@ -14,15 +14,14 @@ namespace WhiteSpace.GameObjects
     public class TestRotationGameObject <StateType> : GameObject <StateType> where StateType : struct
     {
         public TextureRegion<StateType> unitTexture;
-        public float speed = 0.2f;
+        public float speed = 0.5f;
         Animator<StateType> animator;
        
-
         public TestRotationGameObject(StateType type, Transform transform, Texture2D texture, SpriteSheet sheet) : base(type, transform)
         {
             unitTexture = new TextureRegion<StateType>(type, transform, texture);
             animator = new Animator<StateType>(20f, this.unitTexture, sheet);
-            animator.addAnimation("Walk", new Animation(1, 15));
+            animator.addAnimation("Walk", new Animation(1, 30));
             animator.addAnimation("Idle", new Animation(1, 1));
             animator.playAnimation("Idle", false);
             animator.AnimationSpeed = 20;
@@ -33,7 +32,7 @@ namespace WhiteSpace.GameObjects
         {
             unitTexture = new TextureRegion<StateType>(transform, texture);
             animator = new Animator<StateType>(20f, this.unitTexture, sheet);
-            animator.addAnimation("Walk", new Animation(1, 16));
+            animator.addAnimation("Walk", new Animation(1, 30));
             animator.addAnimation("Idle", new Animation(1, 1));
             animator.playAnimation("Idle", false);
             animator.AnimationSpeed = 20;
@@ -47,6 +46,7 @@ namespace WhiteSpace.GameObjects
 
         public void testMovement(GameTime time)
         {
+            //transform.correctRotation();
             float elapsedTime = (float)time.ElapsedGameTime.TotalMilliseconds;
 
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.Down))
@@ -95,8 +95,11 @@ namespace WhiteSpace.GameObjects
             */
 
             animator.playAnimation("Walk", true);
-            this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
-            this.transform.test(new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y));
+            if (Vector2.Distance(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y), this.Position) > 10)
+            {
+                this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
+            }
+            this.transform.lookAt(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y));
         }
     }
 }

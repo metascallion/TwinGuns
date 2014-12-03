@@ -34,7 +34,15 @@ namespace WhiteSpace.Drawables
             Vector2 position = this.transform.Position;
             Vector2 size = this.transform.Size;
             Rectangle drawRectangle = new Rectangle((int)(position.X + size.X / 2), (int)(position.Y + size.Y / 2), (int)size.X, (int)size.Y);
-            spriteBatch.Draw(this.Texture, drawRectangle, this.VisibleArea, Color.White, this.transform.Rotation, origin, this.SpriteEffect, 0);
+            if (this.transform.Rotation < -1.7f || this.transform.Rotation > 1.7f)
+            {
+                spriteBatch.Draw(this.Texture, drawRectangle, this.VisibleArea, Color.White, this.transform.Rotation, origin, SpriteEffects.FlipVertically, 0);
+            }
+
+            else
+            {
+                spriteBatch.Draw(this.Texture, drawRectangle, this.VisibleArea, Color.White, this.transform.Rotation, origin, this.SpriteEffect, 0); 
+            }
         }
     }
 }

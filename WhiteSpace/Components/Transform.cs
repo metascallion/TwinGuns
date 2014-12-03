@@ -70,6 +70,19 @@ namespace WhiteSpace.Temp
             return new Transform(Vector2.Zero, rotation, size);
         }
 
+        public void correctRotation()
+        {
+            if(Rotation <= 0)
+            {
+                Rotation = 0.1f;
+            }
+
+            else if(Rotation >= 360)
+            {
+                Rotation = 0.1f;
+            }
+        }
+
         private Vector2 calculateDirectionVector(direction inputDirection)
         {
             switch(inputDirection)

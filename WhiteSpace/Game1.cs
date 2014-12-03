@@ -50,6 +50,9 @@ namespace WhiteSpace
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
+        /// 
+
+        SpriteSheet sheet;
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
@@ -60,12 +63,12 @@ namespace WhiteSpace
             //new Clickable<gamestate>(Transform.createTransformWithSize(new Vector2(100, 100)));
 
 
-            SpriteSheet sheet = new SpriteSheet(Content.Load<Texture2D>("smurf"), 4, 4);
+            sheet = new SpriteSheet(Content.Load<Texture2D>("RunningBastard"), 6, 5);
             //Unit<gamestate> u = new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(150, 150)), sheet);
 
             TextureRegion<gamestate> region = new TextureRegion<gamestate>(Transform.createTransformWithSize(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight)), Content.Load<Texture2D>("mushroom"));
-            TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(25,25), new Vector2(25,25)), Content.Load<Texture2D>("mushroom"));
-            TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), sheet.Texture, sheet);
+            TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(25,25), new Vector2(350,300)), Content.Load<Texture2D>("mushroom"));
+            TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(200, 200)), sheet.Texture, sheet);
             test.Position = new Vector2(100, 100);
 
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
@@ -86,11 +89,15 @@ namespace WhiteSpace
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        /// 
+        int i = 0;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+            new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), sheet.Texture, sheet);
 
+            Console.WriteLine(i++);
             //if(Keyboard.GetState().IsKeyDown(Keys.A))
             //{
             //    StateMachine<gamestate>.getInstance().changeState(gamestate.gameover);
