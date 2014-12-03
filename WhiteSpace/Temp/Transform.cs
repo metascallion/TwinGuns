@@ -20,16 +20,6 @@ namespace WhiteSpace.Temp
 
                 sVelocity = new Vector2((float)Math.Sin(Rotation), -(float)Math.Cos(Rotation));
 
-                if(Rotation < 90)
-                {
-                    sVelocity = new Vector2((float)Math.Sin(Rotation), -(float)Math.Cos(Rotation));
-                }
-
-                else if (Rotation < 180)
-                {
-
-                }
-
                 return sVelocity;
             }
 

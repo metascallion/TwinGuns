@@ -65,7 +65,12 @@ namespace WhiteSpace.GameObjects
 
             else if (Keyboard.GetState().IsKeyDown(Keys.A))
             {
-                this.transform.Rotation = transform.Rotation + 0.1f;
+                this.transform.Rotation = transform.Rotation + 0.01f * elapsedTime;
+            }
+
+            else if (Keyboard.GetState().IsKeyDown(Keys.B))
+            {
+                this.transform.Rotation = transform.Rotation - 0.01f * elapsedTime;
             }
         }
     }
