@@ -11,35 +11,30 @@ namespace WhiteSpace.Drawables
 {
     public class TextureRegion<StateType> : Drawable<StateType> where StateType : struct
     {
-        //Texture2D textureToDraw;
         public Rectangle VisibleArea { get; set; }
-        public SpriteSheet sheetToReferTo { get; set; }
-
+        public Texture2D Texture { get; set; }
         public SpriteEffects SpriteEffect { private get; set; }
 
-        public TextureRegion(StateType stateType, Transform transform, SpriteSheet spriteSheetToUse) : base(stateType, transform)
+        public TextureRegion(StateType stateType, Transform transform, Texture2D texture) : base(stateType, transform)
         {
-            this.sheetToReferTo = spriteSheetToUse;
-            this.VisibleArea = spriteSheetToUse.Texture.Bounds;
+            this.Texture = texture;
+            this.VisibleArea = texture.Bounds;
         }
 
-        public TextureRegion(Transform transform, SpriteSheet spriteSheetToUse)
-            : base(transform)
+        public TextureRegion(Transform transform, Texture2D texture) : base(transform)
         {
-            this.sheetToReferTo = spriteSheetToUse;
-            this.VisibleArea = spriteSheetToUse.Texture.Bounds;
+            this.Texture = texture;
+            this.VisibleArea = texture.Bounds;
         }
 
         protected override void draw(SpriteBatch spriteBatch)
         {
             base.draw(spriteBatch);
-            Vector2 origin = new Vector2(this.sheetToReferTo.Texture.Width / 2, this.sheetToReferTo.Texture.Height / 2);
-  
-            Rectangle drawRectangle = new Rectangle((int)(this.transform.Position.X + transform.Size.X / 2), (int)(this.transform.Position.Y + transform.Size.Y / 2), (int)this.transform.Size.X, (int)this.transform.Size.Y);
-            //spriteBatch.Draw(this.sheetToReferTo.Texture, drawRectangle, Color.White);
-            spriteBatch.Draw(this.sheetToReferTo.Texture, drawRectangle, VisibleArea, Color.White, this.transform.Rotation, origin, this.SpriteEffect, 0);
-            //spriteBatch.Draw(this.sheetToReferTo.Texture, this.transform.Position, this.VisibleArea, Color.White, this.transform.Rotation.Y, new Vector2(, 1, SpriteEffects.None, 0);
-
+            Vector2 origin = new Vector2(this.VisibleArea.Width / 2, this.VisibleArea.Height / 2);
+            Vector2 position = this.transform.Position;
+            Vector2 size = this.transform.Size;
+            Rectangle drawRectangle = new Rectangle((int)(position.X + size.X / 2), (int)(position.Y + size.Y / 2), (int)size.X, (int)size.Y);
+            spriteBatch.Draw(this.Texture, drawRectangle, this.VisibleArea, Color.White, this.transform.Rotation, origin, this.SpriteEffect, 0);
         }
     }
 }

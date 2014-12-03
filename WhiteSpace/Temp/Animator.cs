@@ -88,7 +88,8 @@ namespace WhiteSpace.Temp
     {
         Dictionary<string, Animation> animations = new Dictionary<string,Animation>();
 
-        TextureRegion<StateType> textureRegion;
+        TextureRegion<StateType> textureRegionToAnimate;
+        SpriteSheet sheetToTakeFramesFrom;
 
         bool play;
         bool loop;
@@ -103,16 +104,18 @@ namespace WhiteSpace.Temp
             this.animations[name] = animation;
         }
 
-        public Animator(float animationSpeed, TextureRegion<StateType> region)
+        public Animator(float animationSpeed, TextureRegion<StateType> region, SpriteSheet sheetToTakeFramesFrom)
         {
             this.AnimationSpeed = animationSpeed;
-            this.textureRegion = region;
+            this.textureRegionToAnimate = region;
+            this.sheetToTakeFramesFrom = sheetToTakeFramesFrom;
         }
 
-        public Animator(float animationSpeed, TextureRegion<StateType> region, StateType activeState)
+        public Animator(float animationSpeed, TextureRegion<StateType> region, SpriteSheet sheetToTakeFramesFrom, StateType activeState)
         {
             this.AnimationSpeed = animationSpeed;
-            this.textureRegion = region;
+            this.textureRegionToAnimate = region;
+            this.sheetToTakeFramesFrom = sheetToTakeFramesFrom;
         }
 
         public void playAnimation(string animationName, bool loop)
@@ -140,7 +143,7 @@ namespace WhiteSpace.Temp
 
         private void setNextFrame()
         {
-            this.textureRegion.VisibleArea = this.textureRegion.sheetToReferTo.getRectangleForFrame(this.activeAnimation.currentFrame - 1);
+            this.textureRegionToAnimate.VisibleArea = this.sheetToTakeFramesFrom.getRectangleForFrame(this.activeAnimation.currentFrame - 1);
 
             if (this.activeAnimation.currentFrame < this.activeAnimation.EndFrame)
             {

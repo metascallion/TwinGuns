@@ -48,9 +48,9 @@
     <Compile Include="GameLoop\DrawExecuter.cs" />
     <Compile Include="GameLoop\UpdateExecuter.cs" />
     <Compile Include="Temp\Animator.cs" />
-    <Compile Include="Temp\Clickable.cs" />
+    <Compile Include="Components\Clickable.cs" />
     <Compile Include="Temp\ContentLoader.cs" />
-    <Compile Include="Temp\Transform.cs" />
+    <Compile Include="Components\Transform.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -76,10 +76,16 @@
     <Content Include="Content\Knight.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\mushroom.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\RunningBastard.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\runningGrant.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\smurf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Walcycle.png">

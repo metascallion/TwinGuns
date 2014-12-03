@@ -13,25 +13,30 @@ namespace WhiteSpace.GameObjects
 
     public class TestRotationGameObject <StateType> : GameObject <StateType> where StateType : struct
     {
-                public TextureRegion<StateType> unitTexture;
+        public TextureRegion<StateType> unitTexture;
+        public float speed = 0.2f;
         Animator<StateType> animator;
        
 
-        public TestRotationGameObject(StateType type, Transform transform, SpriteSheet texture) : base(type, transform)
+        public TestRotationGameObject(StateType type, Transform transform, Texture2D texture, SpriteSheet sheet) : base(type, transform)
         {
             unitTexture = new TextureRegion<StateType>(type, transform, texture);
-            animator = new Animator<StateType>(20f, this.unitTexture);
-            animator.addAnimation("Walk", new Animation(1, 30));
+            animator = new Animator<StateType>(20f, this.unitTexture, sheet);
+            animator.addAnimation("Walk", new Animation(1, 15));
             animator.addAnimation("Idle", new Animation(1, 1));
+            animator.playAnimation("Idle", false);
+            animator.AnimationSpeed = 20;
         }
 
-        public TestRotationGameObject(Transform transform, SpriteSheet texture)
+        public TestRotationGameObject(Transform transform, Texture2D texture, SpriteSheet sheet)
             : base(transform)
         {
             unitTexture = new TextureRegion<StateType>(transform, texture);
-            animator = new Animator<StateType>(20f, this.unitTexture);
-            animator.addAnimation("Walk", new Animation(1, 30));
+            animator = new Animator<StateType>(20f, this.unitTexture, sheet);
+            animator.addAnimation("Walk", new Animation(1, 16));
             animator.addAnimation("Idle", new Animation(1, 1));
+            animator.playAnimation("Idle", false);
+            animator.AnimationSpeed = 20;
         }
 
         protected override void update(GameTime gameTime)
@@ -44,96 +49,54 @@ namespace WhiteSpace.GameObjects
         {
             float elapsedTime = (float)time.ElapsedGameTime.TotalMilliseconds;
 
-            if(Keyboard.GetState().IsKeyDown(Keys.Right))
+            if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.Down))
             {
-                this.transform.translate(new Vector2(transform.Direction.Y, -transform.Direction.X) * elapsedTime * -0.1f);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                this.transform.translate(new Vector2(-transform.Direction.Y, transform.Direction.X) * elapsedTime * -0.1f);
-            }
-
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                this.transform.translate(transform.Direction * elapsedTime * -0.1f);
-            }
-
-            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                this.transform.translate(transform.Direction * elapsedTime * 0.1f);
-            }
-
-            else if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                this.transform.Rotation = transform.Rotation + 0.01f * elapsedTime;
-            }
-
-            else if (Keyboard.GetState().IsKeyDown(Keys.B))
-            {
-                this.transform.Rotation = transform.Rotation - 0.01f * elapsedTime;
-            }
-        }
-    }
-
-    public class Unit<StateType> : GameObject<StateType> where StateType : struct
-    {
-        public TextureRegion<StateType> unitTexture;
-        Animator<StateType> animator;
-       
-
-        public Unit(StateType type, Transform transform, SpriteSheet texture) : base(type, transform)
-        {
-            unitTexture = new TextureRegion<StateType>(type, transform, texture);
-            animator = new Animator<StateType>(20f, this.unitTexture);
-            animator.addAnimation("Walk", new Animation(1, 30));
-            animator.addAnimation("Idle", new Animation(1, 1));
-        }
-
-        public Unit(Transform transform, SpriteSheet texture) : base (transform)
-        {
-            unitTexture = new TextureRegion<StateType>(transform, texture);
-            animator = new Animator<StateType>(20f, this.unitTexture);
-            animator.addAnimation("Walk", new Animation(1, 30));
-            animator.addAnimation("Idle", new Animation(1, 1));
-        }
-
-        protected override void update(GameTime gameTime)
-        {
-            base.update(gameTime);
-            testMovement(gameTime);
-        }
-
-        public void testMovement(GameTime time)
-        {
-            float elapsedTime = (float)time.ElapsedGameTime.TotalMilliseconds;
-
-            if(Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                this.transform.translateOnXAxis(elapsedTime * 0.4f);
-                animator.playAnimation("Walk", true);
-                this.unitTexture.SpriteEffect = SpriteEffects.None;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                this.transform.translateOnXAxis(-elapsedTime * 0.4f);
-                animator.playAnimation("Walk", true);
-                this.unitTexture.SpriteEffect = SpriteEffects.FlipHorizontally;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                this.transform.translateOnYAxis(elapsedTime * 0.4f);
-                animator.playAnimation("Walk", true);
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                this.transform.translateOnYAxis(-elapsedTime * 0.4f);
                 animator.playAnimation("Walk", true);
             }
 
             else
             {
-                animator.playAnimation("Idle", true);
+                animator.playAnimation("Idle", false);
             }
+
+            /*
+            if(Keyboard.GetState().IsKeyDown(Keys.Right))
+            {
+                this.Rotation = 0;
+                this.transform.translateOnXAxis(elapsedTime * speed);
+                unitTexture.SpriteEffect = SpriteEffects.None;
+            }
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                //this.Rotation = 0;
+                //this.transform.translateOnXAxis(elapsedTime *- speed);
+                this.transform.translate(transform.transformDirection(direction.left));
+                unitTexture.SpriteEffect = SpriteEffects.FlipHorizontally;
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.Down))
+            {
+                this.unitTexture.SpriteEffect = SpriteEffects.None;
+                this.transform.Rotation = -80;
+                this.transform.translateOnYAxis(elapsedTime * speed);
+            }
+
+            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
+            {
+                this.unitTexture.SpriteEffect = SpriteEffects.None;
+                this.transform.Rotation = 80;
+                this.transform.translateOnYAxis(elapsedTime * -speed);
+            }
+
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+                this.transform.Rotation = transform.Rotation + 0.001f * elapsedTime;
+            }
+            */
+
+            animator.playAnimation("Walk", true);
+            this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
+            this.transform.test(new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y));
         }
     }
 }
