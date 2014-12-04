@@ -47,10 +47,12 @@
     <Compile Include="GameLoop\Drawable.cs" />
     <Compile Include="GameLoop\DrawExecuter.cs" />
     <Compile Include="GameLoop\UpdateExecuter.cs" />
+    <Compile Include="Temp\Animation.cs" />
     <Compile Include="Temp\Animator.cs" />
     <Compile Include="Components\Clickable.cs" />
     <Compile Include="Temp\ContentLoader.cs" />
     <Compile Include="Components\Transform.cs" />
+    <Compile Include="Temp\SpriteSheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">

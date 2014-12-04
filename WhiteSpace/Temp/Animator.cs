@@ -9,90 +9,15 @@ using WhiteSpace.GameLoop;
 
 namespace WhiteSpace.Temp
 {
-    public class SpriteSheet
+    public class Animator<StateType> : Updateable<StateType> where StateType : struct
     {
-        public Texture2D Texture { get; set; }
-        int rows;
-        int cols;
+        private Dictionary<string, Animation> animations = new Dictionary<string,Animation>();
 
-        Vector2 tileSize;
+        private TextureRegion<StateType> textureRegionToAnimate;
+        private SpriteSheet sheetToTakeFramesFrom;
 
-        public SpriteSheet(Texture2D texture, int rows, int cols)
-        {
-            this.Texture = texture;
-            this.rows = rows;
-            this.cols = cols;
-
-            calculateTileSize();
-        }
-
-        private void calculateTileSize()
-        {
-            int sizeX = this.Texture.Bounds.Width;
-            int sizeY = this.Texture.Bounds.Height;
-
-            tileSize = new Vector2(sizeX / this.rows, sizeY / this.cols);
-        }
-
-        private Rectangle getTilesRectangleOnPosition(Vector2 position)
-        {
-            Rectangle tileRectangle = new Rectangle((int)(position.X * tileSize.X), (int)(position.Y * tileSize.Y), (int)this.tileSize.X, (int)this.tileSize.Y);
-            return tileRectangle;
-        }
-
-        private Vector2 calculatePositionForFrame(int frame)
-        {
-            int counter = 0;
-            Vector2 temp = Vector2.Zero;
-
-            while (counter < frame)
-            {
-                if(temp.X < rows - 1)
-                {
-                    temp.X++;
-                }
-
-                else
-                {
-                    temp.X = 0;
-                    temp.Y++;
-                }
-
-                counter++;
-            }
-
-            return temp;
-        }
-
-        public Rectangle getRectangleForFrame(int frame)
-        {
-            return getTilesRectangleOnPosition(calculatePositionForFrame(frame));
-        }
-
-    }
-
-    public class Animation
-    {
-        public int EndFrame { get; set; }
-
-        public int currentFrame;
-
-        public Animation(int startFrame, int endFrame)
-        {
-            this.currentFrame = startFrame;
-            this.EndFrame = endFrame;
-        }
-    }
-
-    class Animator<StateType> : Updateable<StateType> where StateType : struct
-    {
-        Dictionary<string, Animation> animations = new Dictionary<string,Animation>();
-
-        TextureRegion<StateType> textureRegionToAnimate;
-        SpriteSheet sheetToTakeFramesFrom;
-
-        bool play;
-        bool loop;
+        private bool play;
+        private bool loop;
 
         public float AnimationSpeed{ get; set; }
         private float animationTimer;

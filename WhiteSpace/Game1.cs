@@ -90,14 +90,11 @@ namespace WhiteSpace
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// 
-        int i = 0;
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), sheet.Texture, sheet);
-
-            Console.WriteLine(i++);
+            //new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), sheet.Texture, sheet);
             //if(Keyboard.GetState().IsKeyDown(Keys.A))
             //{
             //    StateMachine<gamestate>.getInstance().changeState(gamestate.gameover);

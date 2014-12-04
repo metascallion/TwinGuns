@@ -59,43 +59,8 @@ namespace WhiteSpace.GameObjects
                 animator.playAnimation("Idle", false);
             }
 
-            /*
-            if(Keyboard.GetState().IsKeyDown(Keys.Right))
-            {
-                this.Rotation = 0;
-                this.transform.translateOnXAxis(elapsedTime * speed);
-                unitTexture.SpriteEffect = SpriteEffects.None;
-            }
-            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
-            {
-                //this.Rotation = 0;
-                //this.transform.translateOnXAxis(elapsedTime *- speed);
-                this.transform.translate(transform.transformDirection(direction.left));
-                unitTexture.SpriteEffect = SpriteEffects.FlipHorizontally;
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.Down))
-            {
-                this.unitTexture.SpriteEffect = SpriteEffects.None;
-                this.transform.Rotation = -80;
-                this.transform.translateOnYAxis(elapsedTime * speed);
-            }
-
-            else if (Keyboard.GetState().IsKeyDown(Keys.Up))
-            {
-                this.unitTexture.SpriteEffect = SpriteEffects.None;
-                this.transform.Rotation = 80;
-                this.transform.translateOnYAxis(elapsedTime * -speed);
-            }
-
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-                this.transform.Rotation = transform.Rotation + 0.001f * elapsedTime;
-            }
-            */
-
             animator.playAnimation("Walk", true);
-            if (Vector2.Distance(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y), this.Position) > 10)
+            if (Vector2.Distance(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y), new Vector2(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2)) > 10)
             {
                 this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
             }

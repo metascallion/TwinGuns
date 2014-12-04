@@ -24,9 +24,10 @@ namespace WhiteSpace.Temp
         {
         }
 
-        public void lookAt(Vector2 test)
+        public void lookAt(Vector2 targetLocation)
         {
-            Vector2 direction = test - this.Position;
+           Vector2 direction = targetLocation - new Vector2(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2);
+            //Vector2 direction = test - this.Position;
             direction.Normalize();
             float angle = (float)Math.Atan2(direction.X, direction.Y);
             float radian = (float)Math.Atan2(Math.Cos(angle), (float)Math.Sin(angle));
