@@ -17,7 +17,7 @@ namespace WhiteSpace.GameObjects
         public TextureRegion<StateType> unitTexture;
         public float speed = 0.5f;
         Animator<StateType> animator;
-       
+
         public TestRotationGameObject(StateType type, Transform transform) : base(type, transform)
         {
 

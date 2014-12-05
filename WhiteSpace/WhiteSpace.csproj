@@ -50,6 +50,7 @@
     <Compile Include="Components\Animation\Animation.cs" />
     <Compile Include="Components\Animation\Animator.cs" />
     <Compile Include="Components\Clickable.cs" />
+    <Compile Include="Temp\Client.cs" />
     <Compile Include="Temp\ContentLoader.cs" />
     <Compile Include="Components\Transform.cs" />
     <Compile Include="Components\Animation\SpriteSheet.cs" />

@@ -56,6 +56,11 @@ namespace WhiteSpace
         SpriteSheet sheet;
         protected override void LoadContent()
         {
+
+            Client.registerNetworkListenerMethod("test", test1);
+            Client.registerNetworkListenerMethod("test", test2);
+            Client.onNetworkMessageEnter(new NetworkMessage());
+
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = Content;
@@ -103,6 +108,17 @@ namespace WhiteSpace
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// 
+
+        void test1(NetworkMessage msg)
+        {
+
+        }
+
+        void test2(NetworkMessage msg)
+        {
+
+        }
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
