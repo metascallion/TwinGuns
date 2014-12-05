@@ -7,6 +7,7 @@ using WhiteSpace.Temp;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
+using WhiteSpace.Components.Animation;
 
 namespace WhiteSpace.GameObjects
 {
@@ -17,24 +18,18 @@ namespace WhiteSpace.GameObjects
         public float speed = 0.5f;
         Animator<StateType> animator;
        
-        public TestRotationGameObject(StateType type, Transform transform, Texture2D texture, SpriteSheet sheet) : base(type, transform)
+        public TestRotationGameObject(StateType type, Transform transform) : base(type, transform)
         {
-            unitTexture = new TextureRegion<StateType>(type, transform, texture);
-            animator = new Animator<StateType>(20f, this.unitTexture, sheet);
-            animator.addAnimation("Walk", new Animation(1, 30));
-            animator.addAnimation("Idle", new Animation(1, 1));
-            animator.playAnimation("Idle", false);
+
+            unitTexture = new TextureRegion<StateType>(type, transform, ContentLoader.getContent<Texture2D>("smurf"));
+            animator = Animator<StateType>.loadAnimator(type, unitTexture, "TestAnimator");
             animator.AnimationSpeed = 20;
         }
 
-        public TestRotationGameObject(Transform transform, Texture2D texture, SpriteSheet sheet)
+        public TestRotationGameObject(Transform transform, Texture2D texture/*, SpriteSheet sheet*/)
             : base(transform)
         {
             unitTexture = new TextureRegion<StateType>(transform, texture);
-            animator = new Animator<StateType>(20f, this.unitTexture, sheet);
-            animator.addAnimation("Walk", new Animation(1, 30));
-            animator.addAnimation("Idle", new Animation(1, 1));
-            animator.playAnimation("Idle", false);
             animator.AnimationSpeed = 20;
         }
 
@@ -59,10 +54,15 @@ namespace WhiteSpace.GameObjects
                 animator.playAnimation("Idle", false);
             }
 
-            animator.playAnimation("Walk", true);
+
             if (Vector2.Distance(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y), new Vector2(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2)) > 10)
             {
                 this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
+                animator.playAnimation("Walk", true);
+            }
+            else
+            {
+                animator.playAnimation("Idle", true);
             }
             this.transform.lookAt(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y));
         }

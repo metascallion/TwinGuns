@@ -11,6 +11,7 @@ using WhiteSpace.GameObjects;
 using WhiteSpace.GameLoop;
 using WhiteSpace.Temp;
 using WhiteSpace.Drawables;
+using WhiteSpace.Components.Animation;
 
 #endregion
 
@@ -57,19 +58,31 @@ namespace WhiteSpace
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
+            ContentLoader.ContentManager = Content;
             //Unit<gamestate> unit = new Unit<gamestate>(gamestate.game, Temp.Transform.createTransformWithSizeOnPosition(new Vector2(200,200), new Vector2(100, 100)), Content.Load<Texture2D>("Knight"));
             //new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
             //new Clickable<gamestate>(Transform.createTransformWithSize(new Vector2(100, 100)));
 
+            /*
+            sheet = new SpriteSheet(ContentLoader.getContent<Texture2D>("smurf"), 4, 4);
+            ContentLoader.getContent<Texture2D>("smurf");
+                
+            ContentLoader.getContent<Texture2D>("smurf");
+                    
+            ContentLoader.getContent<Texture2D>("smurf");
+                   
+            ContentLoader.getContent<Texture2D>("smurf");
+             * */
 
-            sheet = new SpriteSheet(Content.Load<Texture2D>("RunningBastard"), 6, 5);
-            //Unit<gamestate> u = new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(150, 150)), sheet);
 
             TextureRegion<gamestate> region = new TextureRegion<gamestate>(Transform.createTransformWithSize(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight)), Content.Load<Texture2D>("mushroom"));
-            TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(25,25), new Vector2(350,300)), Content.Load<Texture2D>("mushroom"));
-            TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(200, 200)), sheet.Texture, sheet);
-            test.Position = new Vector2(100, 100);
+            //AnimatorLoader.loadAnimator<gamestate>(gamestate.main, region, "TestAnimator");
+            //Unit<gamestate> u = new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(150, 150)), sheet);
+
+            //TextureRegion<gamestate> region = new TextureRegion<gamestate>(Transform.createTransformWithSize(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight)), Content.Load<Texture2D>("mushroom"));
+            //TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(25,25), new Vector2(350,300)), Content.Load<Texture2D>("smurf"));
+            TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(gamestate.main, Temp.Transform.createTransformWithSize(new Vector2(200, 200)));
+            //test.Position = new Vector2(100, 100);
 
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             // TODO: use this.Content to load your game content here

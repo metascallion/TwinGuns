@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WhiteSpace.Temp
+namespace WhiteSpace.Components.Animation
 {
     public class Animation
     {

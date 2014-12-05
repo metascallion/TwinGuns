@@ -6,15 +6,16 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Drawables;
 using WhiteSpace.GameLoop;
+using System.IO;
 
-namespace WhiteSpace.Temp
+namespace WhiteSpace.Components.Animation
 {
     public class Animator<StateType> : Updateable<StateType> where StateType : struct
     {
         private Dictionary<string, Animation> animations = new Dictionary<string,Animation>();
 
         private TextureRegion<StateType> textureRegionToAnimate;
-        private SpriteSheet sheetToTakeFramesFrom;
+        public SpriteSheet SheetToTakeFramesFrom { get; set; }
 
         private bool play;
         private bool loop;
@@ -24,23 +25,29 @@ namespace WhiteSpace.Temp
 
         Animation activeAnimation;
 
+        public static Animator<StateType> loadAnimator(StateType type, TextureRegion<StateType> regionToAnimate, string animatorName)
+        {
+            StreamReader reader = new StreamReader(animatorName + ".txt");
+            Animator<StateType> animatorToReturn = new Animator<StateType>(regionToAnimate);
+            string[] spriteSheetData = reader.ReadLine().Split(',');
+            animatorToReturn.SheetToTakeFramesFrom = new SpriteSheet(regionToAnimate.Texture, int.Parse(spriteSheetData[0]), int.Parse(spriteSheetData[1]));
+            string animation;
+            while ((animation = reader.ReadLine()) != null)
+            {
+                string[] animationData = animation.Split(',');
+                animatorToReturn.addAnimation(animationData[0], new Animation(int.Parse(animationData[1]), int.Parse(animationData[2])));
+            }
+            return animatorToReturn;
+        }
+
+        private Animator(TextureRegion<StateType> textureRegionToAnimate)
+        {
+            this.textureRegionToAnimate = textureRegionToAnimate;
+        }
+
         public void addAnimation(string name, Animation animation)
         {
             this.animations[name] = animation;
-        }
-
-        public Animator(float animationSpeed, TextureRegion<StateType> region, SpriteSheet sheetToTakeFramesFrom)
-        {
-            this.AnimationSpeed = animationSpeed;
-            this.textureRegionToAnimate = region;
-            this.sheetToTakeFramesFrom = sheetToTakeFramesFrom;
-        }
-
-        public Animator(float animationSpeed, TextureRegion<StateType> region, SpriteSheet sheetToTakeFramesFrom, StateType activeState)
-        {
-            this.AnimationSpeed = animationSpeed;
-            this.textureRegionToAnimate = region;
-            this.sheetToTakeFramesFrom = sheetToTakeFramesFrom;
         }
 
         public void playAnimation(string animationName, bool loop)
@@ -68,7 +75,7 @@ namespace WhiteSpace.Temp
 
         private void setNextFrame()
         {
-            this.textureRegionToAnimate.VisibleArea = this.sheetToTakeFramesFrom.getRectangleForFrame(this.activeAnimation.currentFrame - 1);
+            this.textureRegionToAnimate.VisibleArea = this.SheetToTakeFramesFrom.getRectangleForFrame(this.activeAnimation.currentFrame - 1);
 
             if (this.activeAnimation.currentFrame < this.activeAnimation.EndFrame)
             {

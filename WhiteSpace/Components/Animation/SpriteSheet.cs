@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace WhiteSpace.Temp
+namespace WhiteSpace.Components.Animation
 {
     public class SpriteSheet
     {
