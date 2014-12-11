@@ -57,9 +57,12 @@ namespace WhiteSpace
         protected override void LoadContent()
         {
 
-            Client.registerNetworkListenerMethod("test", test1);
-            Client.registerNetworkListenerMethod("test", test2);
-            Client.onNetworkMessageEnter(new NetworkMessage());
+            //Client.registerNetworkListenerMethod("test", test1);
+            //Client.registerNetworkListenerMethod("test", test2);
+            //Client.onNetworkMessageEnter(new NetworkMessage("test"));
+
+            Client.startClient("test");
+            Client.connect("localhost", 1111);
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);

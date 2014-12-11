@@ -1,0 +1,7 @@
+C:\Users\Student\Documents\TwinGuns\GameServer\bin\Debug\MasterServer.exe.config
+C:\Users\Student\Documents\TwinGuns\GameServer\bin\Debug\MasterServer.exe
+C:\Users\Student\Documents\TwinGuns\GameServer\bin\Debug\MasterServer.pdb
+C:\Users\Student\Documents\TwinGuns\GameServer\obj\Debug\GameServer.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\TwinGuns\GameServer\obj\Debug\MasterServer.exe
+C:\Users\Student\Documents\TwinGuns\GameServer\obj\Debug\MasterServer.pdb
+C:\Users\Student\Documents\TwinGuns\GameServer\bin\Debug\Lidgren.Network.dll
