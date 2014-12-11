@@ -53,7 +53,6 @@ namespace WhiteSpace
         /// </summary>
         /// 
 
-        SpriteSheet sheet;
         protected override void LoadContent()
         {
 
@@ -63,12 +62,15 @@ namespace WhiteSpace
 
             Client.startClient("test");
             Client.connect("localhost", 1111);
-            Client.registerNetworkListenerMethod("test", test1);
-            Client.registerNetworkListenerMethod("move", test2);
-            string testMessage = "test,x=0,y=10,z=300";
-            string testMessage2 = "move,direction=backward";
-            Client.onNetworkMessageEnter(NetworkMessage.createMessageFromString(testMessage));
-            Client.onNetworkMessageEnter(NetworkMessage.createMessageFromString(testMessage2));
+            Client.registerNetworkListenerMethod("hello", test1);
+            Client.registerNetworkListenerMethod("go", test2);
+            //string testMessage = "test,x=0,y=10,z=300";
+
+            //ReceiveableNetworkMessage msg = ReceiveableNetworkMessage.createMessageFromString(testMessage);
+
+            //int x = int.Parse(msg.getInformation("y"));
+
+            //Client.onNetworkMessageEnter(msg);
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = Content;
@@ -132,10 +134,10 @@ namespace WhiteSpace
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             //new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), sheet.Texture, sheet);
-            //if(Keyboard.GetState().IsKeyDown(Keys.A))
-            //{
-            //    StateMachine<gamestate>.getInstance().changeState(gamestate.gameover);
-            //}
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+            {
+
+            }
 
             //else
             //{
@@ -143,7 +145,7 @@ namespace WhiteSpace
             //}
             // TODO: Add your update logic here
             UpdateExecuter.executeUpdates(gameTime);
-
+            Client.pollNetworkMessage();
             base.Update(gameTime);
         }
 

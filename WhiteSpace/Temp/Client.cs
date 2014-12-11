@@ -8,24 +8,55 @@ namespace WhiteSpace.Temp
 {
     public class NetworkMessage
     {
-        public string header;
-        public Dictionary<string, string> informations = new Dictionary<string,string>();
+        public string Header;
+        protected Dictionary<string, string> informations = new Dictionary<string, string>();
 
         public NetworkMessage()
         {
-
         }
 
         public NetworkMessage(string header)
         {
-            this.header = header;
+            this.Header = header;
+        }
+    }
+
+    public class SendableNetworkMessage : NetworkMessage
+    {
+        public SendableNetworkMessage(string header) : base(header)
+        {
         }
 
-        private static List<string> splitString(string stringToSplit)
+        public string getStringFromMessage()
+        {
+            string messageContent = this.Header;
+
+            foreach (string s in informations.Keys)
+            {
+                messageContent += ";" + s + "=" + this.informations[s];
+            }
+
+            return messageContent;
+        }
+
+        public void addInformation(string key, object value)
+        {
+            this.informations[key] = value.ToString();
+        }
+    }
+
+    public class ReceiveableNetworkMessage : NetworkMessage
+    {
+        private static string[] splitKeyValue(string stringToSplit)
+        {
+            return stringToSplit.Split('=');
+        }
+
+        private static List<string> splitMessageString(string messageString)
         {
             List<string> strings = new List<string>();
-            string[] splittedString = stringToSplit.Split(',');
-            foreach(string s in splittedString)
+            string[] splittedString = messageString.Split(';');
+            foreach (string s in splittedString)
             {
                 strings.Add(s);
             }
@@ -33,31 +64,33 @@ namespace WhiteSpace.Temp
             return strings;
         }
 
-        private static string[] splitKeyValue (string stringToSplit)
+        public static ReceiveableNetworkMessage createMessageFromString(string stringToConvert)
         {
-            return stringToSplit.Split('=');
-        }
+            ReceiveableNetworkMessage msg = new ReceiveableNetworkMessage();
 
-        public static NetworkMessage createMessageFromString(string stringToConvert)
-        {
-            NetworkMessage msg = new NetworkMessage();
-           
-            List<string> splittedString = splitString(stringToConvert);
-            msg.header = splittedString[0];
+            List<string> splittedString = splitMessageString(stringToConvert);
+            msg.Header = splittedString[0];
             splittedString.Remove(splittedString[0]);
 
-            foreach(string s in splittedString)
+            foreach (string s in splittedString)
             {
                 msg.informations[splitKeyValue(s)[0]] = splitKeyValue(s)[1];
             }
 
             return msg;
         }
+
+        public string getInformation(string key)
+        {
+            return this.informations[key];
+        }
     }
+
+
 
     public static class Client
     {
-        public delegate void OnNetworkMessageEnter(NetworkMessage message);
+        public delegate void OnNetworkMessageEnter(ReceiveableNetworkMessage message);
 
         public static Dictionary<string, List<OnNetworkMessageEnter>> networkMessageListeners = new Dictionary<string, List<OnNetworkMessageEnter>>();
 
@@ -91,15 +124,27 @@ namespace WhiteSpace.Temp
 
             if((msg = client.ReadMessage()) != null)
             {
+                if (msg.MessageType == NetIncomingMessageType.Data)
+                {
+                    onNetworkMessageEnter(ReceiveableNetworkMessage.createMessageFromString(msg.ReadString()));
+                }
             }
         }
 
-        public static void onNetworkMessageEnter(NetworkMessage message)
+        public static void onNetworkMessageEnter(ReceiveableNetworkMessage message)
         {
-            foreach(OnNetworkMessageEnter t in networkMessageListeners[message.header])
+            foreach(OnNetworkMessageEnter t in networkMessageListeners[message.Header])
             {
                 t(message);
             }
         }
+
+        public static void sendMessage(SendableNetworkMessage message)
+        {
+            NetOutgoingMessage msg = client.CreateMessage();
+            msg.Write(message.getStringFromMessage());
+            client.SendMessage(msg, NetDeliveryMethod.UnreliableSequenced);
+        }
+
     }
 }

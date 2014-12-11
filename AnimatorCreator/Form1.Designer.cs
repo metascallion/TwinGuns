@@ -48,9 +48,10 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(397, 534);
+            this.button1.Location = new System.Drawing.Point(529, 657);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(187, 23);
+            this.button1.Size = new System.Drawing.Size(249, 28);
             this.button1.TabIndex = 0;
             this.button1.Text = "Save Animator";
             this.button1.UseVisualStyleBackColor = true;
@@ -59,24 +60,27 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 70);
+            this.label1.Location = new System.Drawing.Point(53, 86);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(52, 13);
+            this.label1.Size = new System.Drawing.Size(69, 17);
             this.label1.TabIndex = 1;
             this.label1.Text = "Filename:";
             // 
             // FileName
             // 
-            this.FileName.Location = new System.Drawing.Point(110, 67);
+            this.FileName.Location = new System.Drawing.Point(147, 82);
+            this.FileName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.FileName.Name = "FileName";
-            this.FileName.Size = new System.Drawing.Size(205, 20);
+            this.FileName.Size = new System.Drawing.Size(272, 22);
             this.FileName.TabIndex = 2;
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(795, 273);
+            this.button2.Location = new System.Drawing.Point(1060, 336);
+            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(206, 23);
+            this.button2.Size = new System.Drawing.Size(275, 28);
             this.button2.TabIndex = 3;
             this.button2.Text = "Add Animation";
             this.button2.UseVisualStyleBackColor = true;
@@ -85,105 +89,118 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(671, 74);
+            this.label2.Location = new System.Drawing.Point(895, 91);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.Size = new System.Drawing.Size(109, 17);
             this.label2.TabIndex = 4;
             this.label2.Text = "Animationname:";
             // 
             // AnimationName
             // 
-            this.AnimationName.Location = new System.Drawing.Point(782, 70);
+            this.AnimationName.Location = new System.Drawing.Point(1043, 86);
+            this.AnimationName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.AnimationName.Name = "AnimationName";
-            this.AnimationName.Size = new System.Drawing.Size(219, 20);
+            this.AnimationName.Size = new System.Drawing.Size(291, 22);
             this.AnimationName.TabIndex = 5;
             // 
             // StartFrame
             // 
-            this.StartFrame.Location = new System.Drawing.Point(782, 118);
+            this.StartFrame.Location = new System.Drawing.Point(1043, 145);
+            this.StartFrame.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.StartFrame.Name = "StartFrame";
-            this.StartFrame.Size = new System.Drawing.Size(219, 20);
+            this.StartFrame.Size = new System.Drawing.Size(291, 22);
             this.StartFrame.TabIndex = 6;
             // 
             // EndFrame
             // 
-            this.EndFrame.Location = new System.Drawing.Point(782, 166);
+            this.EndFrame.Location = new System.Drawing.Point(1043, 204);
+            this.EndFrame.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.EndFrame.Name = "EndFrame";
-            this.EndFrame.Size = new System.Drawing.Size(219, 20);
+            this.EndFrame.Size = new System.Drawing.Size(291, 22);
             this.EndFrame.TabIndex = 7;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(688, 125);
+            this.label3.Location = new System.Drawing.Point(917, 154);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(58, 13);
+            this.label3.Size = new System.Drawing.Size(78, 17);
             this.label3.TabIndex = 8;
             this.label3.Text = "Startframe:";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(688, 173);
+            this.label4.Location = new System.Drawing.Point(917, 213);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(55, 13);
+            this.label4.Size = new System.Drawing.Size(73, 17);
             this.label4.TabIndex = 9;
             this.label4.Text = "Endframe:";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(55, 121);
+            this.label5.Location = new System.Drawing.Point(73, 149);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(37, 13);
+            this.label5.Size = new System.Drawing.Size(46, 17);
             this.label5.TabIndex = 11;
             this.label5.Text = "Rows:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(62, 173);
+            this.label6.Location = new System.Drawing.Point(83, 213);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(30, 13);
+            this.label6.Size = new System.Drawing.Size(39, 17);
             this.label6.TabIndex = 12;
             this.label6.Text = "Cols:";
             // 
             // Rows
             // 
-            this.Rows.Location = new System.Drawing.Point(110, 118);
+            this.Rows.Location = new System.Drawing.Point(147, 145);
+            this.Rows.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Rows.Name = "Rows";
-            this.Rows.Size = new System.Drawing.Size(205, 20);
+            this.Rows.Size = new System.Drawing.Size(272, 22);
             this.Rows.TabIndex = 13;
             // 
             // Cols
             // 
-            this.Cols.Location = new System.Drawing.Point(110, 166);
+            this.Cols.Location = new System.Drawing.Point(147, 204);
+            this.Cols.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Cols.Name = "Cols";
-            this.Cols.Size = new System.Drawing.Size(205, 20);
+            this.Cols.Size = new System.Drawing.Size(272, 22);
             this.Cols.TabIndex = 14;
             // 
             // Animations
             // 
             this.Animations.FormattingEnabled = true;
-            this.Animations.Location = new System.Drawing.Point(110, 221);
+            this.Animations.ItemHeight = 16;
+            this.Animations.Location = new System.Drawing.Point(147, 272);
+            this.Animations.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Animations.Name = "Animations";
-            this.Animations.Size = new System.Drawing.Size(420, 95);
+            this.Animations.Size = new System.Drawing.Size(559, 116);
             this.Animations.TabIndex = 15;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(40, 221);
+            this.label7.Location = new System.Drawing.Point(53, 272);
+            this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(61, 13);
+            this.label7.Size = new System.Drawing.Size(81, 17);
             this.label7.TabIndex = 16;
             this.label7.Text = "Animations:";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1041, 583);
+            this.ClientSize = new System.Drawing.Size(1388, 718);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.Animations);
             this.Controls.Add(this.Cols);
@@ -200,8 +217,10 @@
             this.Controls.Add(this.FileName);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Animator Creater";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

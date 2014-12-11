@@ -59,11 +59,17 @@ namespace WhiteSpace.GameObjects
             {
                 this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
                 animator.playAnimation("Run", true);
+                SendableNetworkMessage msg = new SendableNetworkMessage("Transform");
+                msg.addInformation("x", this.Position.X);
+                msg.addInformation("y", this.Position.Y);
+                msg.addInformation("rotation", this.Rotation);
+                Client.sendMessage(msg);
             }
             else
             {
                 //animator.playAnimation("Idle", true);
             }
+
             this.transform.lookAt(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y));
         }
     }

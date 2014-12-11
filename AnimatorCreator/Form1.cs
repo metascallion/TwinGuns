@@ -30,5 +30,10 @@ namespace AnimatorCreator
             Animator.animations.Add(new Animation(AnimationName.Text, int.Parse(StartFrame.Text), int.Parse(EndFrame.Text)));
             Animations.Items.Add("Name: " + AnimationName.Text + " StartFrame: " + StartFrame.Text + " EndFrame: " + EndFrame.Text);
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
