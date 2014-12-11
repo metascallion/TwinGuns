@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Components.Animation;
+using WhiteSpace.Network;
 
 namespace WhiteSpace.GameObjects
 {
@@ -26,7 +27,7 @@ namespace WhiteSpace.GameObjects
             animator.AnimationSpeed = 10;
         }
 
-        public TestRotationGameObject(Transform transform, Texture2D texture/*, SpriteSheet sheet*/)
+        public TestRotationGameObject(Transform transform, Texture2D texture)
             : base(transform)
         {
             unitTexture = new TextureRegion<StateType>(transform, texture);
@@ -41,7 +42,6 @@ namespace WhiteSpace.GameObjects
 
         public void testMovement(GameTime time)
         {
-            //transform.correctRotation();
             float elapsedTime = (float)time.ElapsedGameTime.TotalMilliseconds;
 
             if (Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.Left) || Keyboard.GetState().IsKeyDown(Keys.Right) || Keyboard.GetState().IsKeyDown(Keys.Up) || Keyboard.GetState().IsKeyDown(Keys.Down))

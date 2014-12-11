@@ -40,6 +40,11 @@
     <Compile Include="GameLoop\Updateable.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Unit.cs" />
+    <Compile Include="Network\Client.cs" />
+    <Compile Include="Network\NetworkMessage.cs" />
+    <Compile Include="Network\ReceiveableNetworkMessage.cs" />
+    <Compile Include="Network\SendableNetworkMessage.cs" />
+    <Compile Include="Network\Server.cs" />
     <Compile Include="StateMachine\StateListener.cs" />
     <Compile Include="StateMachine\StateMachine.cs" />
     <Compile Include="Program.cs" />
@@ -50,7 +55,6 @@
     <Compile Include="Components\Animation\Animation.cs" />
     <Compile Include="Components\Animation\Animator.cs" />
     <Compile Include="Components\Clickable.cs" />
-    <Compile Include="Temp\Client.cs" />
     <Compile Include="Temp\ContentLoader.cs" />
     <Compile Include="Components\Transform.cs" />
     <Compile Include="Components\Animation\SpriteSheet.cs" />

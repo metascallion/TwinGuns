@@ -12,6 +12,7 @@ using WhiteSpace.GameLoop;
 using WhiteSpace.Temp;
 using WhiteSpace.Drawables;
 using WhiteSpace.Components.Animation;
+using WhiteSpace.Network;
 
 #endregion
 
@@ -90,7 +91,7 @@ namespace WhiteSpace
              * */
 
 
-            TextureRegion<gamestate> region = new TextureRegion<gamestate>(Transform.createTransformWithSize(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight)), Content.Load<Texture2D>("mushroom"));
+            //TextureRegion<gamestate> region = new TextureRegion<gamestate>(Transform.createTransformWithSize(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight)), Content.Load<Texture2D>("mushroom"));
             //AnimatorLoader.loadAnimator<gamestate>(gamestate.main, region, "TestAnimator");
             //Unit<gamestate> u = new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(150, 150)), sheet);
 
