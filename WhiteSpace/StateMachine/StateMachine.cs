@@ -21,7 +21,6 @@ namespace WhiteSpace
 
         private StateMachine()
         {
-
         }
 
         public void changeState(StateType stateToSet)

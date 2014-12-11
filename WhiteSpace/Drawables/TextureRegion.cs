@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Temp;
 using WhiteSpace.GameLoop;
+using WhiteSpace.Components;
 
 namespace WhiteSpace.Drawables
 {

@@ -14,3 +14,4 @@ C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Walcy
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\RunningBastard.png
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\smurf.png
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\mushroom.jpg
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Font.xnb

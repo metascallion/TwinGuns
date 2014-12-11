@@ -7,7 +7,7 @@ using WhiteSpace.Components.Animation;
 using System.IO;
 using WhiteSpace.Drawables;
 
-namespace WhiteSpace.Temp
+namespace WhiteSpace
 {
 
     public static class ContentRepository<ContentType>

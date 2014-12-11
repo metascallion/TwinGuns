@@ -13,6 +13,7 @@ using WhiteSpace.Temp;
 using WhiteSpace.Drawables;
 using WhiteSpace.Components.Animation;
 using WhiteSpace.Network;
+using WhiteSpace.Components;
 
 #endregion
 
@@ -23,7 +24,7 @@ namespace WhiteSpace
     /// </summary>
     public class Game1 : Game
     {
-        GraphicsDeviceManager graphics;
+        public static GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
         public Game1()
@@ -53,9 +54,21 @@ namespace WhiteSpace
         /// all of your content.
         /// </summary>
         /// 
+        int i = 0;
+        void test(Button<gamestate> sender)
+        {
+            Console.WriteLine(i++);
+        }
 
         protected override void LoadContent()
         {
+
+
+
+
+           
+
+
 
             //Client.registerNetworkListenerMethod("test", test1);
             //Client.registerNetworkListenerMethod("test", test2);
@@ -67,6 +80,7 @@ namespace WhiteSpace
             Client.registerNetworkListenerMethod("go", test2);
             //string testMessage = "test,x=0,y=10,z=300";
 
+            
             //ReceiveableNetworkMessage msg = ReceiveableNetworkMessage.createMessageFromString(testMessage);
 
             //int x = int.Parse(msg.getInformation("y"));
@@ -75,6 +89,17 @@ namespace WhiteSpace
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = Content;
+
+            TextDrawer<gamestate> textDrawer = new TextDrawer<gamestate>(Transform.createTransformOnPosition(new Vector2(100, 100)), "Font", "hello dude how are you");
+
+
+            Button<gamestate> button = new Button<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(100, 100)));
+            button.addText("hello button");
+            button.clickMethods += test;
+
+            //Button<gamestate> button = new Button<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(100, 100)));
+            //button.clickMethods += test;
+
             //Unit<gamestate> unit = new Unit<gamestate>(gamestate.game, Temp.Transform.createTransformWithSizeOnPosition(new Vector2(200,200), new Vector2(100, 100)), Content.Load<Texture2D>("Knight"));
             //new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
             //new Clickable<gamestate>(Transform.createTransformWithSize(new Vector2(100, 100)));
@@ -97,7 +122,7 @@ namespace WhiteSpace
 
             //TextureRegion<gamestate> region = new TextureRegion<gamestate>(Transform.createTransformWithSize(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight)), Content.Load<Texture2D>("mushroom"));
             //TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(25,25), new Vector2(350,300)), Content.Load<Texture2D>("smurf"));
-            TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(gamestate.main, Temp.Transform.createTransformWithSize(new Vector2(200, 200)));
+            //TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(gamestate.main, Transform.createTransformWithSize(new Vector2(200, 200)));
             //test.Position = new Vector2(100, 100);
 
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);

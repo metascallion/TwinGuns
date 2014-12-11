@@ -9,6 +9,9 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Components.Animation;
 using WhiteSpace.Network;
+using WhiteSpace.Components;
+
+namespace WhiteSpace.Temp { }
 
 namespace WhiteSpace.GameObjects
 {

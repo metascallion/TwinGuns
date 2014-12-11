@@ -35,6 +35,9 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\Button.cs" />
+    <Compile Include="Drawables\ColoredBox.cs" />
+    <Compile Include="Drawables\TextDrawer.cs" />
     <Compile Include="Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameLoop\Updateable.cs" />
@@ -55,7 +58,7 @@
     <Compile Include="Components\Animation\Animation.cs" />
     <Compile Include="Components\Animation\Animator.cs" />
     <Compile Include="Components\Clickable.cs" />
-    <Compile Include="Temp\ContentLoader.cs" />
+    <Compile Include="ContentLoader.cs" />
     <Compile Include="Components\Transform.cs" />
     <Compile Include="Components\Animation\SpriteSheet.cs" />
   </ItemGroup>
@@ -100,7 +103,14 @@
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Temp\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\Font.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

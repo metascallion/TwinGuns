@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using WhiteSpace.Temp;
+using WhiteSpace.Components;
 
 namespace WhiteSpace.GameLoop
 {
@@ -40,7 +40,7 @@ namespace WhiteSpace.GameLoop
         {
 
         }
-        private void registerInDrawExecuter()
+        public void registerInDrawExecuter()
         {
             DrawExecuter.registerDrawMethod(this.draw);
         }

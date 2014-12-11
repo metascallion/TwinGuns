@@ -5,20 +5,14 @@ using System.Text;
 using WhiteSpace.GameLoop;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
+using WhiteSpace.Components;
 
-namespace WhiteSpace.Temp
+namespace WhiteSpace.Components
 {
     public class Clickable<StateType> : Updateable<StateType> where StateType : struct
     {
-        public delegate void stateChange();
-
-        public event stateChange hoverMethods;
-        public event stateChange clickMethods;
-        public event stateChange leaveMethods;
-        public event stateChange releaseMethods;
-
-        private bool clicked = false;
-        private bool hover = false;
+        protected bool clicked = false;
+        protected bool hover = false;
 
         private Transform transform;
 
@@ -47,7 +41,7 @@ namespace WhiteSpace.Temp
                     clicked = false;
                     onRelease();
                 }
-                else
+                else if(!hover)
                 {
                     onHover();
                 }
@@ -81,38 +75,18 @@ namespace WhiteSpace.Temp
 
         protected virtual void onClick()
         {
-            if (releaseMethods != null)
-            {
-                releaseMethods();
-            }
         }
 
         protected virtual void onRelease()
         {
-            if (clickMethods != null)
-            {
-                clickMethods();
-            }
         }
         protected virtual void onHover()
         {
-            if (!hover)
-            {
-                if (hoverMethods != null)
-                {
-                    hoverMethods();
-                }
-            }
             hover = true;
         }
         protected virtual void onHoverLeave()
         {
             hover = false;
-
-            if (leaveMethods != null)
-            {
-                leaveMethods();
-            } 
         }
     }
 }
