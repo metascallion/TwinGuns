@@ -63,7 +63,12 @@ namespace WhiteSpace
 
             Client.startClient("test");
             Client.connect("localhost", 1111);
-
+            Client.registerNetworkListenerMethod("test", test1);
+            Client.registerNetworkListenerMethod("move", test2);
+            string testMessage = "test,x=0,y=10,z=300";
+            string testMessage2 = "move,direction=backward";
+            Client.onNetworkMessageEnter(NetworkMessage.createMessageFromString(testMessage));
+            Client.onNetworkMessageEnter(NetworkMessage.createMessageFromString(testMessage2));
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = Content;
