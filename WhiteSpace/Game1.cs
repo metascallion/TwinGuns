@@ -53,79 +53,22 @@ namespace WhiteSpace
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
         /// </summary>
-        /// 
-        int i = 0;
-        void test(Button<gamestate> sender)
-        {
-            Console.WriteLine(i++);
-        }
-
         protected override void LoadContent()
         {
-
-
-
-
-           
-
-
-
-            //Client.registerNetworkListenerMethod("test", test1);
-            //Client.registerNetworkListenerMethod("test", test2);
-            //Client.onNetworkMessageEnter(new NetworkMessage("test"));
-
-            Client.startClient("test");
-            Client.connect("localhost", 1111);
-            Client.registerNetworkListenerMethod("hello", test1);
-            Client.registerNetworkListenerMethod("go", test2);
-            //string testMessage = "test,x=0,y=10,z=300";
-
-            
-            //ReceiveableNetworkMessage msg = ReceiveableNetworkMessage.createMessageFromString(testMessage);
-
-            //int x = int.Parse(msg.getInformation("y"));
-
-            //Client.onNetworkMessageEnter(msg);
-            // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = Content;
-
-            TextDrawer<gamestate> textDrawer = new TextDrawer<gamestate>(Transform.createTransformOnPosition(new Vector2(100, 100)), "Font", "hello dude how are you");
-
-
-            Button<gamestate> button = new Button<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(100, 100)));
-            button.addText("hello button");
-            button.clickMethods += test;
-
-            //Button<gamestate> button = new Button<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(100, 100)));
-            //button.clickMethods += test;
-
-            //Unit<gamestate> unit = new Unit<gamestate>(gamestate.game, Temp.Transform.createTransformWithSizeOnPosition(new Vector2(200,200), new Vector2(100, 100)), Content.Load<Texture2D>("Knight"));
-            //new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), Content.Load<Texture2D>("Knight"));
-            //new Clickable<gamestate>(Transform.createTransformWithSize(new Vector2(100, 100)));
-
-            /*
-            sheet = new SpriteSheet(ContentLoader.getContent<Texture2D>("smurf"), 4, 4);
-            ContentLoader.getContent<Texture2D>("smurf");
-                
-            ContentLoader.getContent<Texture2D>("smurf");
-                    
-            ContentLoader.getContent<Texture2D>("smurf");
-                   
-            ContentLoader.getContent<Texture2D>("smurf");
-             * */
-
-
-            //TextureRegion<gamestate> region = new TextureRegion<gamestate>(Transform.createTransformWithSize(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight)), Content.Load<Texture2D>("mushroom"));
-            //AnimatorLoader.loadAnimator<gamestate>(gamestate.main, region, "TestAnimator");
-            //Unit<gamestate> u = new Unit<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(150, 150)), sheet);
-
-            //TextureRegion<gamestate> region = new TextureRegion<gamestate>(Transform.createTransformWithSize(new Vector2(graphics.PreferredBackBufferWidth, graphics.PreferredBackBufferHeight)), Content.Load<Texture2D>("mushroom"));
-            //TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(25,25), new Vector2(350,300)), Content.Load<Texture2D>("smurf"));
-            //TestRotationGameObject<gamestate> test = new TestRotationGameObject<gamestate>(gamestate.main, Transform.createTransformWithSize(new Vector2(200, 200)));
-            //test.Position = new Vector2(100, 100);
-
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
+
+            TestRotationGameObject<gamestate> testt = new TestRotationGameObject<gamestate>(gamestate.main, Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(200, 200)));
+            Transform t = Transform.createTransformWithSizeOnPosition(new Vector2(0, 470), new Vector2(800, 10));
+            BoxCollider<gamestate> collider = new BoxCollider<gamestate>(t);
+
+            BoxCollider<gamestate> collider1 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(10, 500)));
+            BoxCollider<gamestate> collider2 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(790, 0), new Vector2(10, 500)));
+
+            collider.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+            TextureRegion<gamestate> region = new TextureRegion<gamestate>(t, ContentLoader.getContent<Texture2D>("Knight"));
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -144,34 +87,11 @@ namespace WhiteSpace
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// 
-
-        void test1(NetworkMessage msg)
-        {
-
-        }
-
-        void test2(NetworkMessage msg)
-        {
-
-        }
-
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            //new TestRotationGameObject<gamestate>(Temp.Transform.createTransformWithSize(new Vector2(50, 50)), sheet.Texture, sheet);
-            if (Keyboard.GetState().IsKeyDown(Keys.A))
-            {
-
-            }
-
-            //else
-            //{
-            //    StateMachine<gamestate>.getInstance().changeState(gamestate.game);
-            //}
-            // TODO: Add your update logic here
             UpdateExecuter.executeUpdates(gameTime);
-            Client.pollNetworkMessage();
             base.Update(gameTime);
         }
 
@@ -182,7 +102,6 @@ namespace WhiteSpace
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             DrawExecuter.executeRegisteredDrawMethods(spriteBatch);

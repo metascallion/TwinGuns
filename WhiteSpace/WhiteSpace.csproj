@@ -40,6 +40,7 @@
     <Compile Include="Drawables\TextDrawer.cs" />
     <Compile Include="Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameLoop\CollisionDetection.cs" />
     <Compile Include="GameLoop\Updateable.cs" />
     <Compile Include="GameObjects\GameObject.cs" />
     <Compile Include="GameObjects\Unit.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="ContentLoader.cs" />
     <Compile Include="Components\Transform.cs" />
     <Compile Include="Components\Animation\SpriteSheet.cs" />
+    <Compile Include="Temp\BoxCollider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -103,13 +105,17 @@
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Temp\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\Font.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Desktop\Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj">
+      <Project>{0aad36e3-51a5-4a07-ab60-5c8a66bd38b7}</Project>
+      <Name>Farseer Physics MonoGame</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

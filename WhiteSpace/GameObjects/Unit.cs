@@ -21,6 +21,7 @@ namespace WhiteSpace.GameObjects
         public TextureRegion<StateType> unitTexture;
         public float speed = 0.5f;
         Animator<StateType> animator;
+        CharacterControler<StateType> controller;
 
         public TestRotationGameObject(StateType type, Transform transform) : base(type, transform)
         {
@@ -28,6 +29,10 @@ namespace WhiteSpace.GameObjects
             unitTexture = new TextureRegion<StateType>(type, transform, ContentLoader.getContent<Texture2D>("RunningBastard"));
             animator = Animator<StateType>.loadAnimator(type, unitTexture, "RunningBastard");
             animator.AnimationSpeed = 10;
+            BoxCollider<StateType> collider = new BoxCollider<StateType>(transform, type);
+            controller = new CharacterControler<StateType>(collider);
+            controller.useGravity(true);
+
         }
 
         public TestRotationGameObject(Transform transform, Texture2D texture)
@@ -43,6 +48,8 @@ namespace WhiteSpace.GameObjects
             testMovement(gameTime);
         }
 
+        bool jumped = false;
+
         public void testMovement(GameTime time)
         {
             float elapsedTime = (float)time.ElapsedGameTime.TotalMilliseconds;
@@ -57,23 +64,45 @@ namespace WhiteSpace.GameObjects
                 //animator.playAnimation("Idle", false);
             }
 
-
-            if (Vector2.Distance(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y), new Vector2(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2)) > 10)
+            if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
-                animator.playAnimation("Run", true);
-                SendableNetworkMessage msg = new SendableNetworkMessage("Transform");
-                msg.addInformation("x", this.Position.X);
-                msg.addInformation("y", this.Position.Y);
-                msg.addInformation("rotation", this.Rotation);
-                Client.sendMessage(msg);
+                controller.move(new Vector2(0.1f,0));
+                unitTexture.SpriteEffect = SpriteEffects.None;
             }
+
+            else if (Keyboard.GetState().IsKeyDown(Keys.Left))
+            {
+                controller.move(new Vector2(-0.1f, 0));
+                unitTexture.SpriteEffect = SpriteEffects.FlipHorizontally;
+            }
+
             else
             {
-                //animator.playAnimation("Idle", true);
+                animator.stopAnimation();
             }
 
-            this.transform.lookAt(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y));
+            if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            {
+               
+                if (!jumped)
+                    controller.jump(15.0f);
+                jumped = true;
+            }
+
+            else
+                jumped = false;
+
+            //if (Vector2.Distance(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y), new Vector2(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2)) > 10)
+            //{
+            //    this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
+            //    animator.playAnimation("Run", true);
+            //}
+            //else
+            //{
+            //    //animator.playAnimation("Idle", true);
+            //}
+
+            //this.transform.lookAt(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y));
         }
     }
 }

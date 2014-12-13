@@ -27,6 +27,8 @@ namespace WhiteSpace.GameLoop
             {
                 updates(gameTime);
             }
+
+            CollisionDetection.update(gameTime);
         }
     }
 }

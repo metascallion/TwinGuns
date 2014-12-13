@@ -15,3 +15,22 @@ C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Runni
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\smurf.png
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\mushroom.jpg
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Font.xnb
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.exe
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.pdb
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Knight.png
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\mushroom.jpg
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\RunningBastard.png
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\runningGrant.png
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\smurf.png
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Walcycle.png
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Font.xnb
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\SDL.dll
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\WhiteSpace.exe
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\WhiteSpace.pdb
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.dll
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.pdb
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.csprojResolveAssemblyReference.cache
