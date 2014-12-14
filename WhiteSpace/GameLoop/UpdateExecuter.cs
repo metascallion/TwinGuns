@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 
 namespace WhiteSpace.GameLoop
 {
+
     public static class UpdateExecuter
     {
         public delegate void Update(GameTime gameTime);
@@ -21,14 +22,19 @@ namespace WhiteSpace.GameLoop
             updates -= updateToUnregister;
         }
 
+        public static void registerLateUpdate()
+        {
+        }
+
         public static void executeUpdates(GameTime gameTime)
         {
+
+            CollisionDetection.update(gameTime);
+
             if (updates != null)
             {
                 updates(gameTime);
             }
-
-            CollisionDetection.update(gameTime);
         }
     }
 }

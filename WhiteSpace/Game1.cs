@@ -14,6 +14,14 @@ using WhiteSpace.Drawables;
 using WhiteSpace.Components.Animation;
 using WhiteSpace.Network;
 using WhiteSpace.Components;
+using WhiteSpace.Components.Physics;
+using Microsoft.Xna.Framework.Audio;
+using Microsoft.Xna.Framework.Media;
+using CSCore.SoundIn;
+using CSCore.SoundOut;
+using CSCore.Codecs;
+using CSCore;
+
 
 #endregion
 
@@ -52,6 +60,12 @@ namespace WhiteSpace
         /// <summary>
         /// LoadContent will be called once per game and is the place to load
         /// all of your content.
+        /// 
+        /// 
+        /// 
+
+
+
         /// </summary>
         protected override void LoadContent()
         {
@@ -63,11 +77,21 @@ namespace WhiteSpace
             Transform t = Transform.createTransformWithSizeOnPosition(new Vector2(0, 470), new Vector2(800, 10));
             BoxCollider<gamestate> collider = new BoxCollider<gamestate>(t);
 
-            BoxCollider<gamestate> collider1 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(10, 500)));
-            BoxCollider<gamestate> collider2 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(790, 0), new Vector2(10, 500)));
+            BoxCollider<gamestate> collider1 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(25, 500)));
+            BoxCollider<gamestate> collider2 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(770, 0), new Vector2(25, 500)));
 
             collider.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+
             TextureRegion<gamestate> region = new TextureRegion<gamestate>(t, ContentLoader.getContent<Texture2D>("Knight"));
+
+            IWaveSource source = CodecFactory.Instance.GetCodec("Content/Test.wav");
+
+            WasapiOut wasout = new WasapiOut();
+
+            wasout.Initialize(source);
+
+            wasout.Play();
+
 
             // TODO: use this.Content to load your game content here
         }

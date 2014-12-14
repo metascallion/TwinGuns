@@ -34,3 +34,5 @@ C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.pdb
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.csprojResolveAssemblyReference.cache
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Test.wav
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\CSCore.dll

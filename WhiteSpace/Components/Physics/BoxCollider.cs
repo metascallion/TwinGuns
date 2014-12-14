@@ -10,50 +10,13 @@ using FarseerPhysics;
 using FarseerPhysics.Dynamics;
 using FarseerPhysics.Factories;
 
-namespace WhiteSpace.Temp
+namespace WhiteSpace.Components.Physics
 {
-    public class CharacterControler<StateType> : Updateable<StateType> where StateType : struct
-    {
-        BoxCollider<StateType> collider;
-        private bool gravity = false;
-
-        public CharacterControler(BoxCollider<StateType> collider)
-        {
-            this.collider = collider;
-            collider.follow = false;
-        }
-
-        public void useGravity(bool active)
-        {
-            if (active)
-            {
-                collider.body.BodyType = BodyType.Dynamic;
-            }
-        }
-
-        public void move(Vector2 direction)
-        {
-            collider.body.Position += direction;
-        }
-
-        public void jump(float force)
-        {
-            collider.body.ApplyLinearImpulse(new Vector2(0, -force));
-        }
-
-        protected override void update(GameTime gameTime)
-        {
-
-            base.update(gameTime);
-            collider.transform.Position = collider.Position;
-        }
-    }
-
     public class BoxCollider<StateType> : Updateable<StateType> where StateType : struct
     {
         public bool follow = true;
-        public const float unitToPixel = 100.0f;
-        public const float pixelToUnit = 1 / unitToPixel;
+        private const float unitToPixel = 100.0f;
+        private const float pixelToUnit = 1 / unitToPixel;
         public Transform transform;
 
         public Body body;

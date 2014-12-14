@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using WhiteSpace.Components.Animation;
 using WhiteSpace.Network;
 using WhiteSpace.Components;
+using WhiteSpace.Components.Physics;
 
 namespace WhiteSpace.Temp { }
 
@@ -66,19 +67,20 @@ namespace WhiteSpace.GameObjects
 
             if (Keyboard.GetState().IsKeyDown(Keys.Right))
             {
-                controller.move(new Vector2(0.1f,0));
+                controller.move(new Vector2(5.0f,0));
                 unitTexture.SpriteEffect = SpriteEffects.None;
             }
 
             else if (Keyboard.GetState().IsKeyDown(Keys.Left))
             {
-                controller.move(new Vector2(-0.1f, 0));
+                controller.move(new Vector2(-5.0f, 0));
                 unitTexture.SpriteEffect = SpriteEffects.FlipHorizontally;
             }
 
             else
             {
                 animator.stopAnimation();
+                controller.move(Vector2.Zero);
             }
 
             if (Keyboard.GetState().IsKeyDown(Keys.Space))
@@ -91,18 +93,6 @@ namespace WhiteSpace.GameObjects
 
             else
                 jumped = false;
-
-            //if (Vector2.Distance(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y), new Vector2(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2)) > 10)
-            //{
-            //    this.transform.translate(transform.transformDirection(direction.right) * speed * elapsedTime);
-            //    animator.playAnimation("Run", true);
-            //}
-            //else
-            //{
-            //    //animator.playAnimation("Idle", true);
-            //}
-
-            //this.transform.lookAt(new Vector2((float)Mouse.GetState().Position.X, (float)Mouse.GetState().Position.Y));
         }
     }
 }
