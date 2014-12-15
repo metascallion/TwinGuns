@@ -6,6 +6,13 @@ using Microsoft.Xna.Framework.Content;
 using WhiteSpace.Components.Animation;
 using System.IO;
 using WhiteSpace.Drawables;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework;
+using CSCore.SoundIn;
+using CSCore.SoundOut;
+using CSCore.Codecs;
+using CSCore;
+using WhiteSpace.Temp;
 
 
 namespace WhiteSpace
@@ -52,7 +59,7 @@ namespace WhiteSpace
 
         public static ContentType getContent<ContentType>(string name)
         {
-            if(!ContentRepository<ContentType>.containsContent(name))
+            if (!ContentRepository<ContentType>.containsContent(name))
             {
                 ContentRepository<ContentType>.addContent(name, ContentManager.Load<ContentType>(name));
             }

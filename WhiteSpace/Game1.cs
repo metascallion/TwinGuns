@@ -17,10 +17,6 @@ using WhiteSpace.Components;
 using WhiteSpace.Components.Physics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
-using CSCore.SoundIn;
-using CSCore.SoundOut;
-using CSCore.Codecs;
-using CSCore;
 
 
 #endregion
@@ -83,16 +79,7 @@ namespace WhiteSpace
             collider.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
 
             TextureRegion<gamestate> region = new TextureRegion<gamestate>(t, ContentLoader.getContent<Texture2D>("Knight"));
-
-            IWaveSource source = CodecFactory.Instance.GetCodec("Content/Test.wav");
-
-            WasapiOut wasout = new WasapiOut();
-
-            wasout.Initialize(source);
-
-            wasout.Play();
-
-
+            
             // TODO: use this.Content to load your game content here
         }
 
