@@ -83,12 +83,22 @@ namespace WhiteSpace.GameObjects
                 controller.move(Vector2.Zero);
             }
 
-            if (Keyboard.GetState().IsKeyDown(Keys.Space))
-            {
+            //if (Keyboard.GetState().IsKeyDown(Keys.Space))
+            //{
                
-                if (!jumped)
-                    controller.jump(15.0f);
-                jumped = true;
+            //    if (!jumped)
+            //        controller.jump(15.0f);
+            //    jumped = true;
+            //}
+
+            if (KeyboardInput.wasKeyJustPressed(Keys.Space))
+            {
+                controller.jump(15.0f);
+            }
+
+            else if (KeyboardInput.wasKeyJustReleased(Keys.Space))
+            {
+                controller.jump(15.0f);
             }
 
             else

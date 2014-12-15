@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using WhiteSpace.Temp;
 
 namespace WhiteSpace.GameLoop
 {
@@ -28,13 +29,14 @@ namespace WhiteSpace.GameLoop
 
         public static void executeUpdates(GameTime gameTime)
         {
-
             CollisionDetection.update(gameTime);
 
             if (updates != null)
             {
                 updates(gameTime);
             }
+
+            KeyboardInput.updateKeyStates();
         }
     }
 }

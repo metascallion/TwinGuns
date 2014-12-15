@@ -65,6 +65,7 @@
     <Compile Include="Components\Transform.cs" />
     <Compile Include="Components\Animation\SpriteSheet.cs" />
     <Compile Include="Components\Physics\BoxCollider.cs" />
+    <Compile Include="Temp\KeyboardInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CSCore">
@@ -113,9 +114,7 @@
     </Content>
     <Content Include="Icon.ico" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Temp\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\Font.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

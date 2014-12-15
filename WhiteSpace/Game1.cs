@@ -49,6 +49,7 @@ namespace WhiteSpace
             // TODO: Add your initialization logic here
             base.Initialize();
             IsMouseVisible = true;
+            KeyboardInput.updateKeyStates();
             //new GameObject<gamestate>(gamestate.gameover);
             //StateMachine<gamestate>.getInstance().changeState(gamestate.lobby);
         }
@@ -75,8 +76,11 @@ namespace WhiteSpace
 
             BoxCollider<gamestate> collider1 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(25, 500)));
             BoxCollider<gamestate> collider2 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(770, 0), new Vector2(25, 500)));
-
+            BoxCollider<gamestate> collider3 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(800, 25)));
             collider.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+
+            collider3.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+            collider2.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
 
             TextureRegion<gamestate> region = new TextureRegion<gamestate>(t, ContentLoader.getContent<Texture2D>("Knight"));
             
@@ -102,7 +106,14 @@ namespace WhiteSpace
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            if (KeyboardInput.wasKeyJustPressed(Keys.A))
+            {
+                Console.WriteLine("Test");
+            }
+
             UpdateExecuter.executeUpdates(gameTime);
+
             base.Update(gameTime);
         }
 
