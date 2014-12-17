@@ -49,10 +49,9 @@ namespace WhiteSpace.Components.Physics
             body = BodyFactory.CreateRectangle(CollisionDetection.world, transform.Size.X * pixelToUnit, transform.Size.Y * pixelToUnit, 1);
             body.BodyType = BodyType.Kinematic;
             this.Size = transform.Size * pixelToUnit;
-            this.Position = new Vector2(transform.Position.X + transform.Size.X / 2, transform.Position.Y + transform.Size.Y);
+            this.Position = new Vector2(transform.Position.X + transform.Size.X / 2, transform.Position.Y + transform.Size.Y / 2);
             this.transform = transform;
             this.transform.Position = this.Position;
-            this.transform.Rotation = this.body.Rotation;
         }
 
         protected override void update(GameTime gameTime)
@@ -61,6 +60,12 @@ namespace WhiteSpace.Components.Physics
             if (follow)
             {
                 this.Position = new Vector2(transform.Position.X + transform.Size.X / 2, transform.Position.Y + transform.Size.Y / 2);
+                this.body.Rotation = this.transform.Rotation;
+            }
+
+            else
+            {
+                this.transform.Rotation = this.body.Rotation;
             }
         }
     }

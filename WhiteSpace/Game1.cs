@@ -61,8 +61,8 @@ namespace WhiteSpace
         /// 
         /// 
 
-
-
+        Transform t;
+        Transform tt;
         /// </summary>
         protected override void LoadContent()
         {
@@ -71,19 +71,23 @@ namespace WhiteSpace
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
 
             TestRotationGameObject<gamestate> testt = new TestRotationGameObject<gamestate>(gamestate.main, Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(200, 200)));
-            Transform t = Transform.createTransformWithSizeOnPosition(new Vector2(0, 470), new Vector2(800, 10));
+            //TestRotationGameObjectType2<gamestate> tes = new TestRotationGameObjectType2<gamestate>(gamestate.main, Transform.createTransformWithSizeOnPosition(new Vector2(500, 0), new Vector2(200, 200)));
+            t = Transform.createTransformWithSizeOnPosition(new Vector2(0, 400), new Vector2(800, 100));
+            tt = Transform.createTransformWithSizeOnPosition(new Vector2(200, 500), new Vector2(800, 100));
             BoxCollider<gamestate> collider = new BoxCollider<gamestate>(t);
 
-            BoxCollider<gamestate> collider1 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(25, 500)));
-            BoxCollider<gamestate> collider2 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(770, 0), new Vector2(25, 500)));
-            BoxCollider<gamestate> collider3 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(800, 25)));
-            collider.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+            t.Rotation = MathHelper.ToRadians(10);
 
-            collider3.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
-            collider2.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+            //BoxCollider<gamestate> collider1 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(25, 500)));
+            //BoxCollider<gamestate> collider2 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(770, 0), new Vector2(25, 500)));
+            //BoxCollider<gamestate> collider3 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(800, 25)));
+            //collider.body.BodyType = FarseerPhysics.Dynamics.BodyType.Kinematic;
+
+            //collider3.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+            //collider2.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
 
             TextureRegion<gamestate> region = new TextureRegion<gamestate>(t, ContentLoader.getContent<Texture2D>("Knight"));
-            
+            TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(tt, ContentLoader.getContent<Texture2D>("Knight"));
             // TODO: use this.Content to load your game content here
         }
 
@@ -111,6 +115,9 @@ namespace WhiteSpace
             {
                 Console.WriteLine("Test");
             }
+
+            //t.Rotation += MathHelper.ToRadians(5.0f);
+            //tt.Rotation += MathHelper.ToRadians(-10.0f);
 
             UpdateExecuter.executeUpdates(gameTime);
 

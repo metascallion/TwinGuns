@@ -36,3 +36,7 @@ C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics Mon
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.csprojResolveAssemblyReference.cache
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Test.wav
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\CSCore.dll
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Test.wav
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\CSCore.dll
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.dll
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.pdb
