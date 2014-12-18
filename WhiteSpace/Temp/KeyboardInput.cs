@@ -90,7 +90,6 @@ namespace WhiteSpace.Temp
             {
                 if (!keyStates[key])
                 {
-                    keyStates[key] = true;
                     return true;
                 }
             }
@@ -103,7 +102,6 @@ namespace WhiteSpace.Temp
             {
                 if (keyStates[key])
                 {
-                    keyStates[key] = false;
                     return true;
                 }
             }

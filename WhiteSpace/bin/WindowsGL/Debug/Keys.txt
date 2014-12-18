@@ -39,5 +39,6 @@ OemPeriod .
 CapsLock =
 Enter %
 Back <
-Space §
+Space /
+LeftShift \
 

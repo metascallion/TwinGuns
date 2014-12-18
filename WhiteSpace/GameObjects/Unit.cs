@@ -97,9 +97,6 @@ namespace WhiteSpace.GameObjects
                 controller.jump(15.0f);
             }
 
-
-            else
-                jumped = false;
         }
     }
 

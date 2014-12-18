@@ -77,8 +77,6 @@ namespace WhiteSpace
             tt = Transform.createTransformWithSizeOnPosition(new Vector2(200, 500), new Vector2(800, 100));
             BoxCollider<gamestate> collider = new BoxCollider<gamestate>(t);
 
-            t.Rotation = MathHelper.ToRadians(10);
-
             //BoxCollider<gamestate> collider1 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(25, 500)));
             //BoxCollider<gamestate> collider2 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(770, 0), new Vector2(25, 500)));
             //BoxCollider<gamestate> collider3 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(800, 25)));
@@ -91,7 +89,7 @@ namespace WhiteSpace
             TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(tt, ContentLoader.getContent<Texture2D>("Knight"));
 
 
-            EditableText<gamestate> editor = new EditableText<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(100,100)));
+            EditableText<gamestate> editor = new EditableText<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(500, 25)), gamestate.main);
 
             //KeyboardInput.start();
             // TODO: use this.Content to load your game content here
@@ -116,7 +114,7 @@ namespace WhiteSpace
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            //t.Rotation += MathHelper.ToRadians(5.0f);
+            //t.Rotation += MathHelper.ToRadians(15.0f);
             //tt.Rotation += MathHelper.ToRadians(-10.0f);
 
             UpdateExecuter.executeUpdates(gameTime);

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using WhiteSpace.Drawables;
 using WhiteSpace.Temp;
+using Microsoft.Xna.Framework;
 
 namespace WhiteSpace.Components
 {
@@ -19,17 +20,19 @@ namespace WhiteSpace.Components
         bool write = false;
         bool capslock = false;
         TextDrawer<StateType> textDrawer;
-        
+        ColoredBox<StateType> backGroundDrawer;
 
-        public EditableText(Transform transform) : base (transform)
+        public EditableText(Transform transform, StateType activeState) : base (transform)
         {
-            textDrawer = new TextDrawer<StateType>(transform, "Font");
+            backGroundDrawer = new ColoredBox<StateType>(transform, activeState, Color.Silver);
+            textDrawer = new TextDrawer<StateType>(activeState, transform, "Font");
         }
 
         protected override void onClick()
         {
             base.onClick();
             write = true;
+            backGroundDrawer.setColor(Color.PaleGoldenrod);
         }
 
         protected override void onHoverLeave()
@@ -37,6 +40,39 @@ namespace WhiteSpace.Components
             if(checkClick())
             {
                 write = false;
+                backGroundDrawer.setColor(Color.Silver);
+                CutLastSign();
+            }
+        }
+
+        protected override void onHover()
+        {
+            base.onHover();
+        }
+
+
+        float elapsed = 0;
+        float tickSpeed = 200f;
+        bool ticked = false;
+        private void blink(Microsoft.Xna.Framework.GameTime gameTime)
+        {
+            elapsed += gameTime.ElapsedGameTime.Milliseconds;
+
+            if(elapsed >= tickSpeed)
+            {
+                elapsed = 0;
+
+                if(ticked)
+                {
+                    CutLastSign();
+                }
+
+                else
+                {
+                    textDrawer.text += "|";
+                }
+
+                ticked = !ticked;
             }
         }
 
@@ -58,7 +94,8 @@ namespace WhiteSpace.Components
 
                 test();
 
-                textDrawer.text
+                blink(gameTime);
+                //textDrawer.text
             }
         }
 
@@ -81,11 +118,14 @@ namespace WhiteSpace.Components
         {
             switch(input)
             {
-                case "§":
+                case "/":
                     result += " ";
                     break;
                 case "<":
-                    result = result.Remove(result.Length - 1);
+                    if (result != "")
+                    {
+                       result = result.Remove(result.Length - 1);
+                    }
                     break;
                 case "%":
                     result += "\n";
@@ -133,9 +173,23 @@ namespace WhiteSpace.Components
             if (KeyboardInput.getJustPressedKeys().Count != 0)
             {
                 string test = KeyboardInput.getKeyString(KeyboardInput.getJustPressedKeys()[0]);
+
+                CutLastSign();
+
                 if(test != "")
                 {
                     changeText(test, ref textDrawer.text);
+                }
+            }
+        }
+
+        private void CutLastSign()
+        {
+            if (textDrawer.text != "")
+            {
+                if (textDrawer.text[textDrawer.text.Length - 1] == '|')
+                {
+                    textDrawer.text = textDrawer.text.Remove(textDrawer.text.Length - 1);
                 }
             }
         }
