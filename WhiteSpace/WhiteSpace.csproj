@@ -35,8 +35,8 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\Button.cs" />
-    <Compile Include="Components\EditableText.cs" />
+    <Compile Include="Components\UI\Button.cs" />
+    <Compile Include="Components\UI\EditableText.cs" />
     <Compile Include="Components\Physics\CharacterController.cs" />
     <Compile Include="Components\Sound.cs" />
     <Compile Include="Drawables\ColoredBox.cs" />

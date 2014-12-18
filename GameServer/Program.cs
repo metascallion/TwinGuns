@@ -5,10 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading;
 using Lidgren.Network;
+using WhiteSpace.Network;
 
 namespace MasterServer
 {
 
+    /*
     public class NetworkMessage
     {
         public string Header;
@@ -154,21 +156,22 @@ namespace MasterServer
 
     }
   
+     */
 
     class Program
     {
         static void onTestNetworkMessageEnter(ReceiveableNetworkMessage rec)
         {
             Console.WriteLine("Rotation: " + (int)float.Parse(rec.getInformation("rotation")) + " Position X: " + (int)float.Parse(rec.getInformation("x")) + "Position Y: " + (int)float.Parse(rec.getInformation("y")));
-
-            Server.sendMessage(new SendableNetworkMessage("go"));
         }
 
         static void Main(string[] args)
         {
-            Server.startServer("test", 1111);
+            Server.startServer("Test", 1111);
             Server.registerNetworkListenerMethod("Transform",onTestNetworkMessageEnter);
             Console.Read();
+
+
             /*
             NetPeerConfiguration config = new NetPeerConfiguration("test");
             config.Port = 1111;

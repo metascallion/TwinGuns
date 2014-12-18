@@ -87,9 +87,11 @@ namespace WhiteSpace
 
             TextureRegion<gamestate> region = new TextureRegion<gamestate>(t, ContentLoader.getContent<Texture2D>("Knight"));
             TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(tt, ContentLoader.getContent<Texture2D>("Knight"));
-
-
             EditableText<gamestate> editor = new EditableText<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(500, 25)), gamestate.main);
+
+
+            Client.startClient("Test");
+            Client.connect("localhost", 1111);
 
             //KeyboardInput.start();
             // TODO: use this.Content to load your game content here
@@ -117,7 +119,22 @@ namespace WhiteSpace
             //t.Rotation += MathHelper.ToRadians(15.0f);
             //tt.Rotation += MathHelper.ToRadians(-10.0f);
 
+            if(KeyboardInput.wasKeyJustPressed(Keys.B))
+            {
+                t.Rotation += MathHelper.ToRadians(10);
+
+                SendableNetworkMessage msg = new SendableNetworkMessage("Transform");
+                msg.addInformation("rotation", MathHelper.ToDegrees(t.Rotation));
+                msg.addInformation("x", t.Position.X);
+                msg.addInformation("y", t.Position.Y);
+
+                Client.sendMessage(msg);
+            }
+
+            Client.pollNetworkMessage();
             UpdateExecuter.executeUpdates(gameTime);
+
+            
 
             base.Update(gameTime);
         }
