@@ -72,7 +72,7 @@ namespace WhiteSpace.Components
 
         public void addText(string text)
         {
-            textDrawer.Text = text;
+            textDrawer.text = text;
         }
 
         protected override void onHover()
@@ -126,6 +126,12 @@ namespace WhiteSpace.Components
             base.update(gameTime);
             textDrawer.unregisterInDrawExecuter();
             textDrawer.registerInDrawExecuter();
+        }
+
+        protected override void processInvalidState()
+        {
+            base.processInvalidState();
+            deactivateDrawers();
         }
     }
 }

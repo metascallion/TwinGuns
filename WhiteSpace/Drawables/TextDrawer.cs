@@ -12,12 +12,12 @@ namespace WhiteSpace.Drawables
     public class TextDrawer<StateType> : Drawable<StateType> where StateType : struct
     {
         private SpriteFont font;
-        public string Text { get; set; }
+        public string text = "";
         public Color TextColor { get; set; }
 
         public TextDrawer(StateType activeState, Transform transform, string fontName, string text) : base(activeState, transform)
         {
-            this.Text = text;
+            this.text = text;
             this.font = ContentLoader.getContent<SpriteFont>(fontName);
             this.TextColor = Color.Black;
         }
@@ -26,26 +26,26 @@ namespace WhiteSpace.Drawables
         {
             this.font = ContentLoader.getContent<SpriteFont>(fontName);
             this.TextColor = Color.Black;
-            this.Text = "";
+            this.text = "";
         }
 
         public TextDrawer(Transform transform, string fontName) : base (transform)
         {
             this.font = ContentLoader.getContent<SpriteFont>(fontName);
             this.TextColor = Color.Black;
-            this.Text = "";
+            this.text = "";
         }
 
         public TextDrawer(Transform transform, string fontName, string text) : base(transform)
         {
-            this.Text = text;
+            this.text = text;
             this.font = ContentLoader.getContent<SpriteFont>(fontName);
             this.TextColor = Color.Black;
         }
 
         protected override void draw(SpriteBatch batch)
         {
-            batch.DrawString(font, this.Text, this.transform.Position, this.TextColor);
+            batch.DrawString(font, this.text, this.transform.Position, this.TextColor);
         }
     }
 }

@@ -64,7 +64,7 @@ namespace WhiteSpace.Components
             }
             return isHovering;
         }
-        private bool checkClick()
+        protected bool checkClick()
         {
             if (Mouse.GetState().LeftButton == ButtonState.Pressed)
             {

@@ -50,6 +50,7 @@ namespace WhiteSpace
             base.Initialize();
             IsMouseVisible = true;
             KeyboardInput.updateKeyStates();
+            KeyboardInput.start();
             //new GameObject<gamestate>(gamestate.gameover);
             //StateMachine<gamestate>.getInstance().changeState(gamestate.lobby);
         }
@@ -88,6 +89,11 @@ namespace WhiteSpace
 
             TextureRegion<gamestate> region = new TextureRegion<gamestate>(t, ContentLoader.getContent<Texture2D>("Knight"));
             TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(tt, ContentLoader.getContent<Texture2D>("Knight"));
+
+
+            EditableText<gamestate> editor = new EditableText<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(100,100)));
+
+            //KeyboardInput.start();
             // TODO: use this.Content to load your game content here
         }
 
@@ -110,12 +116,6 @@ namespace WhiteSpace
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            if (KeyboardInput.wasKeyJustPressed(Keys.A))
-            {
-                Console.WriteLine("Test");
-            }
-
             //t.Rotation += MathHelper.ToRadians(5.0f);
             //tt.Rotation += MathHelper.ToRadians(-10.0f);
 

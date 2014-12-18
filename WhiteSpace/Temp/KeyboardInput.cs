@@ -3,12 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Input;
+using System.IO;
 
 namespace WhiteSpace.Temp
 {
     public static class KeyboardInput
     {
         static Dictionary<Keys, bool> keyStates = new Dictionary<Keys, bool>();
+        public static Dictionary<Keys, string> keyStringValues = new Dictionary<Keys, string>();
+        static StreamReader reader = new StreamReader("Keys.txt");
+        static List<Keys> keys = new List<Keys>();
+
+
+        public static void start()
+        {
+            string result;
+            while( (result = reader.ReadLine()) != "")
+            {
+                string[] splitResult = result.Split(' ');
+
+                Keys keys = Keys.None;
+                Enum.TryParse<Keys>(splitResult[0], out keys);
+                keyStringValues[keys] = splitResult[1];
+            }
+        }
+
+        public static string getKeyString(Keys keys)
+        {
+            if(keyStringValues.Keys.Contains(keys))
+            {
+                return keyStringValues[keys];
+            }
+
+            return "";
+        }
+
+        public static List<Keys> getJustPressedKeys()
+        {
+            foreach (Keys key in Enum.GetValues(typeof(Keys)))
+            {
+                if(wasKeyJustPressed(key))
+                {
+                    keys.Add(key);
+                }
+            }
+            return keys;
+        }
 
         public static void updateKeyStates()
         {
@@ -22,6 +62,7 @@ namespace WhiteSpace.Temp
                 {
                     keyStates[key] = false;
                 }
+                keys.Clear();
             }
         }
 

@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Button.cs" />
+    <Compile Include="Components\EditableText.cs" />
     <Compile Include="Components\Physics\CharacterController.cs" />
     <Compile Include="Components\Sound.cs" />
     <Compile Include="Drawables\ColoredBox.cs" />
@@ -115,15 +116,15 @@
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Desktop\Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj">
-      <Project>{0aad36e3-51a5-4a07-ab60-5c8a66bd38b7}</Project>
-      <Name>Farseer Physics MonoGame</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Content\Font.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Farseer Physics Engine 3.5\Farseer Physics MonoGame.csproj">
+      <Project>{0aad36e3-51a5-4a07-ab60-5c8a66bd38b7}</Project>
+      <Name>Farseer Physics MonoGame</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

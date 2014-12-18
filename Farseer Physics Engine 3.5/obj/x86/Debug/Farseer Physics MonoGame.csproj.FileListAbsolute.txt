@@ -1,0 +1,9 @@
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\bin\WindowsGL\Debug\FarseerPhysics MonoGame.dll
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\bin\WindowsGL\Debug\FarseerPhysics MonoGame.pdb
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\bin\WindowsGL\Debug\MonoGame.Framework.dll
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\bin\WindowsGL\Debug\OpenTK.dll
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\bin\WindowsGL\Debug\Lidgren.Network.dll
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\bin\WindowsGL\Debug\Tao.Sdl.dll
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\obj\x86\Debug\Farseer Physics MonoGame.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics MonoGame.dll
+C:\Users\Student\Documents\TwinGuns\Farseer Physics Engine 3.5\obj\x86\Debug\FarseerPhysics MonoGame.pdb
