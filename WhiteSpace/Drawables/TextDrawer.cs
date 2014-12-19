@@ -15,28 +15,8 @@ namespace WhiteSpace.Drawables
         public string text = "";
         public Color TextColor { get; set; }
 
-        public TextDrawer(StateType activeState, Transform transform, string fontName, string text) : base(activeState, transform)
-        {
-            this.text = text;
-            this.font = ContentLoader.getContent<SpriteFont>(fontName);
-            this.TextColor = Color.Black;
-        }
-
-        public TextDrawer(StateType activeState, Transform transform, string fontName) : base(activeState, transform)
-        {
-            this.font = ContentLoader.getContent<SpriteFont>(fontName);
-            this.TextColor = Color.Black;
-            this.text = "";
-        }
-
-        public TextDrawer(Transform transform, string fontName) : base (transform)
-        {
-            this.font = ContentLoader.getContent<SpriteFont>(fontName);
-            this.TextColor = Color.Black;
-            this.text = "";
-        }
-
-        public TextDrawer(Transform transform, string fontName, string text) : base(transform)
+        public TextDrawer(Transform transform, string fontName, string text, Updater<StateType> updaterToRegisterTo)
+            : base(transform, updaterToRegisterTo)
         {
             this.text = text;
             this.font = ContentLoader.getContent<SpriteFont>(fontName);
@@ -48,4 +28,5 @@ namespace WhiteSpace.Drawables
             batch.DrawString(font, this.text, this.transform.Position, this.TextColor);
         }
     }
+
 }

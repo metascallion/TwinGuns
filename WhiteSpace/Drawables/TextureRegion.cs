@@ -16,13 +16,8 @@ namespace WhiteSpace.Drawables
         public Texture2D Texture { get; set; }
         public SpriteEffects SpriteEffect { private get; set; }
 
-        public TextureRegion(StateType stateType, Transform transform, Texture2D texture) : base(stateType, transform)
-        {
-            this.Texture = texture;
-            this.VisibleArea = texture.Bounds;
-        }
-
-        public TextureRegion(Transform transform, Texture2D texture) : base(transform)
+        public TextureRegion(Transform transform, Texture2D texture, Updater<StateType> updaterToRegisterTo)
+            : base(transform, updaterToRegisterTo)
         {
             this.Texture = texture;
             this.VisibleArea = texture.Bounds;
@@ -42,7 +37,7 @@ namespace WhiteSpace.Drawables
 
             else
             {
-                spriteBatch.Draw(this.Texture, drawRectangle, this.VisibleArea, Color.White, this.transform.Rotation, origin, this.SpriteEffect, 0); 
+                spriteBatch.Draw(this.Texture, drawRectangle, this.VisibleArea, Color.White, this.transform.Rotation, origin, this.SpriteEffect, 0);
             }
         }
     }

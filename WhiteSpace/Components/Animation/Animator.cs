@@ -25,10 +25,10 @@ namespace WhiteSpace.Components.Animation
 
         Animation activeAnimation;
 
-        public static Animator<StateType> loadAnimator(StateType type, TextureRegion<StateType> regionToAnimate, string animatorName)
+        public static Animator<StateType> loadAnimator<StateType>(TextureRegion<StateType> regionToAnimate, string animatorName, Updater<StateType> updaterToRegisterTo) where StateType : struct
         {
             StreamReader reader = new StreamReader(animatorName + ".txt");
-            Animator<StateType> animatorToReturn = new Animator<StateType>(regionToAnimate);
+            Animator<StateType> animatorToReturn = new Animator<StateType>(regionToAnimate, updaterToRegisterTo);
             string[] spriteSheetData = reader.ReadLine().Split(',');
             animatorToReturn.SheetToTakeFramesFrom = new SpriteSheet(regionToAnimate.Texture, int.Parse(spriteSheetData[0]), int.Parse(spriteSheetData[1]));
             string animation;
@@ -40,9 +40,10 @@ namespace WhiteSpace.Components.Animation
             return animatorToReturn;
         }
 
-        private Animator(TextureRegion<StateType> textureRegionToAnimate)
+
+        private Animator(TextureRegion<StateType> region, Updater<StateType> updaterToRegisterTo) : base(updaterToRegisterTo)
         {
-            this.textureRegionToAnimate = textureRegionToAnimate;
+            this.textureRegionToAnimate = region;
         }
 
         public void addAnimation(string name, Animation animation)

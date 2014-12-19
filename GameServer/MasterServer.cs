@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiteSpace.Network;
-using System.Collections.Generic;
 
 namespace MasterServer
 {
@@ -14,18 +13,26 @@ namespace MasterServer
 
         public void OnNetworkmessageEnter(ReceiveableNetworkMessage msg)
         {
-            if(msg.getInformation("requesttype") == "host")
-            {
-                games.Add(msg.getInformation("name"));
-            }
+            games.Add(msg.getInformation("Name"));
+        }
+
+        public void OnFindGamesRequest(ReceiveableNetworkMessage msg)
+        {
+            sendGames();
+        }
+
+        public void OnJoinGameRequestEnter(ReceiveableNetworkMessage msg)
+        {
+            SendableNetworkMessage message = new SendableNetworkMessage("Join");
+            Server.sendMessage(message);
         }
 
         public void sendGames()
         {
             foreach (string s in games)
             {
-                SendableNetworkMessage sendMessage = new SendableNetworkMessage("games");
-                sendMessage.addInformation("name", s);
+                SendableNetworkMessage sendMessage = new SendableNetworkMessage("FoundGame");
+                sendMessage.addInformation("GameName", s);
                 Server.sendMessage(sendMessage);
             }
         }

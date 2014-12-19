@@ -9,34 +9,15 @@ using WhiteSpace.Components;
 
 namespace WhiteSpace.Drawables
 {
-    public class ColoredBox <StateType> : Drawable<StateType> where StateType : struct
+    public class ColoredBox<StateType> : Drawable<StateType> where StateType : struct
     {
         private Texture2D texture;
         Color[] colorContainer;
         public static GraphicsDevice device = Game1.graphics.GraphicsDevice;
-        public ColoredBox(Transform transform, Color color) : base(transform)
-        {
-            texture = new Texture2D(device, (int)transform.Size.X, (int)transform.Size.Y);
-            colorContainer = new Color[(int)transform.Size.X * (int)transform.Size.Y];
-            setColor(color);
-        }
 
-        public ColoredBox(Transform transform)
-            : base(transform)
-        {
-            texture = new Texture2D(device, (int)transform.Size.X, (int)transform.Size.Y);
-            colorContainer = new Color[(int)transform.Size.X * (int)transform.Size.Y];
-        }
 
-        public ColoredBox(Transform transform, StateType stateType)
-            : base(stateType, transform)
-        {
-            texture = new Texture2D(device, (int)transform.Size.X, (int)transform.Size.Y);
-            colorContainer = new Color[(int)transform.Size.X * (int)transform.Size.Y];
-        }
-
-        public ColoredBox(Transform transform, StateType stateType, Color color)
-            : base(stateType, transform)
+        public ColoredBox(Transform transform, Color color, Updater<StateType> updaterToRegisterTo)
+            : base(transform, updaterToRegisterTo)
         {
             texture = new Texture2D(device, (int)transform.Size.X, (int)transform.Size.Y);
             colorContainer = new Color[(int)transform.Size.X * (int)transform.Size.Y];

@@ -7,7 +7,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
-using WhiteSpace.GameObjects;
 using WhiteSpace.GameLoop;
 using WhiteSpace.Temp;
 using WhiteSpace.Drawables;
@@ -17,6 +16,7 @@ using WhiteSpace.Components;
 using WhiteSpace.Components.Physics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
+using System.Reflection.Emit;
 
 
 #endregion
@@ -61,41 +61,90 @@ namespace WhiteSpace
         /// 
         /// 
         /// 
+        //EditableText<lobbystate> editor;
+        Clickable<gamestate> clickable;
 
-        Transform t;
-        Transform tt;
         /// </summary>
         protected override void LoadContent()
         {
+
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = Content;
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
+            StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
 
-            TestRotationGameObject<gamestate> testt = new TestRotationGameObject<gamestate>(gamestate.main, Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(200, 200)));
-            //TestRotationGameObjectType2<gamestate> tes = new TestRotationGameObjectType2<gamestate>(gamestate.main, Transform.createTransformWithSizeOnPosition(new Vector2(500, 0), new Vector2(200, 200)));
-            t = Transform.createTransformWithSizeOnPosition(new Vector2(0, 400), new Vector2(800, 100));
-            tt = Transform.createTransformWithSizeOnPosition(new Vector2(200, 500), new Vector2(800, 100));
-            BoxCollider<gamestate> collider = new BoxCollider<gamestate>(t);
+            Updater<gamestate> updater = new Updater<gamestate>(gamestate.main);
 
-            //BoxCollider<gamestate> collider1 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(25, 500)));
-            //BoxCollider<gamestate> collider2 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(770, 0), new Vector2(25, 500)));
-            //BoxCollider<gamestate> collider3 = new BoxCollider<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(800, 25)));
-            //collider.body.BodyType = FarseerPhysics.Dynamics.BodyType.Kinematic;
+           clickable = new Clickable<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(100,100)), updater);
 
-            //collider3.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
-            //collider2.body.BodyType = FarseerPhysics.Dynamics.BodyType.Static;
+            Button<gamestate> button = new Button<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(100,100), new Vector2(100,100)), updater);
+            button.addText("hello");
 
-            TextureRegion<gamestate> region = new TextureRegion<gamestate>(t, ContentLoader.getContent<Texture2D>("Knight"));
-            TextureRegion<gamestate> region2 = new TextureRegion<gamestate>(tt, ContentLoader.getContent<Texture2D>("Knight"));
-            EditableText<gamestate> editor = new EditableText<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(500, 25)), gamestate.main);
+            //editor = new EditableText<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(500, 25)), lobbystate.start);
+            //Button<lobbystate> hostButton = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(550, 0), new Vector2(100, 50)), lobbystate.start);
+            //hostButton.activeState = lobbystate.start;
+            //hostButton.addText("Host");
+            //Button<lobbystate> findGamesButton = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(550, 55), new Vector2(100, 50)), lobbystate.start);
+            //findGamesButton.releaseMethods += sendFindGamesRequest;
+            //findGamesButton.activeState = lobbystate.start;
+            //findGamesButton.addText("Find Games");
+            //hostButton.releaseMethods += sendHostMessage;
 
-
-            Client.startClient("Test");
-            Client.connect("localhost", 1111);
+            //Client.startClient("Test");
+            //Client.connect("localhost", 1111);
+            //Client.registerNetworkListenerMethod("FoundGame", onFoundGameMessageEnter);
+            //Client.registerNetworkListenerMethod("Join", OnJoinMessageEnter);
 
             //KeyboardInput.start();
             // TODO: use this.Content to load your game content here
         }
+
+        //public void sendHostMessage(Button<lobbystate> button)
+        //{
+        //    SendableNetworkMessage msg = new SendableNetworkMessage("Host");
+        //    msg.addInformation("Name", editor.textD.text);
+        //    Client.sendMessage(msg);
+        //}
+
+        //public void sendFindGamesRequest(Button<lobbystate> button)
+        //{
+        //    SendableNetworkMessage msg = new SendableNetworkMessage("FindGames");
+        //    Client.sendMessage(msg);
+        //}
+
+
+        //int offset = 0;
+
+        //public void onFoundGameMessageEnter(ReceiveableNetworkMessage msg)
+        //{
+        //    Button<lobbystate> button = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(100, 55 * offset + 30), new Vector2(100, 50)), lobbystate.start);
+        //    button.activeState = lobbystate.start;
+        //    button.addText(msg.getInformation("GameName"));
+        //    button.releaseMethods += joinLobby;
+        //    button.destroyOnInvalidState();
+        //    offset++;
+        //}
+
+        //public void joinLobby(Button<lobbystate> sender)
+        //{
+        //    SendableNetworkMessage msg = new SendableNetworkMessage("Join");
+        //    msg.addInformation("GameName", sender.textD.text);
+        //    Client.sendMessage(msg);
+        //}
+
+        //public void OnJoinMessageEnter(ReceiveableNetworkMessage msg)
+        //{
+        //    StateMachine<lobbystate>.getInstance().changeState(lobbystate.lobby);
+        //    Button<lobbystate> button = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 450), new Vector2(100, 30)), lobbystate.lobby);
+        //    button.activeState = lobbystate.lobby;
+        //    button.releaseMethods += backToStart;
+        //    button.addText("Back");
+        //}
+
+        //public void backToStart(Button<lobbystate> sender)
+        //{
+        //    StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
+        //}
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -121,17 +170,24 @@ namespace WhiteSpace
 
             if(KeyboardInput.wasKeyJustPressed(Keys.B))
             {
-                t.Rotation += MathHelper.ToRadians(10);
+                //t.Rotation += MathHelper.ToRadians(10);
 
-                SendableNetworkMessage msg = new SendableNetworkMessage("Transform");
-                msg.addInformation("rotation", MathHelper.ToDegrees(t.Rotation));
-                msg.addInformation("x", t.Position.X);
-                msg.addInformation("y", t.Position.Y);
+                //SendableNetworkMessage msg = new SendableNetworkMessage("Transform");
+                //msg.addInformation("rotation", MathHelper.ToDegrees(t.Rotation));
+                //msg.addInformation("x", t.Position.X);
+                //msg.addInformation("y", t.Position.Y);
 
-                Client.sendMessage(msg);
+                //Client.sendMessage(msg);
+                clickable.unregisterInUpdater();
+
             }
 
-            Client.pollNetworkMessage();
+            if (KeyboardInput.isKeyDown(Keys.A))
+            {
+                clickable.registerInUpdater();
+            }
+
+   //         Client.pollNetworkMessage();
             UpdateExecuter.executeUpdates(gameTime);
 
             

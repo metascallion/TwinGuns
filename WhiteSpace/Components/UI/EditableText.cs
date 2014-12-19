@@ -5,6 +5,7 @@ using System.Text;
 using WhiteSpace.Drawables;
 using WhiteSpace.Temp;
 using Microsoft.Xna.Framework;
+using WhiteSpace.GameLoop;
 
 namespace WhiteSpace.Components
 {
@@ -15,24 +16,30 @@ namespace WhiteSpace.Components
         special
     }
 
-    public class EditableText <StateType> : Clickable<StateType> where StateType : struct
+    public class EditableText<StateType> : Clickable<StateType> where StateType : struct
     {
         bool write = false;
         bool capslock = false;
-        TextDrawer<StateType> textDrawer;
-        ColoredBox<StateType> backGroundDrawer;
+        public TextDrawer<StateType> textD;
+        ColoredBox<StateType> backGroundD;
 
-        public EditableText(Transform transform, StateType activeState) : base (transform)
+        public EditableText(Transform transform, Updater<StateType> updaterToRegisterTo) : base (transform, updaterToRegisterTo)
         {
-            backGroundDrawer = new ColoredBox<StateType>(transform, activeState, Color.Silver);
-            textDrawer = new TextDrawer<StateType>(activeState, transform, "Font");
+            //Drawer<StateType> backGroundDrawer = new Drawer<StateType>(activeState);
+            //Drawer<StateType> textDrawer = new Drawer<StateType>(activeState);
+
+            backGroundD = new ColoredBox<StateType>(transform, Color.Silver, updaterToRegisterTo);
+            textD = new TextDrawer<StateType>(transform, "Font", "", updaterToRegisterTo);
+
+            //backGroundD.addToDrawable<StateType>(backGroundDrawer);
+            //textD.addToDrawable<StateType>(textDrawer);
         }
 
         protected override void onClick()
         {
             base.onClick();
             write = true;
-            backGroundDrawer.setColor(Color.PaleGoldenrod);
+            backGroundD.setColor(Color.PaleGoldenrod);
         }
 
         protected override void onHoverLeave()
@@ -40,7 +47,7 @@ namespace WhiteSpace.Components
             if(checkClick())
             {
                 write = false;
-                backGroundDrawer.setColor(Color.Silver);
+                backGroundD.setColor(Color.Silver);
                 CutLastSign();
             }
         }
@@ -69,7 +76,7 @@ namespace WhiteSpace.Components
 
                 else
                 {
-                    textDrawer.text += "|";
+                    textD.text += "|";
                 }
 
                 ticked = !ticked;
@@ -178,18 +185,18 @@ namespace WhiteSpace.Components
 
                 if(test != "")
                 {
-                    changeText(test, ref textDrawer.text);
+                    changeText(test, ref textD.text);
                 }
             }
         }
 
         private void CutLastSign()
         {
-            if (textDrawer.text != "")
+            if (textD.text != "")
             {
-                if (textDrawer.text[textDrawer.text.Length - 1] == '|')
+                if (textD.text[textD.text.Length - 1] == '|')
                 {
-                    textDrawer.text = textDrawer.text.Remove(textDrawer.text.Length - 1);
+                    textD.text = textD.text.Remove(textD.text.Length - 1);
                 }
             }
         }

@@ -7,19 +7,19 @@ namespace WhiteSpace
 {
     public class StateListener<StateType> where StateType : struct
     {
-        StateType activeState;
+        public StateType activeState;
         bool invalidTriggered = false;
-
-        public StateListener()
-        {
-            Enum.TryParse<StateType>("0", out this.activeState);
-            registerInStateMachine();
-        }
+        bool destroyOnStateChange = false;
 
         public StateListener(StateType activeState)
         {
             this.activeState = activeState;
             registerInStateMachine();
+        }
+
+        public void destroyOnInvalidState()
+        {
+            destroyOnStateChange = true;
         }
 
         private void registerInStateMachine()
@@ -47,6 +47,10 @@ namespace WhiteSpace
         protected virtual void processInvalidState()
         {
             invalidTriggered = true;
+            if (destroyOnStateChange)
+            {
+                unregisterInStateMachine();
+            }
         }
 
         protected virtual void processValidState()

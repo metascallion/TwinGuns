@@ -169,8 +169,13 @@ namespace MasterServer
         {
             Server.startServer("Test", 1111);
             Server.registerNetworkListenerMethod("Transform",onTestNetworkMessageEnter);
-            Console.Read();
 
+            MasterServer server = new MasterServer();
+            Server.registerNetworkListenerMethod("Host", server.OnNetworkmessageEnter);
+            Server.registerNetworkListenerMethod("FindGames", server.OnFindGamesRequest);
+            Server.registerNetworkListenerMethod("Join", server.OnJoinGameRequestEnter);
+
+            Console.Read();
 
             /*
             NetPeerConfiguration config = new NetPeerConfiguration("test");

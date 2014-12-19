@@ -33,13 +33,7 @@ namespace WhiteSpace.Components.Physics
             set { size = value * pixelToUnit; }
         }
 
-        public BoxCollider(Transform transform)
-        {
-            initializeCollider(transform);
-        }
-
-        public BoxCollider(Transform transform, StateType activeState)
-            : base(activeState)
+        public BoxCollider(Transform transform, Updater<StateType> updaterToRegisterTo) : base(updaterToRegisterTo)
         {
             initializeCollider(transform);
         }

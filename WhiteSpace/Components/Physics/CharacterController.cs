@@ -12,7 +12,7 @@ namespace WhiteSpace.Components.Physics
     {
         BoxCollider<StateType> collider;
 
-        public CharacterControler(BoxCollider<StateType> collider)
+        public CharacterControler(BoxCollider<StateType> collider, Updater<StateType> updaterToRegisterTo) : base (updaterToRegisterTo)
         {
             this.collider = collider;
             collider.follow = false;

@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace WhiteSpace.Components
 {
-    public class Button <StateType> : Clickable<StateType> where StateType : struct
+    public class Button<StateType> : Clickable<StateType> where StateType : struct
     {
         public delegate void stateChange(Button<StateType> sender);
 
@@ -17,121 +17,104 @@ namespace WhiteSpace.Components
         public event stateChange leaveMethods;
         public event stateChange releaseMethods;
 
-        public TextDrawer<StateType> textDrawer;
-        public Drawable<StateType> StandartDrawer { get; set; }
-        public Drawable<StateType> HoverDrawer { get; set; }
-        public Drawable<StateType> ClickedDrawer { get; set; }
+        public TextDrawer<StateType> textD;
+        ColoredBox<StateType> standartDrawer;
+        ColoredBox<StateType> hoverDrawer;
+        ColoredBox<StateType> clickedDrawer;
 
         private void activateStandartDrawer()
         {
-            StandartDrawer.registerInDrawExecuter();
-            HoverDrawer.unregisterInDrawExecuter();
-            ClickedDrawer.unregisterInDrawExecuter();
+            deactivateDrawers();
+            standartDrawer.registerInUpdater();
         }
 
         private void activateHoverDrawer()
         {
-            HoverDrawer.registerInDrawExecuter();
-            StandartDrawer.unregisterInDrawExecuter();
-            ClickedDrawer.unregisterInDrawExecuter();
+            deactivateDrawers();
+            hoverDrawer.registerInUpdater();
         }
 
         private void activateClickedDrawer()
         {
-            ClickedDrawer.registerInDrawExecuter();
-            HoverDrawer.unregisterInDrawExecuter();
-            StandartDrawer.unregisterInDrawExecuter();
+            deactivateDrawers();
+            clickedDrawer.registerInUpdater();
         }
 
         private void deactivateDrawers()
         {
-            StandartDrawer.unregisterInDrawExecuter();
-            HoverDrawer.unregisterInDrawExecuter();
-            ClickedDrawer.unregisterInDrawExecuter();
+            standartDrawer.unregisterInUpdater();
+            hoverDrawer.unregisterInUpdater();
+            clickedDrawer.unregisterInUpdater();
         }
 
-        public Button(Transform transform) : base(transform)
+        public Button(Transform transform, Updater<StateType> updaterToRegisterTo)
+            : base(transform, updaterToRegisterTo)
         {
-            ColoredBox<StateType> standartDrawer = new ColoredBox<StateType>(transform);
-            standartDrawer.setColor(Color.Silver);
-            this.StandartDrawer = standartDrawer;
-
-            ColoredBox<StateType> hoverDrawer = new ColoredBox<StateType>(transform);
-            hoverDrawer.setColor(Color.LightGoldenrodYellow);
-            this.HoverDrawer = hoverDrawer;
-
-            ColoredBox<StateType> clickedDrawer = new ColoredBox<StateType>(transform);
-            clickedDrawer.setColor(Color.PaleGoldenrod);
-
-            this.ClickedDrawer = clickedDrawer;
-
+            standartDrawer = new ColoredBox<StateType>(transform, Color.Gray, updaterToRegisterTo);
+            hoverDrawer = new ColoredBox<StateType>(transform, Color.LightGoldenrodYellow, updaterToRegisterTo);
+            clickedDrawer = new ColoredBox<StateType>(transform, Color.PaleGoldenrod, updaterToRegisterTo);
             activateStandartDrawer();
-
-            textDrawer = new TextDrawer<StateType>(transform, "Font");
+            textD = new TextDrawer<StateType>(transform, "Font", "", updaterToRegisterTo);
         }
 
         public void addText(string text)
         {
-            textDrawer.text = text;
+            textD.text = text;
         }
 
         protected override void onHover()
         {
-            if(!hover)
+            activateHoverDrawer();
+            if (!hover)
             {
-                if(hoverMethods != null)
+                hover = !hover;
+                if (hoverMethods != null)
                 {
                     hoverMethods(this);
                 }
             }
-            activateHoverDrawer();
             base.onHover();
         }
 
         protected override void onHoverLeave()
         {
-            if(hover)
+            activateStandartDrawer();
+            if (hover)
             {
-                if(leaveMethods != null)
+                hover = !hover;
+                if (leaveMethods != null)
                 {
                     leaveMethods(this);
                 }
             }
-            activateStandartDrawer();
             base.onHoverLeave();
         }
 
         protected override void onClick()
         {
             base.onClick();
-            if(clickMethods != null)
+            activateClickedDrawer();
+            if (clickMethods != null)
             {
                 clickMethods(this);
             }
-            activateClickedDrawer();
         }
 
         protected override void onRelease()
         {
             base.onRelease();
-            if(releaseMethods != null)
+            activateHoverDrawer();
+            if (releaseMethods != null)
             {
                 releaseMethods(this);
             }
-            activateHoverDrawer();
         }
 
         protected override void update(GameTime gameTime)
         {
             base.update(gameTime);
-            textDrawer.unregisterInDrawExecuter();
-            textDrawer.registerInDrawExecuter();
-        }
-
-        protected override void processInvalidState()
-        {
-            base.processInvalidState();
-            deactivateDrawers();
+            textD.unregisterInUpdater();
+            textD.registerInUpdater();
         }
     }
 }

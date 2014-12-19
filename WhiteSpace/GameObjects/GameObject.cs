@@ -9,7 +9,7 @@ using WhiteSpace.Components;
 
 namespace WhiteSpace
 {
-    public class GameObject<StateType> : Updateable<StateType> where StateType : struct
+    public class GameObject<StateType> : Updater<StateType> where StateType : struct
     {
         protected Transform transform;
 
@@ -19,14 +19,9 @@ namespace WhiteSpace
             this.transform = transform;
         }
 
-        public GameObject(Transform transform)
+        public GameObject(Transform transform, StateType activeState) : base(activeState)
         {
             this.transform = transform;
-        }
-
-        public GameObject()
-        {
-            this.transform = new Transform();
         }
 
         public Vector2 Position
