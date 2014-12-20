@@ -98,6 +98,9 @@ namespace WhiteSpace
         void chooseName(Button<lobbystate> sender)
         {
             StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
+            SendableNetworkMessage msg = new SendableNetworkMessage("ChooseName");
+            msg.addInformation("Name", nameEditor.textDrawer.text);
+            Client.sendMessage(msg);
         }
 
         void sendFindGamesRequest(Button<lobbystate> sender)

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Lidgren.Network;
 
 namespace WhiteSpace.Network
 {
     public class ReceiveableNetworkMessage : NetworkMessage
     {
+        public NetConnection sender;
+
         private static string[] splitKeyValue(string stringToSplit)
         {
             return stringToSplit.Split('=');
@@ -24,10 +27,10 @@ namespace WhiteSpace.Network
             return strings;
         }
 
-        public static ReceiveableNetworkMessage createMessageFromString(string stringToConvert)
+        public static ReceiveableNetworkMessage createMessageFromString(string stringToConvert, NetConnection sender)
         {
             ReceiveableNetworkMessage msg = new ReceiveableNetworkMessage();
-
+            msg.sender = sender;
             List<string> splittedString = splitMessageString(stringToConvert);
             msg.Header = splittedString[0];
             splittedString.Remove(splittedString[0]);

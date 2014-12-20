@@ -29,6 +29,11 @@ namespace MasterServer
             Server.sendMessage(message);
         }
 
+        public void setName(ReceiveableNetworkMessage msg)
+        {
+            Server.sendToSingleRecipient(msg.sender, new SendableNetworkMessage("Test"));
+        }
+
         public void sendGames()
         {
             foreach (string s in games)
