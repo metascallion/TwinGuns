@@ -16,7 +16,7 @@ namespace WhiteSpace.Drawables
         public static GraphicsDevice device = Game1.graphics.GraphicsDevice;
 
 
-        public ColoredBox(Transform transform, Color color, Updater<StateType> updaterToRegisterTo)
+        public ColoredBox(Transform transform, Color color, ComponentsSector<StateType> updaterToRegisterTo)
             : base(transform, updaterToRegisterTo)
         {
             texture = new Texture2D(device, (int)transform.Size.X, (int)transform.Size.Y);

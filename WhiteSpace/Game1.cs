@@ -51,8 +51,6 @@ namespace WhiteSpace
             IsMouseVisible = true;
             KeyboardInput.updateKeyStates();
             KeyboardInput.start();
-            //new GameObject<gamestate>(gamestate.gameover);
-            //StateMachine<gamestate>.getInstance().changeState(gamestate.lobby);
         }
 
         /// <summary>
@@ -61,90 +59,84 @@ namespace WhiteSpace
         /// 
         /// 
         /// 
-        //EditableText<lobbystate> editor;
-        Clickable<gamestate> clickable;
-
+        EditableText<lobbystate> editor;
+        EditableText<lobbystate> nameEditor;
         /// </summary>
         protected override void LoadContent()
         {
 
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            ContentLoader.ContentManager = Content;
+            ContentLoader.ContentManager = this.Content;
+
+            ComponentsSector<lobbystate> sector = new ComponentsSector<lobbystate>(lobbystate.start);
+            editor = new EditableText<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(400, 25)), sector);
+            Button<lobbystate> button = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(405, 0), new Vector2(100, 50)), sector);
+            button.addText("Host");
+            button.releaseMethods += sendHostRequest;
+            Button<lobbystate> button2 = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(405, 55), new Vector2(100, 50)), sector);
+            button2.addText("Find Games");
+            button2.releaseMethods += sendFindGamesRequest;
+
+
+
+            ComponentsSector<lobbystate> selectionSector = new ComponentsSector<lobbystate>(lobbystate.selection);
+            nameEditor = new EditableText<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(400, 25)), selectionSector);
+            Button<lobbystate> buttonName = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(405, 0), new Vector2(100, 50)), selectionSector);
+            buttonName.addText("Choose Name");
+            buttonName.releaseMethods += chooseName;
+
+            StateMachine<lobbystate>.getInstance().changeState(lobbystate.selection);
+
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
-            StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
 
-            Updater<gamestate> updater = new Updater<gamestate>(gamestate.main);
-
-           clickable = new Clickable<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(100,100)), updater);
-
-            Button<gamestate> button = new Button<gamestate>(Transform.createTransformWithSizeOnPosition(new Vector2(100,100), new Vector2(100,100)), updater);
-            button.addText("hello");
-
-            //editor = new EditableText<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0,0), new Vector2(500, 25)), lobbystate.start);
-            //Button<lobbystate> hostButton = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(550, 0), new Vector2(100, 50)), lobbystate.start);
-            //hostButton.activeState = lobbystate.start;
-            //hostButton.addText("Host");
-            //Button<lobbystate> findGamesButton = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(550, 55), new Vector2(100, 50)), lobbystate.start);
-            //findGamesButton.releaseMethods += sendFindGamesRequest;
-            //findGamesButton.activeState = lobbystate.start;
-            //findGamesButton.addText("Find Games");
-            //hostButton.releaseMethods += sendHostMessage;
-
-            //Client.startClient("Test");
-            //Client.connect("localhost", 1111);
-            //Client.registerNetworkListenerMethod("FoundGame", onFoundGameMessageEnter);
-            //Client.registerNetworkListenerMethod("Join", OnJoinMessageEnter);
-
-            //KeyboardInput.start();
-            // TODO: use this.Content to load your game content here
+            Client.startClient("Test");
+            Client.connect("localhost", 1111);  
+            Client.registerNetworkListenerMethod("Host", OnHostAccepted);
+            Client.registerNetworkListenerMethod("FoundGame", OnFindGame);
         }
 
-        //public void sendHostMessage(Button<lobbystate> button)
-        //{
-        //    SendableNetworkMessage msg = new SendableNetworkMessage("Host");
-        //    msg.addInformation("Name", editor.textD.text);
-        //    Client.sendMessage(msg);
-        //}
+        void chooseName(Button<lobbystate> sender)
+        {
+            StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
+        }
 
-        //public void sendFindGamesRequest(Button<lobbystate> button)
-        //{
-        //    SendableNetworkMessage msg = new SendableNetworkMessage("FindGames");
-        //    Client.sendMessage(msg);
-        //}
+        void sendFindGamesRequest(Button<lobbystate> sender)
+        {
+            SendableNetworkMessage msg = new SendableNetworkMessage("FindGames");
+            Client.sendMessage(msg);
+            findGamesButtons = new ComponentsSector<lobbystate>(lobbystate.start);
+            offset = 0;
+        }
 
+        int offset = 0;
+        ComponentsSector<lobbystate> findGamesButtons = new ComponentsSector<lobbystate>(lobbystate.start);
+        void OnFindGame(ReceiveableNetworkMessage msg)
+        {
+            findGamesButtons.destroyOnInvalidState();
+            Button<lobbystate> btn = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(100, 32 * offset + 50), new Vector2(150, 30)), findGamesButtons);
+            offset++;
+            btn.addText(msg.getInformation("GameName"));
+        }
 
-        //int offset = 0;
+        void sendHostRequest(Button<lobbystate> sender)
+        {
+            SendableNetworkMessage msg = new SendableNetworkMessage("Host");
+            msg.addInformation("Name", editor.textDrawer.text);
+            Client.sendMessage(msg);
+        }
 
-        //public void onFoundGameMessageEnter(ReceiveableNetworkMessage msg)
-        //{
-        //    Button<lobbystate> button = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(100, 55 * offset + 30), new Vector2(100, 50)), lobbystate.start);
-        //    button.activeState = lobbystate.start;
-        //    button.addText(msg.getInformation("GameName"));
-        //    button.releaseMethods += joinLobby;
-        //    button.destroyOnInvalidState();
-        //    offset++;
-        //}
+        void OnHostAccepted(ReceiveableNetworkMessage msg)
+        {
+            StateMachine<lobbystate>.getInstance().changeState(lobbystate.host);
+            Button<lobbystate> btn = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 450), new Vector2(100, 30)), new ComponentsSector<lobbystate>(lobbystate.host));
+            btn.addText("Back");
+            btn.releaseMethods += back;
+        }
 
-        //public void joinLobby(Button<lobbystate> sender)
-        //{
-        //    SendableNetworkMessage msg = new SendableNetworkMessage("Join");
-        //    msg.addInformation("GameName", sender.textD.text);
-        //    Client.sendMessage(msg);
-        //}
-
-        //public void OnJoinMessageEnter(ReceiveableNetworkMessage msg)
-        //{
-        //    StateMachine<lobbystate>.getInstance().changeState(lobbystate.lobby);
-        //    Button<lobbystate> button = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 450), new Vector2(100, 30)), lobbystate.lobby);
-        //    button.activeState = lobbystate.lobby;
-        //    button.releaseMethods += backToStart;
-        //    button.addText("Back");
-        //}
-
-        //public void backToStart(Button<lobbystate> sender)
-        //{
-        //    StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
-        //}
+        void back(Button<lobbystate> sender)
+        {
+            StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
+        }
 
         /// <summary>
         /// UnloadContent will be called once per game and is the place to unload
@@ -165,33 +157,8 @@ namespace WhiteSpace
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            //t.Rotation += MathHelper.ToRadians(15.0f);
-            //tt.Rotation += MathHelper.ToRadians(-10.0f);
-
-            if(KeyboardInput.wasKeyJustPressed(Keys.B))
-            {
-                //t.Rotation += MathHelper.ToRadians(10);
-
-                //SendableNetworkMessage msg = new SendableNetworkMessage("Transform");
-                //msg.addInformation("rotation", MathHelper.ToDegrees(t.Rotation));
-                //msg.addInformation("x", t.Position.X);
-                //msg.addInformation("y", t.Position.Y);
-
-                //Client.sendMessage(msg);
-                clickable.unregisterInUpdater();
-
-            }
-
-            if (KeyboardInput.isKeyDown(Keys.A))
-            {
-                clickable.registerInUpdater();
-            }
-
-   //         Client.pollNetworkMessage();
             UpdateExecuter.executeUpdates(gameTime);
-
-            
-
+            Client.pollNetworkMessage();
             base.Update(gameTime);
         }
 

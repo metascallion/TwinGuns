@@ -16,7 +16,7 @@ namespace WhiteSpace.Drawables
         public Texture2D Texture { get; set; }
         public SpriteEffects SpriteEffect { private get; set; }
 
-        public TextureRegion(Transform transform, Texture2D texture, Updater<StateType> updaterToRegisterTo)
+        public TextureRegion(Transform transform, Texture2D texture, ComponentsSector<StateType> updaterToRegisterTo)
             : base(transform, updaterToRegisterTo)
         {
             this.Texture = texture;

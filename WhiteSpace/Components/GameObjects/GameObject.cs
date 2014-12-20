@@ -9,17 +9,12 @@ using WhiteSpace.Components;
 
 namespace WhiteSpace
 {
-    public class GameObject<StateType> : Updater<StateType> where StateType : struct
+    public class GameObject<StateType> : Updateable<StateType> where StateType : struct
     {
         protected Transform transform;
 
-        public GameObject(StateType activeState, Transform transform)
-            : base(activeState)
-        {
-            this.transform = transform;
-        }
-
-        public GameObject(Transform transform, StateType activeState) : base(activeState)
+        public GameObject(Transform transform, ComponentsSector<StateType> updaterToRegisterTo)
+            : base(updaterToRegisterTo)
         {
             this.transform = transform;
         }

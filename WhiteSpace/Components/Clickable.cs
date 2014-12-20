@@ -16,7 +16,7 @@ namespace WhiteSpace.Components
 
         private Transform transform;
 
-        public Clickable(Transform transform, Updater<StateType> updaterToRegisterTo) : base (updaterToRegisterTo)
+        public Clickable(Transform transform, ComponentsSector<StateType> updaterToRegisterTo) : base (updaterToRegisterTo)
         {
             this.transform = transform;
         }

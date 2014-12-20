@@ -20,26 +20,20 @@ namespace WhiteSpace.Components
     {
         bool write = false;
         bool capslock = false;
-        public TextDrawer<StateType> textD;
-        ColoredBox<StateType> backGroundD;
+        public TextDrawer<StateType> textDrawer;
+        ColoredBox<StateType> backGroundDrawer;
 
-        public EditableText(Transform transform, Updater<StateType> updaterToRegisterTo) : base (transform, updaterToRegisterTo)
+        public EditableText(Transform transform, ComponentsSector<StateType> updaterToRegisterTo) : base (transform, updaterToRegisterTo)
         {
-            //Drawer<StateType> backGroundDrawer = new Drawer<StateType>(activeState);
-            //Drawer<StateType> textDrawer = new Drawer<StateType>(activeState);
-
-            backGroundD = new ColoredBox<StateType>(transform, Color.Silver, updaterToRegisterTo);
-            textD = new TextDrawer<StateType>(transform, "Font", "", updaterToRegisterTo);
-
-            //backGroundD.addToDrawable<StateType>(backGroundDrawer);
-            //textD.addToDrawable<StateType>(textDrawer);
+            backGroundDrawer = new ColoredBox<StateType>(transform, Color.Gray, updaterToRegisterTo);
+            textDrawer = new TextDrawer<StateType>(transform, "Font", "", updaterToRegisterTo);
         }
 
         protected override void onClick()
         {
             base.onClick();
             write = true;
-            backGroundD.setColor(Color.PaleGoldenrod);
+            backGroundDrawer.setColor(Color.PaleGoldenrod);
         }
 
         protected override void onHoverLeave()
@@ -47,7 +41,7 @@ namespace WhiteSpace.Components
             if(checkClick())
             {
                 write = false;
-                backGroundD.setColor(Color.Silver);
+                backGroundDrawer.setColor(Color.Silver);
                 CutLastSign();
             }
         }
@@ -76,7 +70,7 @@ namespace WhiteSpace.Components
 
                 else
                 {
-                    textD.text += "|";
+                    textDrawer.text += "|";
                 }
 
                 ticked = !ticked;
@@ -99,10 +93,9 @@ namespace WhiteSpace.Components
                     capslock = !capslock;
                 }
 
-                test();
+                pollnput();
 
                 blink(gameTime);
-                //textDrawer.text
             }
         }
 
@@ -175,7 +168,7 @@ namespace WhiteSpace.Components
             }
         }
 
-        private void test()
+        private void pollnput()
         {
             if (KeyboardInput.getJustPressedKeys().Count != 0)
             {
@@ -185,18 +178,18 @@ namespace WhiteSpace.Components
 
                 if(test != "")
                 {
-                    changeText(test, ref textD.text);
+                    changeText(test, ref textDrawer.text);
                 }
             }
         }
 
         private void CutLastSign()
         {
-            if (textD.text != "")
+            if (textDrawer.text != "")
             {
-                if (textD.text[textD.text.Length - 1] == '|')
+                if (textDrawer.text[textDrawer.text.Length - 1] == '|')
                 {
-                    textD.text = textD.text.Remove(textD.text.Length - 1);
+                    textDrawer.text = textDrawer.text.Remove(textDrawer.text.Length - 1);
                 }
             }
         }

@@ -9,17 +9,14 @@ using Microsoft.Xna.Framework.Graphics;
 namespace WhiteSpace.GameLoop
 {
 
-    public class Updater<StateType> : StateListener<StateType> where StateType : struct
+    public class ComponentsSector<StateType> : StateListener<StateType> where StateType : struct
     {
 
         public delegate void Update(GameTime gameTime);
-
         public List<Update> updateMethodsToExecute = new List<Update>();
 
         public delegate void Draw(SpriteBatch spriteBatch);
-
         public List<Draw> drawMethodsToExecute = new List<Draw>();
-
 
         public void addDrawMethod(Draw drawMethodToAdd)
         {
@@ -47,7 +44,7 @@ namespace WhiteSpace.GameLoop
             updateableToAdd.registerInUpdater();
         }
 
-        public Updater(StateType activeState) : base(activeState)
+        public ComponentsSector(StateType activeState) : base(activeState)
         {
             registerInUpdateExecuter();
         }

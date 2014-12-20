@@ -22,7 +22,13 @@ namespace WhiteSpace
             destroyOnStateChange = true;
         }
 
-        private void registerInStateMachine()
+        public void reload()
+        {
+            destroyOnStateChange = false;
+            registerInStateMachine();
+        }
+
+        protected void registerInStateMachine()
         {
             StateMachine<StateType>.getInstance().stateChangeMethods += processStateChange;
         }
@@ -39,7 +45,7 @@ namespace WhiteSpace
             }
         }
 
-        private void unregisterInStateMachine()
+        protected void unregisterInStateMachine()
         {
             StateMachine<StateType>.getInstance().stateChangeMethods -= processStateChange;
         }

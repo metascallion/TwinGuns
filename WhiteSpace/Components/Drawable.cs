@@ -10,9 +10,9 @@ namespace WhiteSpace.Components
     public class Drawable<StateType> where StateType : struct
     {
         protected Transform transform;
-        Updater<StateType> updater;
+        ComponentsSector<StateType> updater;
 
-        public Drawable(Transform transform, Updater<StateType> updaterToRegisterTo)
+        public Drawable(Transform transform, ComponentsSector<StateType> updaterToRegisterTo)
         {
             this.transform = transform;
             this.updater = updaterToRegisterTo;

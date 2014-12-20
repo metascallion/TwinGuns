@@ -25,7 +25,7 @@ namespace WhiteSpace.Components.Animation
 
         Animation activeAnimation;
 
-        public static Animator<StateType> loadAnimator<StateType>(TextureRegion<StateType> regionToAnimate, string animatorName, Updater<StateType> updaterToRegisterTo) where StateType : struct
+        public static Animator<StateType> loadAnimator<StateType>(TextureRegion<StateType> regionToAnimate, string animatorName, ComponentsSector<StateType> updaterToRegisterTo) where StateType : struct
         {
             StreamReader reader = new StreamReader(animatorName + ".txt");
             Animator<StateType> animatorToReturn = new Animator<StateType>(regionToAnimate, updaterToRegisterTo);
@@ -41,7 +41,7 @@ namespace WhiteSpace.Components.Animation
         }
 
 
-        private Animator(TextureRegion<StateType> region, Updater<StateType> updaterToRegisterTo) : base(updaterToRegisterTo)
+        private Animator(TextureRegion<StateType> region, ComponentsSector<StateType> updaterToRegisterTo) : base(updaterToRegisterTo)
         {
             this.textureRegionToAnimate = region;
         }

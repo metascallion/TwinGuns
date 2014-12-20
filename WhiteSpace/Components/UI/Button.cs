@@ -47,7 +47,7 @@ namespace WhiteSpace.Components
             clickedDrawer.unregisterInUpdater();
         }
 
-        public Button(Transform transform, Updater<StateType> updaterToRegisterTo)
+        public Button(Transform transform, ComponentsSector<StateType> updaterToRegisterTo)
             : base(transform, updaterToRegisterTo)
         {
             standartDrawer = new ColoredBox<StateType>(transform, Color.Gray, updaterToRegisterTo);

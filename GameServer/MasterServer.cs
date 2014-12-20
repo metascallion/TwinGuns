@@ -14,6 +14,8 @@ namespace MasterServer
         public void OnNetworkmessageEnter(ReceiveableNetworkMessage msg)
         {
             games.Add(msg.getInformation("Name"));
+            SendableNetworkMessage msg2 = new SendableNetworkMessage("Host");
+            Server.sendMessage(msg2);
         }
 
         public void OnFindGamesRequest(ReceiveableNetworkMessage msg)

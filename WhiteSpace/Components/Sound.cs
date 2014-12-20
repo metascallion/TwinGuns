@@ -25,7 +25,7 @@ namespace WhiteSpace.Components
             set { this.wasout.Volume = value; }
         }
 
-        public Sound(string fileName, bool loop, Updater<StateType> updaterToRegisterTo) : base(updaterToRegisterTo)
+        public Sound(string fileName, bool loop, ComponentsSector<StateType> updaterToRegisterTo) : base(updaterToRegisterTo)
         {
             this.loop = loop;
             this.source = CodecFactory.Instance.GetCodec("Content/" + fileName + ".wav");

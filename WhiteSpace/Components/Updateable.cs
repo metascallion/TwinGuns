@@ -9,9 +9,9 @@ namespace WhiteSpace.Components
 {
     public class Updateable<StateType> where StateType : struct
     {
-        Updater<StateType> updater;
+        ComponentsSector<StateType> updater;
 
-        public Updateable(Updater<StateType> updaterToRegisterTo)
+        public Updateable(ComponentsSector<StateType> updaterToRegisterTo)
         {
             this.updater = updaterToRegisterTo;
             registerInUpdater();

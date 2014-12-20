@@ -15,7 +15,7 @@ namespace WhiteSpace.Drawables
         public string text = "";
         public Color TextColor { get; set; }
 
-        public TextDrawer(Transform transform, string fontName, string text, Updater<StateType> updaterToRegisterTo)
+        public TextDrawer(Transform transform, string fontName, string text, ComponentsSector<StateType> updaterToRegisterTo)
             : base(transform, updaterToRegisterTo)
         {
             this.text = text;

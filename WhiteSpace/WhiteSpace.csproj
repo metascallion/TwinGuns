@@ -41,13 +41,13 @@
     <Compile Include="Components\Physics\CharacterController.cs" />
     <Compile Include="Components\Sound.cs" />
     <Compile Include="Components\Updateable.cs" />
-    <Compile Include="Drawables\ColoredBox.cs" />
-    <Compile Include="Drawables\TextDrawer.cs" />
-    <Compile Include="Drawables\TextureRegion.cs" />
+    <Compile Include="Components\Drawables\ColoredBox.cs" />
+    <Compile Include="Components\Drawables\TextDrawer.cs" />
+    <Compile Include="Components\Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameLoop\CollisionDetection.cs" />
-    <Compile Include="GameLoop\Updater.cs" />
-    <Compile Include="GameObjects\GameObject.cs" />
+    <Compile Include="GameLoop\ComponentsSector.cs" />
+    <Compile Include="Components\GameObjects\GameObject.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Network\NetworkMessage.cs" />
     <Compile Include="Network\ReceiveableNetworkMessage.cs" />
@@ -57,7 +57,6 @@
     <Compile Include="StateMachine\StateMachine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameLoop\Drawer.cs" />
     <Compile Include="GameLoop\DrawExecuter.cs" />
     <Compile Include="GameLoop\UpdateExecuter.cs" />
     <Compile Include="Components\Animation\Animation.cs" />
