@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework;
+using WhiteSpace.Temp;
 
 namespace WhiteSpace.Components
 {
@@ -14,7 +15,7 @@ namespace WhiteSpace.Components
         left,
     }
 
-    public class Transform
+    public class Transform : StandardComponent
     {
         public Vector2 Position{get; set;}
         public float Rotation{get; set;}

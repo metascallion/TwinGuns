@@ -174,7 +174,6 @@ namespace MasterServer
             Server.registerNetworkListenerMethod("Host", server.OnNetworkmessageEnter);
             Server.registerNetworkListenerMethod("FindGames", server.OnFindGamesRequest);
             Server.registerNetworkListenerMethod("Join", server.OnJoinGameRequestEnter);
-            Server.registerNetworkListenerMethod("ChooseName", server.setName);
             Console.Read();
 
             /*

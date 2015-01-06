@@ -8,15 +8,26 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace WhiteSpace.GameLoop
 {
+    public delegate void Update(GameTime gameTime);
+    public delegate void Draw(SpriteBatch spriteBatch);
 
-    public class ComponentsSector<StateType> : StateListener<StateType> where StateType : struct
+    public interface IComponentsSector
     {
+        void addDrawMethod(Draw drawMethodToAdd);
+        void addUpdateMethod(Update updateMethodToAdd);
+        void removeDrawMethod(Draw drawMethodToRemove);
+        void removeUpdateMethod(Update updateToRemove);
+    }
 
-        public delegate void Update(GameTime gameTime);
+    public class ComponentsSector<StateType> : StateListener<StateType>, IComponentsSector where StateType : struct
+    {
+       
         public List<Update> updateMethodsToExecute = new List<Update>();
-
-        public delegate void Draw(SpriteBatch spriteBatch);
         public List<Draw> drawMethodsToExecute = new List<Draw>();
+
+        public delegate void ProcessState();
+        public event ProcessState invalidStateMethodsToExecute;
+        public event ProcessState validStateMethodsToExecute;
 
         public void addDrawMethod(Draw drawMethodToAdd)
         {
@@ -24,11 +35,6 @@ namespace WhiteSpace.GameLoop
             {
                 drawMethodsToExecute.Add(drawMethodToAdd);
             }
-        }
-
-        public void addDrawable(Drawable<StateType> drawable)
-        {
-            drawable.registerInUpdater();
         }
 
         public void addUpdateMethod(Update updateMethodToAdd)
@@ -39,35 +45,53 @@ namespace WhiteSpace.GameLoop
             }
         }
 
-        public void addUpdateable(Updateable<StateType> updateableToAdd)
+        public void removeUpdateMethod(Update updateMethodToRemove)
         {
-            updateableToAdd.registerInUpdater();
+            if(updateMethodsToExecute.Contains(updateMethodToRemove))
+            {
+                updateMethodsToExecute.Remove(updateMethodToRemove);
+            }
+        }
+
+        public void removeDrawMethod(Draw drawMethodToRemove)
+        {
+            if(drawMethodsToExecute.Contains(drawMethodToRemove))
+            {
+                drawMethodsToExecute.Remove(drawMethodToRemove);
+            }
         }
 
         public ComponentsSector(StateType activeState) : base(activeState)
         {
-            registerInUpdateExecuter();
         }
 
         protected override void processInvalidState()
         {
             base.processInvalidState();
             unregisterInUpdateExecuter();
+            if (invalidStateMethodsToExecute != null)
+            {
+                invalidStateMethodsToExecute();
+            }
         }
 
         protected override void processValidState()
         {
             base.processValidState();
             registerInUpdateExecuter();
+            if (validStateMethodsToExecute != null)
+            {
+                validStateMethodsToExecute();
+            }
         }
 
         private void update(GameTime gameTime)
         {
             if (updateMethodsToExecute.Count != 0)
             {
-                foreach (Update update in updateMethodsToExecute)
+                for(int i = 0; i < updateMethodsToExecute.Count; i++)
                 {
-                    update(gameTime);
+                    updateMethodsToExecute[i](gameTime);
                 }
             }
         }
@@ -93,6 +117,12 @@ namespace WhiteSpace.GameLoop
         {
             UpdateExecuter.unregisterUpdateable(this.update);
             DrawExecuter.unregisterDrawMethod(this.draw);
+        }
+
+        public void destroy()
+        {
+            unregisterInUpdateExecuter();
+            unregisterInStateMachine();
         }
     }
 }

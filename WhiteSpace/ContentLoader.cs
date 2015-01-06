@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.Xna.Framework.Content;
 using WhiteSpace.Components.Animation;
 using System.IO;
-using WhiteSpace.Drawables;
+using WhiteSpace.Components.Drawables;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
 using CSCore.SoundIn;

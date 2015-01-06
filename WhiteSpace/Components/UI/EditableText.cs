@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WhiteSpace.Drawables;
+using WhiteSpace.Components.Drawables;
 using WhiteSpace.Temp;
 using Microsoft.Xna.Framework;
 using WhiteSpace.GameLoop;
@@ -16,24 +16,24 @@ namespace WhiteSpace.Components
         special
     }
 
-    public class EditableText<StateType> : Clickable<StateType> where StateType : struct
+    public class EditableText : Clickable
     {
         bool write = false;
         bool capslock = false;
-        public TextDrawer<StateType> textDrawer;
-        ColoredBox<StateType> backGroundDrawer;
+        public TextDrawer textDrawer;
+        ColoredBox backGroundDrawer;
 
-        public EditableText(Transform transform, ComponentsSector<StateType> updaterToRegisterTo) : base (transform, updaterToRegisterTo)
+        public EditableText(Transform transform) : base (transform)
         {
-            backGroundDrawer = new ColoredBox<StateType>(transform, Color.Gray, updaterToRegisterTo);
-            textDrawer = new TextDrawer<StateType>(transform, "Font", "", updaterToRegisterTo);
+            backGroundDrawer = new ColoredBox(Color.Gray);
+            textDrawer = new TextDrawer(transform, "Font", "");
         }
 
         protected override void onClick()
         {
             base.onClick();
             write = true;
-            backGroundDrawer.setColor(Color.PaleGoldenrod);
+            backGroundDrawer.setColor(Color.Silver);
         }
 
         protected override void onHoverLeave()
@@ -41,7 +41,7 @@ namespace WhiteSpace.Components
             if(checkClick())
             {
                 write = false;
-                backGroundDrawer.setColor(Color.Silver);
+                backGroundDrawer.setColor(Color.Gray);
                 CutLastSign();
             }
         }
@@ -77,10 +77,17 @@ namespace WhiteSpace.Components
             }
         }
 
+
+        public bool started = false;
         protected override void update(Microsoft.Xna.Framework.GameTime gameTime)
         {
             base.update(gameTime);
 
+            if (!started)
+            {
+                this.parent.addComponent(backGroundDrawer);
+                started = true;
+            }
             if(write)
             {
                 if (KeyboardInput.wasKeyJustPressed(Microsoft.Xna.Framework.Input.Keys.LeftShift) || KeyboardInput.wasKeyJustPressed(Microsoft.Xna.Framework.Input.Keys.RightShift))
@@ -97,6 +104,9 @@ namespace WhiteSpace.Components
 
                 blink(gameTime);
             }
+
+            this.parent.removeComponent(this.textDrawer);
+            this.parent.addComponent(this.textDrawer);
         }
 
 

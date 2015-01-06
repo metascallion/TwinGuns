@@ -6,24 +6,24 @@ using WhiteSpace.GameLoop;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using WhiteSpace.Components;
+using WhiteSpace.Temp;
 
 namespace WhiteSpace.Components
 {
-    public class Clickable<StateType> : Updateable<StateType> where StateType : struct
+    public class Clickable : UpdateableComponent
     {
         protected bool clicked = false;
         protected bool hover = false;
 
         private Transform transform;
 
-        public Clickable(Transform transform, ComponentsSector<StateType> updaterToRegisterTo) : base (updaterToRegisterTo)
+        public Clickable(Transform transform)
         {
             this.transform = transform;
         }
 
         protected override void update(GameTime gameTime)
         {
-            base.update(gameTime);
             checkState();
         }
 
@@ -41,7 +41,7 @@ namespace WhiteSpace.Components
                     clicked = false;
                     onRelease();
                 }
-                else if(!hover)
+                else if (!hover)
                 {
                     onHover();
                 }

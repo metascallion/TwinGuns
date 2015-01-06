@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using WhiteSpace.GameLoop;
 using WhiteSpace.Temp;
-using WhiteSpace.Drawables;
+using WhiteSpace.Components.Drawables;
 using WhiteSpace.Components.Animation;
 using WhiteSpace.Network;
 using WhiteSpace.Components;
@@ -17,6 +17,7 @@ using WhiteSpace.Components.Physics;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using System.Reflection.Emit;
+using WhiteSpace.GameClasses;
 
 
 #endregion
@@ -26,6 +27,8 @@ namespace WhiteSpace
     /// <summary>
     /// This is the main type for your game
     /// </summary>
+    /// 
+
     public class Game1 : Game
     {
         public static GraphicsDeviceManager graphics;
@@ -59,86 +62,24 @@ namespace WhiteSpace
         /// 
         /// 
         /// 
-        EditableText<lobbystate> editor;
-        EditableText<lobbystate> nameEditor;
+
+        ComponentsSector<lobbystate> best;
+        Transform transe = new Transform();
         /// </summary>
         protected override void LoadContent()
         {
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = this.Content;
-
-            ComponentsSector<lobbystate> sector = new ComponentsSector<lobbystate>(lobbystate.start);
-            editor = new EditableText<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(400, 25)), sector);
-            Button<lobbystate> button = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(405, 0), new Vector2(100, 50)), sector);
-            button.addText("Host");
-            button.releaseMethods += sendHostRequest;
-            Button<lobbystate> button2 = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(405, 55), new Vector2(100, 50)), sector);
-            button2.addText("Find Games");
-            button2.releaseMethods += sendFindGamesRequest;
-
-
-
-            ComponentsSector<lobbystate> selectionSector = new ComponentsSector<lobbystate>(lobbystate.selection);
-            nameEditor = new EditableText<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(400, 25)), selectionSector);
-            Button<lobbystate> buttonName = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(405, 0), new Vector2(100, 50)), selectionSector);
-            buttonName.addText("Choose Name");
-            buttonName.releaseMethods += chooseName;
-
-            StateMachine<lobbystate>.getInstance().changeState(lobbystate.selection);
-
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
 
             Client.startClient("Test");
             Client.connect("localhost", 1111);  
-            Client.registerNetworkListenerMethod("Host", OnHostAccepted);
-            Client.registerNetworkListenerMethod("FoundGame", OnFindGame);
-        }
 
-        void chooseName(Button<lobbystate> sender)
-        {
-            StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
-            SendableNetworkMessage msg = new SendableNetworkMessage("ChooseName");
-            msg.addInformation("Name", nameEditor.textDrawer.text);
-            Client.sendMessage(msg);
-        }
+            ComponentsSector<gamestate> collisionSector = new ComponentsSector<gamestate>(gamestate.main);
 
-        void sendFindGamesRequest(Button<lobbystate> sender)
-        {
-            SendableNetworkMessage msg = new SendableNetworkMessage("FindGames");
-            Client.sendMessage(msg);
-            findGamesButtons = new ComponentsSector<lobbystate>(lobbystate.start);
-            offset = 0;
-        }
 
-        int offset = 0;
-        ComponentsSector<lobbystate> findGamesButtons = new ComponentsSector<lobbystate>(lobbystate.start);
-        void OnFindGame(ReceiveableNetworkMessage msg)
-        {
-            findGamesButtons.destroyOnInvalidState();
-            Button<lobbystate> btn = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(100, 32 * offset + 50), new Vector2(150, 30)), findGamesButtons);
-            offset++;
-            btn.addText(msg.getInformation("GameName"));
-        }
+            
 
-        void sendHostRequest(Button<lobbystate> sender)
-        {
-            SendableNetworkMessage msg = new SendableNetworkMessage("Host");
-            msg.addInformation("Name", editor.textDrawer.text);
-            Client.sendMessage(msg);
-        }
-
-        void OnHostAccepted(ReceiveableNetworkMessage msg)
-        {
-            StateMachine<lobbystate>.getInstance().changeState(lobbystate.host);
-            Button<lobbystate> btn = new Button<lobbystate>(Transform.createTransformWithSizeOnPosition(new Vector2(0, 450), new Vector2(100, 30)), new ComponentsSector<lobbystate>(lobbystate.host));
-            btn.addText("Back");
-            btn.releaseMethods += back;
-        }
-
-        void back(Button<lobbystate> sender)
-        {
-            StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
         }
 
         /// <summary>
@@ -155,15 +96,25 @@ namespace WhiteSpace
         /// checking for collisions, gathering input, and playing audio.
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
-        /// 
+        ///
+
+        
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            StateMachine<lobbystate>.getInstance().changeState(lobbystate.selection);
             UpdateExecuter.executeUpdates(gameTime);
             Client.pollNetworkMessage();
             base.Update(gameTime);
+
+            transe.Position = new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y);
+
+
         }
+
+
 
         /// <summary>
         /// This is called when the game should draw itself.
@@ -171,7 +122,7 @@ namespace WhiteSpace
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             // TODO: Add your drawing code here
             spriteBatch.Begin();
             DrawExecuter.executeRegisteredDrawMethods(spriteBatch);

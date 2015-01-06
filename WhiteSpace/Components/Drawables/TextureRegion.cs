@@ -8,24 +8,24 @@ using WhiteSpace.Temp;
 using WhiteSpace.GameLoop;
 using WhiteSpace.Components;
 
-namespace WhiteSpace.Drawables
+namespace WhiteSpace.Components.Drawables
 {
-    public class TextureRegion<StateType> : Drawable<StateType> where StateType : struct
+    public class TextureRegion : DrawableComponent
     {
         public Rectangle VisibleArea { get; set; }
         public Texture2D Texture { get; set; }
         public SpriteEffects SpriteEffect { private get; set; }
+        Transform transform;
 
-        public TextureRegion(Transform transform, Texture2D texture, ComponentsSector<StateType> updaterToRegisterTo)
-            : base(transform, updaterToRegisterTo)
+        public TextureRegion(Transform transform, Texture2D texture)
         {
+            this.transform = transform;
             this.Texture = texture;
             this.VisibleArea = texture.Bounds;
         }
 
         protected override void draw(SpriteBatch spriteBatch)
         {
-            base.draw(spriteBatch);
             Vector2 origin = new Vector2(this.VisibleArea.Width / 2, this.VisibleArea.Height / 2);
             Vector2 position = this.transform.Position;
             Vector2 size = this.transform.Size;

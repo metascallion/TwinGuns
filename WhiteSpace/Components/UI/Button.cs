@@ -2,59 +2,67 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using WhiteSpace.Drawables;
+using WhiteSpace.Components.Drawables;
 using WhiteSpace.GameLoop;
 using Microsoft.Xna.Framework;
 
 namespace WhiteSpace.Components
 {
-    public class Button<StateType> : Clickable<StateType> where StateType : struct
+    public class Button : Clickable
     {
-        public delegate void stateChange(Button<StateType> sender);
+        public delegate void stateChange(Button sender);
 
         public event stateChange hoverMethods;
         public event stateChange clickMethods;
         public event stateChange leaveMethods;
         public event stateChange releaseMethods;
 
-        public TextDrawer<StateType> textD;
-        ColoredBox<StateType> standartDrawer;
-        ColoredBox<StateType> hoverDrawer;
-        ColoredBox<StateType> clickedDrawer;
+        public TextDrawer textD;
+        ColoredBox standartDrawer;
+        ColoredBox hoverDrawer;
+        ColoredBox clickedDrawer;
+
+        public bool JustReleased { get; protected set; }
 
         private void activateStandartDrawer()
         {
             deactivateDrawers();
-            standartDrawer.registerInUpdater();
+            this.parent.addComponent(standartDrawer);
         }
 
         private void activateHoverDrawer()
         {
             deactivateDrawers();
-            hoverDrawer.registerInUpdater();
+            this.parent.addComponent(hoverDrawer);
         }
 
         private void activateClickedDrawer()
         {
             deactivateDrawers();
-            clickedDrawer.registerInUpdater();
+            this.parent.addComponent(clickedDrawer);
         }
 
         private void deactivateDrawers()
         {
-            standartDrawer.unregisterInUpdater();
-            hoverDrawer.unregisterInUpdater();
-            clickedDrawer.unregisterInUpdater();
+            this.parent.removeComponent(standartDrawer);
+            this.parent.removeComponent(hoverDrawer);
+            this.parent.removeComponent(clickedDrawer);
         }
 
-        public Button(Transform transform, ComponentsSector<StateType> updaterToRegisterTo)
-            : base(transform, updaterToRegisterTo)
+        public Button(Transform transform) : base (transform)
         {
-            standartDrawer = new ColoredBox<StateType>(transform, Color.Gray, updaterToRegisterTo);
-            hoverDrawer = new ColoredBox<StateType>(transform, Color.LightGoldenrodYellow, updaterToRegisterTo);
-            clickedDrawer = new ColoredBox<StateType>(transform, Color.PaleGoldenrod, updaterToRegisterTo);
-            activateStandartDrawer();
-            textD = new TextDrawer<StateType>(transform, "Font", "", updaterToRegisterTo);
+            standartDrawer = new ColoredBox(Color.Gray);
+            hoverDrawer = new ColoredBox(Color.LightGray);
+            clickedDrawer = new ColoredBox(Color.Silver);
+            textD = new TextDrawer(transform, "Font", "");
+        }
+
+        public Button(Transform transform, string text) : base (transform)
+        {
+            standartDrawer = new ColoredBox(Color.Gray);
+            hoverDrawer = new ColoredBox(Color.LightGray);
+            clickedDrawer = new ColoredBox(Color.Silver);
+            textD = new TextDrawer(transform, "Font", text);
         }
 
         public void addText(string text)
@@ -108,13 +116,21 @@ namespace WhiteSpace.Components
             {
                 releaseMethods(this);
             }
+            JustReleased = true;
         }
 
+        bool initialised = false;
         protected override void update(GameTime gameTime)
         {
+            if (!initialised)
+            {
+                initialised = true;
+                activateStandartDrawer();
+            }
+            JustReleased = false;
             base.update(gameTime);
-            textD.unregisterInUpdater();
-            textD.registerInUpdater();
+            this.parent.removeComponent(textD);
+            this.parent.addComponent(textD);
         }
     }
 }

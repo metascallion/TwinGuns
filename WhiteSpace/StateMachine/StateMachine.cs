@@ -7,10 +7,10 @@ namespace WhiteSpace
 {
     public enum lobbystate
     {
+        selection,
         start,
         host,
         lobby,
-        selection
     }
 
     public enum gamestate
@@ -21,11 +21,15 @@ namespace WhiteSpace
         gameover
     }
 
-    public class StateMachine <StateType>
+    public class StateMachine <StateType> where StateType : struct
     {
         private static StateMachine<StateType> instance;
         public delegate void stateChangeMethod(StateType activeState);
         public event stateChangeMethod stateChangeMethods;
+        Stack<StateType> lastStates = new Stack<StateType>();
+
+        bool firstChange = true;
+        StateType lastState;
 
         private StateMachine()
         {
@@ -33,10 +37,36 @@ namespace WhiteSpace
 
         public void changeState(StateType stateToSet)
         {
+            if (!firstChange)
+            {
+                lastStates.Push(lastState);
+            }
+            lastState = stateToSet;
+            firstChange = false;
+
             if (stateChangeMethods != null)
             {
                 stateChangeMethods(stateToSet);
             }
+        }
+
+        public void restoreLastState()
+        {
+            lastState = lastStates.Pop();
+            if (stateChangeMethods != null)
+            {
+                stateChangeMethods(lastState);
+            }
+        }
+
+        public void loadNextState()
+        {
+            int i; 
+            Int32.TryParse(lastState.ToString(), out i);
+            int result = i + 1;
+            StateType resultingState;
+            Enum.TryParse<StateType>(result.ToString(), out resultingState);
+            changeState(resultingState);
         }
 
         public static StateMachine<StateType> getInstance()

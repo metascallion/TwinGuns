@@ -4,16 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiteSpace.Network;
+using Lidgren.Network;
 
 namespace MasterServer
 {
     public class MasterServer
     {
-        List<string> games = new System.Collections.Generic.List<string>();
+        List<Game> games = new System.Collections.Generic.List<Game>();
 
         public void OnNetworkmessageEnter(ReceiveableNetworkMessage msg)
         {
-            games.Add(msg.getInformation("Name"));
+            Game game = new Game(msg.getInformation("Name"));
+            game.players.Add(msg.getInformation("PlayerName"));
+            games.Add(game);
             SendableNetworkMessage msg2 = new SendableNetworkMessage("Host");
             Server.sendMessage(msg2);
         }
@@ -29,17 +32,12 @@ namespace MasterServer
             Server.sendMessage(message);
         }
 
-        public void setName(ReceiveableNetworkMessage msg)
-        {
-            Server.sendToSingleRecipient(msg.sender, new SendableNetworkMessage("Test"));
-        }
-
         public void sendGames()
         {
-            foreach (string s in games)
+            foreach (Game s in games)
             {
                 SendableNetworkMessage sendMessage = new SendableNetworkMessage("FoundGame");
-                sendMessage.addInformation("GameName", s);
+                sendMessage.addInformation("GameName", s.name);
                 Server.sendMessage(sendMessage);
             }
         }

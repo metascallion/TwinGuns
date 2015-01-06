@@ -9,10 +9,11 @@ using CSCore;
 using Microsoft.Xna.Framework;
 using WhiteSpace.GameLoop;
 using WhiteSpace;
+using WhiteSpace.Temp;
 
 namespace WhiteSpace.Components
 {
-    public class Sound<StateType> : Updateable<StateType> where StateType : struct
+    public class Sound : UpdateableComponent
     {
         private bool loop = false;
         private IWaveSource source;
@@ -25,7 +26,7 @@ namespace WhiteSpace.Components
             set { this.wasout.Volume = value; }
         }
 
-        public Sound(string fileName, bool loop, ComponentsSector<StateType> updaterToRegisterTo) : base(updaterToRegisterTo)
+        public Sound(string fileName, bool loop)
         {
             this.loop = loop;
             this.source = CodecFactory.Instance.GetCodec("Content/" + fileName + ".wav");
@@ -52,8 +53,6 @@ namespace WhiteSpace.Components
 
         protected override void update(GameTime gameTime)
         {
-            base.update(gameTime);
-
             if (loop)
             {
                 elapsedTime += (float)gameTime.ElapsedGameTime.Milliseconds;

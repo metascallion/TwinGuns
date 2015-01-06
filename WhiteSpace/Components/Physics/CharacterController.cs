@@ -5,17 +5,22 @@ using System.Text;
 using WhiteSpace.GameLoop;
 using Microsoft.Xna.Framework;
 using FarseerPhysics.Dynamics;
+using WhiteSpace.Temp;
 
 namespace WhiteSpace.Components.Physics
 {
-    public class CharacterControler<StateType> : Updateable<StateType> where StateType : struct
+    public class CharacterControler : UpdateableComponent
     {
-        BoxCollider<StateType> collider;
+        BoxCollider collider;
 
-        public CharacterControler(BoxCollider<StateType> collider, ComponentsSector<StateType> updaterToRegisterTo) : base (updaterToRegisterTo)
+        public CharacterControler()
         {
-            this.collider = collider;
-            collider.follow = false;
+        }
+
+        public override void start()
+        {
+            this.collider = parent.getComponent<BoxCollider>();
+            this.collider.follow = false;
         }
 
         public void useGravity(bool active)
@@ -28,7 +33,7 @@ namespace WhiteSpace.Components.Physics
 
         public void move(Vector2 direction)
         {
-            collider.body.LinearVelocity = new Vector2(direction.X, direction.Y + collider.body.LinearVelocity.Y);
+            collider.body.LinearVelocity = new Vector2(direction.X, direction.Y);
         }
 
         public void jump(float force)
@@ -38,7 +43,6 @@ namespace WhiteSpace.Components.Physics
 
         protected override void update(GameTime gameTime)
         {
-            base.update(gameTime);
             collider.transform.Position = collider.Position;
         }
     }

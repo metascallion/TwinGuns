@@ -7,14 +7,19 @@ namespace WhiteSpace
 {
     public class StateListener<StateType> where StateType : struct
     {
-        public StateType activeState;
-        bool invalidTriggered = false;
+        public List<StateType> activeStates = new List<StateType>();
+        bool invalidTriggered = true;
         bool destroyOnStateChange = false;
 
         public StateListener(StateType activeState)
         {
-            this.activeState = activeState;
+            this.activeStates.Add(activeState);
             registerInStateMachine();
+        }
+
+        public void addActiveState(StateType activeStateToAdd)
+        {
+            this.activeStates.Add(activeStateToAdd);
         }
 
         public void destroyOnInvalidState()
@@ -35,7 +40,15 @@ namespace WhiteSpace
 
         private void processStateChange(StateType activeState)
         {
-            if (!EqualityComparer<StateType>.Default.Equals(this.activeState, activeState))
+            bool invalidState = true;
+            foreach(StateType state in this.activeStates)
+            {
+                if (EqualityComparer<StateType>.Default.Equals(state, activeState))
+                {
+                    invalidState = false;
+                }
+            }
+            if(invalidState)
             {
                 processInvalidState();
             }

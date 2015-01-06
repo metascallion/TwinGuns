@@ -12,7 +12,7 @@ namespace WhiteSpace.GameLoop
 {
     public static class CollisionDetection
     {
-        public static World world = new World(new Vector2(0, 9.8f));
+        public static World world = new World(new Vector2(0, 4.8f));
 
         public static void update(GameTime gameTime)
         {

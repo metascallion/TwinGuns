@@ -4,17 +4,18 @@ using System.Linq;
 using System.Text;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
-using WhiteSpace.Drawables;
+using WhiteSpace.Components.Drawables;
 using WhiteSpace.GameLoop;
 using System.IO;
+using WhiteSpace.Temp;
 
 namespace WhiteSpace.Components.Animation
 {
-    public class Animator<StateType> : Updateable<StateType> where StateType : struct
+    public class Animator : UpdateableComponent
     {
         private Dictionary<string, Animation> animations = new Dictionary<string,Animation>();
 
-        private TextureRegion<StateType> textureRegionToAnimate;
+        private TextureRegion textureRegionToAnimate;
         public SpriteSheet SheetToTakeFramesFrom { get; set; }
 
         private bool play;
@@ -25,10 +26,10 @@ namespace WhiteSpace.Components.Animation
 
         Animation activeAnimation;
 
-        public static Animator<StateType> loadAnimator<StateType>(TextureRegion<StateType> regionToAnimate, string animatorName, ComponentsSector<StateType> updaterToRegisterTo) where StateType : struct
+        public static Animator loadAnimator(TextureRegion regionToAnimate, string animatorName)
         {
             StreamReader reader = new StreamReader(animatorName + ".txt");
-            Animator<StateType> animatorToReturn = new Animator<StateType>(regionToAnimate, updaterToRegisterTo);
+            Animator animatorToReturn = new Animator(regionToAnimate);
             string[] spriteSheetData = reader.ReadLine().Split(',');
             animatorToReturn.SheetToTakeFramesFrom = new SpriteSheet(regionToAnimate.Texture, int.Parse(spriteSheetData[0]), int.Parse(spriteSheetData[1]));
             string animation;
@@ -41,7 +42,7 @@ namespace WhiteSpace.Components.Animation
         }
 
 
-        private Animator(TextureRegion<StateType> region, ComponentsSector<StateType> updaterToRegisterTo) : base(updaterToRegisterTo)
+        private Animator(TextureRegion region)
         {
             this.textureRegionToAnimate = region;
         }
@@ -95,7 +96,6 @@ namespace WhiteSpace.Components.Animation
 
         protected override void update(GameTime gameTime)
         {
-            base.update(gameTime);
             if(this.play)
             {
                 animate(gameTime);
