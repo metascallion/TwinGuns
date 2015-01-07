@@ -23,7 +23,6 @@ namespace WhiteSpace
             temp.addComponent(new CharacterControler());
             temp.addComponent(new Ship(target));
             temp.addComponent(new Life(25));
-            temp.getComponent<Life>().destroyOnDead = true;
             temp.addComponent(new ColoredBox(color));
             return temp;
         }
@@ -47,4 +46,62 @@ namespace WhiteSpace
             return temp;
         }
     }
+
+    public abstract class GameObjectModifier : GameObject
+    {
+        protected GameObject gameObjectToModify;
+        public GameObjectModifier(GameObject gameObjectToModify) : base(gameObjectToModify.sector)
+        {
+            this.gameObjectToModify = gameObjectToModify;
+        }
+        protected abstract void addBehavior();
+    }
+
+    public class Triggerable : GameObjectModifier
+    {
+        public Triggerable(GameObject gameObjectToModify) : base(gameObjectToModify)
+        {
+            addBehavior();
+        }
+        protected override void addBehavior()
+        {
+            BoxCollider collider = new BoxCollider();
+            collider.trigger = true;
+            this.gameObjectToModify.addComponent(collider);
+        }
+    }
+
+    public class Killable : GameObjectModifier
+    {
+        private int health;
+
+        public Killable(GameObject gameObjectToModify, int health) : base(gameObjectToModify)
+        {
+            this.health = health;
+            addBehavior();
+        }
+        protected override void addBehavior()
+        {
+            Life life = new Life(this.health);
+            life.destroyOnDead = true;
+            this.gameObjectToModify.addComponent(life);
+        }
+    }
+
+    public class Shootable : GameObjectModifier
+    {
+        Transform target;
+        public Shootable(GameObject gameObjectToModify, Transform target) : base(gameObjectToModify)
+        {
+            this.target = target;
+            addBehavior();
+        }
+
+        protected override void addBehavior()
+        {
+            this.gameObjectToModify.addComponent(this.target);
+        }
+    }
 }
+
+

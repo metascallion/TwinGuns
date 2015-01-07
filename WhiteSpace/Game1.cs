@@ -116,6 +116,9 @@ namespace WhiteSpace
             {
                 Transform projTrans = Transform.createTransformWithSizeOnPosition(new Vector2(0, 100), new Vector2(50, 50));
                 GameObject temp = GameObjectFactory.createBasicShip(projTrans, transe, best, Color.Blue);
+                //new Killable(temp, 25);
+                //new Triggerable(temp);
+                //new Shootable(temp, transe);
                 temp.getComponent<BoxCollider>().trigger = true;
                 ships.Add(temp.getComponent<Transform>());
             }

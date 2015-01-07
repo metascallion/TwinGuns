@@ -7,9 +7,10 @@ using WhiteSpace.GameLoop;
 
 namespace WhiteSpace.Temp
 {
+
     public delegate void registerInComponentSector(IComponentsSector sector);
 
-    public sealed class GameObject
+    public class GameObject
     {
         private List<Component> children = new List<Component>();
         public IComponentsSector sector;
@@ -49,8 +50,9 @@ namespace WhiteSpace.Temp
             }
         }
 
-        public T getComponent<T>() where T : Component
+        public T getComponent<T>() where T : Component, new()
         {
+            T t = new T();
             foreach (Component component in children)
             {
                 if(component.GetType() == typeof(T))
@@ -59,7 +61,7 @@ namespace WhiteSpace.Temp
                     return (T)component;
                 }
             }
-            return null;
+            throw new MissingMemberException("No " + t.GetType().Name + " attached.");
         }
 
         public void destroy()
