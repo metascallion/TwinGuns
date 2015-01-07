@@ -78,7 +78,7 @@ namespace WhiteSpace
             ComponentsSector<gamestate> collisionSector = new ComponentsSector<gamestate>(gamestate.main);
 
 
-            transe.Position = new Vector2(800, 100);
+            transe.Position = new Vector2(800, 0);
             transe.Size = new Vector2(100, 200);
             GameObject collider = new GameObject(collisionSector);
             collider.addComponent(transe);
@@ -115,17 +115,18 @@ namespace WhiteSpace
             if (KeyboardInput.wasKeyJustPressed(Keys.Space))
             {
                 Transform projTrans = Transform.createTransformWithSizeOnPosition(new Vector2(0, 100), new Vector2(50, 50));
-                GameObject temp = GameObjectFactory.createBasicProjectile(projTrans, transe, best, Color.Blue);
+                GameObject temp = GameObjectFactory.createBasicShip(projTrans, transe, best, Color.Blue);
+                temp.getComponent<BoxCollider>().trigger = true;
                 ships.Add(temp.getComponent<Transform>());
             }
 
-
-            if (KeyboardInput.wasKeyJustPressed(Keys.U))
+                
+            if (ships.Count > 0)
             {
-                Transform projTrans = Transform.createTransformWithSizeOnPosition(new Vector2(0,400), new Vector2(10,10));
-                GameObject temp = GameObjectFactory.createBasicProjectile(projTrans, ships[0], best, Color.Red);
-                //temp.getComponent<Projectile>().speed = 7;
+                Transform projTrans = Transform.createTransformWithSizeOnPosition(new Vector2(0, 400), new Vector2(10, 10));
+                GameObject temp = GameObjectFactory.createProjectileWithCustomSpeed(projTrans, ships[0], best, Color.Red, 25);
             }
+
             UpdateExecuter.executeUpdates(gameTime);
             Client.pollNetworkMessage();
 

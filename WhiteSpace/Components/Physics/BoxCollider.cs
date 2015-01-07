@@ -30,6 +30,8 @@ namespace WhiteSpace.Components.Physics
         private const float pixelToUnit = 1 / unitToPixel;
         public Transform transform;
         public Body body;
+        public bool trigger = false;
+
         public Vector2 Position
         {
             get { return new Vector2(body.Position.X - this.Size.X / 2, body.Position.Y - this.Size.Y / 2) * unitToPixel; }
@@ -57,16 +59,6 @@ namespace WhiteSpace.Components.Physics
             this.body.OnCollision += onCollisionEnter;
         }
 
-        //protected override void update(GameTime gameTime)
-        //{
-        //    if (follow)
-        //    {
-
-        //    }
-        //    this.transform.Position = this.Position;
-        //    this.body.Rotation = this.transform.Rotation;
-        //}
-
         protected override void update(GameTime gameTime)
         {
             if (follow)
@@ -80,15 +72,18 @@ namespace WhiteSpace.Components.Physics
 
         protected bool onCollisionEnter(Fixture fix1, Fixture fix2, Contact contact)
         {
-            onCollisionEnter(fix2);
-            return true;
+             onCollisionEnter(fix2);
+            return !trigger;
         }
 
         private void onCollisionEnter(Fixture fix)
         {
             if (collisionMethods != null)
             {
-                collisionMethods(ColliderContainer.colliders[fix.Body]);
+                if (ColliderContainer.colliders.Keys.Contains(fix.Body))
+                {
+                    collisionMethods(ColliderContainer.colliders[fix.Body]);
+                }
             }
         }
 
@@ -96,8 +91,7 @@ namespace WhiteSpace.Components.Physics
         {
             ColliderContainer.colliders.Remove(this.body);
             CollisionDetection.world.RemoveBody(this.body);
-          
-        }
+         }
     }
 }
     

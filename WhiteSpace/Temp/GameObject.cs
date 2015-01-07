@@ -53,22 +53,27 @@ namespace WhiteSpace.Temp
         {
             foreach (Component component in children)
             {
-                if (component is T)
+                if(component.GetType() == typeof(T))
                 {
                     component.unregisterInComponentSector();
                     return (T)component;
                 }
             }
-            throw new ArgumentOutOfRangeException("No Component of this type attached.");
+            return null;
         }
 
         public void destroy()
         {
-            foreach (Component component in children)
+            for(int i = 0; i < this.children.Count; i++)
             {
-                component.unregisterInComponentSector();
-                component.onDestroy();
+                children[i].unregisterInComponentSector();
+                children[i].onDestroy();
+                children[i].parent = null;
+                children[i] = null;
             }
+            this.children.Clear();
+            this.children = null;
+            this.sector = null;
         }
     }
 }

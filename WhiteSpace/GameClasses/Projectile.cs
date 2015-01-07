@@ -11,17 +11,44 @@ using WhiteSpace.Temp;
 
 namespace WhiteSpace.GameClasses
 {
-    public class Projectile : UpdateableComponent
+
+    public class Ship : Projectile
+    {
+        public Ship(Transform transform)
+            : base(transform)
+        {
+            this.speed = 2;
+        }
+
+        public override void onDestroy()
+        {
+            base.onDestroy();
+            Game1.ships.Remove(this.transform);
+        }
+
+        protected override void onTargetHit(BoxCollider targetCollider)
+        {
+            this.parent.destroy();
+        }
+    }
+    public abstract class Projectile : UpdateableComponent
     {
         public Transform target;
         public BoxCollider collider;
-        Transform transform;
+        protected Transform transform;
         CharacterControler controller;
-        public int speed = 5;
+        public int speed;
 
         public Projectile(Transform target)
         {
             this.target = target;
+            speed = 5;
+        }
+
+        public Projectile(Transform target, int speed)
+        {
+            this.target = target;
+            this.speed = speed;
         }
 
         public override void start()
@@ -31,25 +58,48 @@ namespace WhiteSpace.GameClasses
             this.collider.body.IgnoreGravity = true;
             this.controller = this.parent.getComponent<CharacterControler>();
             this.transform = this.parent.getComponent<Transform>();
-            this.collider.collisionMethods += this.test;
+            this.collider.collisionMethods += this.onColliderHit;
             controller.registerInComponentSector();
         }
 
         protected override void update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            transform.lookAt(target.Position);
+            transform.lookAt(target.Center);
             controller.move(collider.transform.transformDirection(direction.right) * speed);
-        }
 
-        private void test(BoxCollider collider)
-        {
-            GameObject colliderGameObject = collider.parent;
-            if( colliderGameObject == this.target.parent)
+            if(target.parent == null)
             {
                 this.parent.destroy();
-                collider.collisionMethods -= this.test;
-                Game1.ships.Remove(this.parent.getComponent<Transform>());
             }
+        }
+
+        private void onColliderHit(BoxCollider collider)
+        {
+            if (collider.parent.getComponent<Transform>() == this.target)
+            {
+                onTargetHit(collider);
+            }
+        }
+
+        public override void onDestroy()
+        {
+           base.onDestroy();
+        }
+
+        protected abstract void onTargetHit(BoxCollider targetCollider);
+    }
+
+    public class Shot : Projectile
+    {
+        public Shot(Transform transform, int speed) : base(transform)
+        {
+            this.speed = speed;
+        }
+
+        protected override void onTargetHit(BoxCollider targetCollider)
+        {
+            targetCollider.parent.getComponent<Life>().reduceHealth();
+            this.parent.destroy();
         }
     }
 }

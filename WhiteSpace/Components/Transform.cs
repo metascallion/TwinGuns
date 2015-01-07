@@ -18,6 +18,20 @@ namespace WhiteSpace.Components
     public class Transform : StandardComponent
     {
         public Vector2 Position{get; set;}
+
+        public Vector2 Center
+        {
+            get
+            {
+                return this.Position + this.Size * 0.5f;
+            }
+
+            private set
+            {
+
+            }
+        }
+
         public float Rotation{get; set;}
         public Vector2 Size{get; set;}
 
