@@ -91,6 +91,13 @@ namespace WhiteSpace.Components.Physics
                 collisionMethods(ColliderContainer.colliders[fix.Body]);
             }
         }
+
+        public override void onDestroy()
+        {
+            ColliderContainer.colliders.Remove(this.body);
+            CollisionDetection.world.RemoveBody(this.body);
+          
+        }
     }
 }
     

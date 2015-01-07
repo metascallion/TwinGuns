@@ -19,6 +19,9 @@ namespace WhiteSpace.Temp
         public abstract void registerInComponentSector();
         public abstract void unregisterInComponentSector();
         public abstract void start();
+        public virtual void onDestroy()
+        {
+        }
     }
 
     public class StandardComponent : Component

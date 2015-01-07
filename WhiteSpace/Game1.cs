@@ -63,7 +63,7 @@ namespace WhiteSpace
         /// 
         /// 
 
-        ComponentsSector<lobbystate> best;
+
         Transform transe = new Transform();
         /// </summary>
         protected override void LoadContent()
@@ -78,8 +78,11 @@ namespace WhiteSpace
             ComponentsSector<gamestate> collisionSector = new ComponentsSector<gamestate>(gamestate.main);
 
 
-            
-
+            transe.Position = new Vector2(800, 100);
+            transe.Size = new Vector2(100, 200);
+            GameObject collider = new GameObject(collisionSector);
+            collider.addComponent(transe);
+            collider.addComponent(new BoxCollider());
         }
 
         /// <summary>
@@ -98,22 +101,36 @@ namespace WhiteSpace
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         ///
 
-        
+        ComponentsSector<lobbystate> best = new ComponentsSector<lobbystate>(lobbystate.selection);
+
+        public static List<Transform> ships = new List<Transform>();
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
             StateMachine<lobbystate>.getInstance().changeState(lobbystate.selection);
+
+            if (KeyboardInput.wasKeyJustPressed(Keys.Space))
+            {
+                Transform projTrans = Transform.createTransformWithSizeOnPosition(new Vector2(0, 100), new Vector2(50, 50));
+                GameObject temp = GameObjectFactory.createBasicProjectile(projTrans, transe, best, Color.Blue);
+                ships.Add(temp.getComponent<Transform>());
+            }
+
+
+            if (KeyboardInput.wasKeyJustPressed(Keys.U))
+            {
+                Transform projTrans = Transform.createTransformWithSizeOnPosition(new Vector2(0,400), new Vector2(10,10));
+                GameObject temp = GameObjectFactory.createBasicProjectile(projTrans, ships[0], best, Color.Red);
+                //temp.getComponent<Projectile>().speed = 7;
+            }
             UpdateExecuter.executeUpdates(gameTime);
             Client.pollNetworkMessage();
+
             base.Update(gameTime);
-
-            transe.Position = new Vector2(Mouse.GetState().Position.X, Mouse.GetState().Position.Y);
-
-
         }
-
 
 
         /// <summary>

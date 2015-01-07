@@ -67,6 +67,7 @@ namespace WhiteSpace.Temp
             foreach (Component component in children)
             {
                 component.unregisterInComponentSector();
+                component.onDestroy();
             }
         }
     }
