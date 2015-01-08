@@ -23,6 +23,7 @@ namespace WhiteSpace
             temp.addComponent(new CharacterControler());
             temp.addComponent(new Ship(target));
             temp.addComponent(new Life(25));
+            temp.getComponent<Life>().destroyOnDead = true;
             temp.addComponent(new ColoredBox(color));
             return temp;
         }
@@ -35,6 +36,56 @@ namespace WhiteSpace
             temp.addComponent(new CharacterControler());
             temp.addComponent(new Shot(target, speed));
             temp.addComponent(new ColoredBox(color));
+            return temp;
+        }
+
+        public static GameObject createButton(IComponentsSector sector, Transform transform)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new Button());
+            return temp;
+        }
+        public static GameObject createButton(IComponentsSector sector, Transform transform, string text)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new Button(text));
+            return temp;
+        }
+
+        public static GameObject createButton(IComponentsSector sector, Transform transform,  Button.stateChange clickMethod)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new Button());
+            temp.getComponent<Button>().clickMethods += clickMethod;
+            return temp;
+        }
+
+        public static GameObject createButton(IComponentsSector sector, Transform transform, string text, Button.stateChange clickMethod)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new Button(text));
+            temp.getComponent<Button>().clickMethods += clickMethod;
+            return temp;
+        }
+
+        public static GameObject createTextField(IComponentsSector sector, Transform transform)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new ColoredBox(Color.Gray));
+            temp.addComponent(new EditableText());
+            return temp;
+        }
+
+        public static GameObject createLabel(IComponentsSector sector, Transform transform, string text)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new TextDrawer("Font", text));
             return temp;
         }
 

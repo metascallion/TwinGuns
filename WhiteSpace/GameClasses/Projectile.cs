@@ -23,7 +23,6 @@ namespace WhiteSpace.GameClasses
         public override void onDestroy()
         {
             base.onDestroy();
-            Game1.ships.Remove(this.transform);
         }
 
         protected override void onTargetHit(BoxCollider targetCollider)

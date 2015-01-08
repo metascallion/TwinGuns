@@ -23,6 +23,10 @@ namespace WhiteSpace.Components.Drawables
             this.color = color;
         }
 
+        public ColoredBox()
+        {
+
+        }
         public override void start()
         {
             this.transform = this.parent.getComponent<Transform>();

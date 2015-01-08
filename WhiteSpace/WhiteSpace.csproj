@@ -45,6 +45,8 @@
     <Compile Include="Components\Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameClasses\Projectile.cs" />
+    <Compile Include="GameClasses\SelectionMenu.cs" />
+    <Compile Include="GameClasses\StartMenu.cs" />
     <Compile Include="GameLoop\CollisionDetection.cs" />
     <Compile Include="GameLoop\ComponentsSector.cs" />
     <Compile Include="GameObjectFactory.cs" />

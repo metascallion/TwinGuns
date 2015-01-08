@@ -57,7 +57,7 @@ namespace WhiteSpace.Temp
             {
                 if(component.GetType() == typeof(T))
                 {
-                    component.unregisterInComponentSector();
+                //    component.unregisterInComponentSector();
                     return (T)component;
                 }
             }

@@ -23,10 +23,17 @@ namespace WhiteSpace.Components
         public TextDrawer textDrawer;
         ColoredBox backGroundDrawer;
 
-        public EditableText(Transform transform) : base (transform)
+        public EditableText()
         {
-            backGroundDrawer = new ColoredBox(Color.Gray);
-            textDrawer = new TextDrawer(transform, "Font", "");
+           
+            textDrawer = new TextDrawer("Font", "");
+        }
+
+        public override void start()
+        {
+            backGroundDrawer = this.parent.getComponent<ColoredBox>();
+            base.start();
+
         }
 
         protected override void onClick()

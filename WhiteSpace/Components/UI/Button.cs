@@ -49,20 +49,22 @@ namespace WhiteSpace.Components
             this.parent.removeComponent(clickedDrawer);
         }
 
-        public Button(Transform transform) : base (transform)
+        public Button()
         {
-            standartDrawer = new ColoredBox(Color.Gray);
-            hoverDrawer = new ColoredBox(Color.LightGray);
-            clickedDrawer = new ColoredBox(Color.Silver);
-            textD = new TextDrawer(transform, "Font", "");
+            textD = new TextDrawer("Font", "");
         }
 
-        public Button(Transform transform, string text) : base (transform)
+        public override void start()
         {
+            base.start();
             standartDrawer = new ColoredBox(Color.Gray);
             hoverDrawer = new ColoredBox(Color.LightGray);
             clickedDrawer = new ColoredBox(Color.Silver);
-            textD = new TextDrawer(transform, "Font", text);
+        }
+
+        public Button(string text)
+        {
+            textD = new TextDrawer("Font", text);
         }
 
         public void addText(string text)

@@ -56,33 +56,14 @@ namespace WhiteSpace
             KeyboardInput.start();
         }
 
-        /// <summary>
-        /// LoadContent will be called once per game and is the place to load
-        /// all of your content.
-        /// 
-        /// 
-        /// 
-
-
-        Transform transe = new Transform();
-        /// </summary>
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = this.Content;
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
-
             Client.startClient("Test");
-            Client.connect("localhost", 1111);  
-
-            ComponentsSector<gamestate> collisionSector = new ComponentsSector<gamestate>(gamestate.main);
-
-
-            transe.Position = new Vector2(800, 0);
-            transe.Size = new Vector2(100, 200);
-            GameObject collider = new GameObject(collisionSector);
-            collider.addComponent(transe);
-            collider.addComponent(new BoxCollider());
+            Client.connect("localhost", 1111);
+            new SelectionMenu();
         }
 
         /// <summary>
@@ -101,38 +82,13 @@ namespace WhiteSpace
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         ///
 
-        ComponentsSector<lobbystate> best = new ComponentsSector<lobbystate>(lobbystate.selection);
-
-        public static List<Transform> ships = new List<Transform>();
-
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            StateMachine<lobbystate>.getInstance().changeState(lobbystate.selection);
-
-            if (KeyboardInput.wasKeyJustPressed(Keys.Space))
-            {
-                Transform projTrans = Transform.createTransformWithSizeOnPosition(new Vector2(0, 100), new Vector2(50, 50));
-                GameObject temp = GameObjectFactory.createBasicShip(projTrans, transe, best, Color.Blue);
-                //new Killable(temp, 25);
-                //new Triggerable(temp);
-                //new Shootable(temp, transe);
-                temp.getComponent<BoxCollider>().trigger = true;
-                ships.Add(temp.getComponent<Transform>());
-            }
-
-                
-            if (ships.Count > 0)
-            {
-                Transform projTrans = Transform.createTransformWithSizeOnPosition(new Vector2(0, 400), new Vector2(10, 10));
-                GameObject temp = GameObjectFactory.createProjectileWithCustomSpeed(projTrans, ships[0], best, Color.Red, 25);
-            }
-
             UpdateExecuter.executeUpdates(gameTime);
             Client.pollNetworkMessage();
-
             base.Update(gameTime);
         }
 

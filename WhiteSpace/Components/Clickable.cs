@@ -17,9 +17,14 @@ namespace WhiteSpace.Components
 
         private Transform transform;
 
-        public Clickable(Transform transform)
+        public Clickable()
         {
-            this.transform = transform;
+        }
+
+        public override void start()
+        {
+            base.start();
+            this.transform = this.parent.getComponent<Transform>();
         }
 
         protected override void update(GameTime gameTime)

@@ -17,14 +17,18 @@ namespace WhiteSpace.Components.Drawables
         public Color TextColor { get; set; }
         Transform transform;
 
-        public TextDrawer(Transform transform, string fontName, string text)
+        public TextDrawer(string fontName, string text)
         {
-            this.transform = transform;
             this.text = text;
             this.font = ContentLoader.getContent<SpriteFont>(fontName);
             this.TextColor = Color.White;
         }
 
+        public override void start()
+        {
+            base.start();
+            this.transform = this.parent.getComponent<Transform>();
+        }
         protected override void draw(SpriteBatch batch)
         {
             batch.DrawString(font, this.text, this.transform.Position, this.TextColor);
