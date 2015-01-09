@@ -17,6 +17,7 @@ namespace WhiteSpace.Network
         public static void startClient(string appId)
         {
             config = new NetPeerConfiguration(appId);
+            config.EnableMessageType(NetIncomingMessageType.Data);
             client = new NetClient(config);
             client.Start();
         }
@@ -24,6 +25,7 @@ namespace WhiteSpace.Network
         public static void connect(string ip, int port)
         {
             client.Connect(ip, port);
+            Console.WriteLine("Try to connect");
         }
 
         public static void registerNetworkListenerMethod(string headerToListenTo, OnNetworkMessageEnter method)
@@ -32,7 +34,10 @@ namespace WhiteSpace.Network
             {
                 networkMessageListeners[headerToListenTo] = new List<OnNetworkMessageEnter>();
             }
-            networkMessageListeners[headerToListenTo].Add(method);
+            if (!networkMessageListeners[headerToListenTo].Contains(method))
+            {
+                networkMessageListeners[headerToListenTo].Add(method);
+            }
         }
 
         public static void pollNetworkMessage()

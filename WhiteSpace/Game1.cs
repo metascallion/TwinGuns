@@ -61,7 +61,7 @@ namespace WhiteSpace
             spriteBatch = new SpriteBatch(GraphicsDevice);
             ContentLoader.ContentManager = this.Content;
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
-            Client.startClient("Test");
+            Client.startClient("test");
             Client.connect("localhost", 1111);
             new SelectionMenu();
         }

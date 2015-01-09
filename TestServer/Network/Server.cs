@@ -52,7 +52,7 @@ namespace WhiteSpace.Network
             {
                 if (msg.MessageType == NetIncomingMessageType.Data)
                 {
-                    onNetworkMessageEnter(ReceiveableNetworkMessage.createMessageFromString(msg.ReadString()));
+                    onNetworkMessageEnter(ReceiveableNetworkMessage.createMessageFromString(msg.ReadString(), msg.SenderConnection));
                 }
 
                 else if(msg.MessageType == NetIncomingMessageType.ConnectionApproval)
@@ -77,6 +77,13 @@ namespace WhiteSpace.Network
             NetOutgoingMessage msg = server.CreateMessage();
             msg.Write(message.getStringFromMessage());
             server.SendToAll(msg, NetDeliveryMethod.UnreliableSequenced);
+        }
+
+        public static void sendMessageToSingleRecipient(SendableNetworkMessage message, NetConnection recipientConnection)
+        {
+            NetOutgoingMessage msg = server.CreateMessage();
+            msg.Write(message.getStringFromMessage());
+            server.SendMessage(msg, recipientConnection, NetDeliveryMethod.UnreliableSequenced);
         }
 
     }

@@ -121,6 +121,12 @@ namespace WhiteSpace.GameLoop
 
         public void destroy()
         {
+            this.updateMethodsToExecute.Clear();
+            this.drawMethodsToExecute.Clear();
+        }
+
+        public void deactivate()
+        {
             unregisterInUpdateExecuter();
             unregisterInStateMachine();
         }

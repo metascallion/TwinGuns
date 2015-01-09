@@ -1,0 +1,7 @@
+C:\Users\Student\Documents\TwinGuns\TestServer\bin\Debug\TestServer.exe.config
+C:\Users\Student\Documents\TwinGuns\TestServer\bin\Debug\TestServer.exe
+C:\Users\Student\Documents\TwinGuns\TestServer\bin\Debug\TestServer.pdb
+C:\Users\Student\Documents\TwinGuns\TestServer\bin\Debug\Lidgren.Network.dll
+C:\Users\Student\Documents\TwinGuns\TestServer\obj\Debug\TestServer.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\TwinGuns\TestServer\obj\Debug\TestServer.exe
+C:\Users\Student\Documents\TwinGuns\TestServer\obj\Debug\TestServer.pdb
