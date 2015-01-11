@@ -28,5 +28,17 @@ namespace WhiteSpace.Network
         {
             this.informations[key] = value.ToString();
         }
+
+        public void addInformationContent(string key, object value)
+        {
+            if (!this.informations.Keys.Contains(key))
+            {
+                this.informations[key] = value.ToString();
+            }
+            else
+            {
+                this.informations[key] += "+" + value.ToString();
+            }
+        }
     }
 }

@@ -52,5 +52,10 @@ namespace WhiteSpace.Network
         {
             return this.informations[key];
         }
+
+        public string[] getInformationContent(string key)
+        {
+            return getInformation(key).Split('+');
+        }
     }
 }

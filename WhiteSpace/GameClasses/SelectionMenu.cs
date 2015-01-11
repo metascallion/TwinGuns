@@ -6,12 +6,14 @@ using WhiteSpace.GameLoop;
 using WhiteSpace.Components;
 using WhiteSpace.Temp;
 using Microsoft.Xna.Framework;
+using WhiteSpace.Network;
 
 namespace WhiteSpace.GameClasses
 {
     public class SelectionMenu
     {
         ComponentsSector<lobbystate> sector;
+        GameObject go;
 
         public SelectionMenu()
         {
@@ -35,7 +37,7 @@ namespace WhiteSpace.GameClasses
         {
             Transform textTransform = Transform.createTransformWithSizeOnPosition(new Vector2(10,10), new Vector2(100,20));
             Transform transform = Transform.createTransformWithSizeOnPosition(new Vector2(100, 10), new Vector2(200, 30));
-            GameObjectFactory.createTextField(this.sector, transform);
+            go = GameObjectFactory.createTextField(this.sector, transform);
             GameObjectFactory.createLabel(this.sector, textTransform, "Name:");
         }
 
@@ -47,6 +49,7 @@ namespace WhiteSpace.GameClasses
 
         private void nextState(Button sender)
         {
+            Client.name = go.getComponent<EditableText>().textDrawer.text;
             new StartMenu();
         }
 

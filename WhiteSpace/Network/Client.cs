@@ -14,6 +14,8 @@ namespace WhiteSpace.Network
         public static NetClient client;
         public static NetPeerConfiguration config;
 
+        public static string name;
+
         public static void startClient(string appId)
         {
             config = new NetPeerConfiguration(appId);
@@ -55,9 +57,12 @@ namespace WhiteSpace.Network
 
         public static void onNetworkMessageEnter(ReceiveableNetworkMessage message)
         {
-            foreach (OnNetworkMessageEnter t in networkMessageListeners[message.Header])
+            if (networkMessageListeners.Keys.Contains(message.Header))
             {
-                t(message);
+                foreach (OnNetworkMessageEnter t in networkMessageListeners[message.Header])
+                {
+                    t(message);
+                }
             }
         }
 
