@@ -30,7 +30,7 @@ namespace WhiteSpace.GameClasses
             GameObjectFactory.createButton(leaveSector, startBtnTransform, "Start", sendStartMessage);
         }
 
-        private void sendCloseMessage(Button sender)
+        private void sendCloseMessage(Clickable sender)
         {
             SendableNetworkMessage msg = new SendableNetworkMessage("Close");
             msg.addInformation("GameName", this.lobbyName);
@@ -39,7 +39,7 @@ namespace WhiteSpace.GameClasses
         }
 
         GameObject waitText;
-        private void sendStartMessage(Button sender)
+        private void sendStartMessage(Clickable sender)
         {
             waitText = GameObjectFactory.createLabel(leaveSector, Transform.createTransformWithSizeOnPosition(new Vector2(300, 250), new Vector2(200, 30)), "Waiting for the other Player");
             waitText.getComponent<TextDrawer>().TextColor = Color.White;

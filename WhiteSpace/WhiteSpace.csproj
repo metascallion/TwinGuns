@@ -45,6 +45,7 @@
     <Compile Include="Components\Drawables\TextDrawer.cs" />
     <Compile Include="Components\Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameClasses\Hangar.cs" />
     <Compile Include="GameClasses\NetworkGame.cs" />
     <Compile Include="GameClasses\HostLobby.cs" />
     <Compile Include="GameClasses\Lobby.cs" />

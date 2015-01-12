@@ -25,7 +25,7 @@ namespace WhiteSpace.GameClasses
             GameObjectFactory.createButton(leaveSector, leaveBtnTransform, "Leave", sendLeaveRequest);
         }
 
-        private void sendLeaveRequest(Button sender)
+        private void sendLeaveRequest(Clickable sender)
         {
             SendableNetworkMessage msg = new SendableNetworkMessage("Leave");
             msg.addInformation("PlayerName", Client.name);
@@ -49,10 +49,10 @@ namespace WhiteSpace.GameClasses
             GameObjectFactory.createButton(acceptSector, noBtnTransform, "No", sendAcceptMessage);
         }
 
-        private void sendAcceptMessage(Button sender)
+        private void sendAcceptMessage(Clickable sender)
         {
             SendableNetworkMessage msg = new SendableNetworkMessage("StartAccepted");
-            msg.addInformation("Answer", sender.textD.text);
+            msg.addInformation("Answer", sender.parent.getComponent<Button>().textD.text);
             Client.sendMessage(msg);
             acceptSector.destroy();
         }

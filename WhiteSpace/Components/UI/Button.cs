@@ -10,13 +10,6 @@ namespace WhiteSpace.Components
 {
     public class Button : Clickable
     {
-        public delegate void stateChange(Button sender);
-
-        public event stateChange hoverMethods;
-        public event stateChange clickMethods;
-        public event stateChange leaveMethods;
-        public event stateChange releaseMethods;
-
         public TextDrawer textD;
         ColoredBox standartDrawer;
         ColoredBox hoverDrawer;
@@ -75,14 +68,6 @@ namespace WhiteSpace.Components
         protected override void onHover()
         {
             activateHoverDrawer();
-            if (!hover)
-            {
-                hover = !hover;
-                if (hoverMethods != null)
-                {
-                    hoverMethods(this);
-                }
-            }
             base.onHover();
         }
 
@@ -92,10 +77,6 @@ namespace WhiteSpace.Components
             if (hover)
             {
                 hover = !hover;
-                if (leaveMethods != null)
-                {
-                    leaveMethods(this);
-                }
             }
             base.onHoverLeave();
         }
@@ -104,20 +85,12 @@ namespace WhiteSpace.Components
         {
             base.onClick();
             activateClickedDrawer();
-            if (clickMethods != null)
-            {
-                clickMethods(this);
-            }
         }
 
         protected override void onRelease()
         {
             base.onRelease();
             activateHoverDrawer();
-            if (releaseMethods != null)
-            {
-                releaseMethods(this);
-            }
             JustReleased = true;
         }
 

@@ -12,6 +12,14 @@ namespace WhiteSpace.Components
 {
     public class Clickable : UpdateableComponent
     {
+        public delegate void stateChange(Clickable sender);
+
+        public event stateChange hoverMethods;
+        public event stateChange clickMethods;
+        public event stateChange leaveMethods;
+        public event stateChange releaseMethods;
+
+
         protected bool clicked = false;
         protected bool hover = false;
 
@@ -80,18 +88,40 @@ namespace WhiteSpace.Components
 
         protected virtual void onClick()
         {
+            if (clickMethods != null)
+            {
+                clickMethods(this);
+            }
         }
 
         protected virtual void onRelease()
         {
+            if (releaseMethods != null)
+            {
+                releaseMethods(this);
+            }
         }
         protected virtual void onHover()
         {
             hover = true;
+
+            if (!hover)
+            {
+                hover = !hover;
+                if (hoverMethods != null)
+                {
+                    hoverMethods(this);
+                }
+            }
         }
         protected virtual void onHoverLeave()
         {
             hover = false;
+
+            if (leaveMethods != null)
+            {
+                leaveMethods(this);
+            }
         }
     }
 }

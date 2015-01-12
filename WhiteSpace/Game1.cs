@@ -64,6 +64,7 @@ namespace WhiteSpace
             Client.startClient("test");
             Client.connect("localhost", 1111);
             new SelectionMenu();
+            //new NetworkGame();
         }
 
         /// <summary>

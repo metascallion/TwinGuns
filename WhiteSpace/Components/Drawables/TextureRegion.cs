@@ -14,8 +14,12 @@ namespace WhiteSpace.Components.Drawables
     {
         public Rectangle VisibleArea { get; set; }
         public Texture2D Texture { get; set; }
-        public SpriteEffects SpriteEffect { private get; set; }
+        public SpriteEffects SpriteEffect { get; set; }
         Transform transform;
+
+        public TextureRegion()
+        {
+        }
 
         public TextureRegion(Texture2D texture)
         {

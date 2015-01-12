@@ -29,6 +29,12 @@ namespace WhiteSpace.GameClasses
         {
             this.parent.destroy();
         }
+
+        //protected override void update(GameTime gameTime)
+        //{
+        //    //base.update(gameTime);
+
+        //}
     }
     public abstract class Projectile : UpdateableComponent
     {

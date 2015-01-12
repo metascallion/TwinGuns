@@ -47,7 +47,7 @@ namespace WhiteSpace.GameClasses
             GameObjectFactory.createButton(this.sector, transform, "Ok", nextState);
         }
 
-        private void nextState(Button sender)
+        private void nextState(Clickable sender)
         {
             Client.name = go.getComponent<EditableText>().textDrawer.text;
             new MatchmakingMenu();

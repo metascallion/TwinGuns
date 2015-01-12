@@ -48,7 +48,7 @@ namespace WhiteSpace.GameClasses
             GameObjectFactory.createButton(this.sector, buttonTransform, "Host", sendHostRequest);
         }
 
-        private void sendHostRequest(Button sender)
+        private void sendHostRequest(Clickable sender)
         {
             SendableNetworkMessage msg = new SendableNetworkMessage("Host");
             msg.addInformation("GameName", this.textField.getComponent<EditableText>().textDrawer.text);
@@ -75,7 +75,7 @@ namespace WhiteSpace.GameClasses
         }
 
         ComponentsSector<lobbystate> activeGames = new ComponentsSector<lobbystate>(lobbystate.start);
-        private void sendFindGamesRequest(Button sender)
+        private void sendFindGamesRequest(Clickable sender)
         {
             activeGames.destroy();
             Client.sendMessage(new SendableNetworkMessage("FindGames"));
@@ -91,11 +91,11 @@ namespace WhiteSpace.GameClasses
             }
         }
 
-        private void sendJoinRequest(Button sender)
+        private void sendJoinRequest(Clickable sender)
         {
             Client.registerNetworkListenerMethod("Join", OnJoinMessageEnter);
             SendableNetworkMessage msg = new SendableNetworkMessage("Join");
-            msg.addInformation("GameName", sender.textD.text);
+            msg.addInformation("GameName", sender.parent.getComponent<Button>().textD.text);
             msg.addInformation("PlayerName", Client.name);
             Client.sendMessage(msg);
         }

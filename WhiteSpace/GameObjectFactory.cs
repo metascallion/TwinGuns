@@ -27,17 +27,20 @@ namespace WhiteSpace
             return temp;
         }
 
-        public static GameObject createMotherShip(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health)
+        public static GameObject createMotherShip(IComponentsSector sector, Transform transform, Transform enemyTransform, string textureFile, SpriteEffects effect, int health)
         {
             GameObject temp = createUnit(sector, transform, textureFile, effect, health);
             temp.addComponent(new BoxCollider());
+            temp.addComponent(new Clickable());
+            temp.addComponent(new Hangar(enemyTransform));
             //temp.getComponent<BoxCollider>().body.BodyType = FarseerPhysics.Dynamics.BodyType.Kinematic;
             return temp;
         }
 
-        public static GameObject createBasicShip(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health, Transform target)
+        public static GameObject createDrone(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health, Transform target)
         {
-            GameObject temp = createUnit(sector, transform, textureFile, effect, health);
+            Transform droneTransform = Transform.createTransformWithSizeOnPosition(transform.Position, new Vector2(25, 25));
+            GameObject temp = createUnit(sector, droneTransform, textureFile, effect, health);
             temp.addComponent(new BoxCollider());
             temp.addComponent(new CharacterControler());
             temp.addComponent(new Ship(target));
