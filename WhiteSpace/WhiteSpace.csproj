@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\Life.cs" />
+    <Compile Include="Components\OverTimeDestroyer.cs" />
     <Compile Include="Components\UI\Button.cs" />
     <Compile Include="Components\UI\EditableText.cs" />
     <Compile Include="Components\Physics\CharacterController.cs" />
@@ -44,9 +45,13 @@
     <Compile Include="Components\Drawables\TextDrawer.cs" />
     <Compile Include="Components\Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameClasses\NetworkGame.cs" />
+    <Compile Include="GameClasses\HostLobby.cs" />
+    <Compile Include="GameClasses\Lobby.cs" />
+    <Compile Include="GameClasses\PlayerLobby.cs" />
     <Compile Include="GameClasses\Projectile.cs" />
     <Compile Include="GameClasses\SelectionMenu.cs" />
-    <Compile Include="GameClasses\StartMenu.cs" />
+    <Compile Include="GameClasses\MatchmakingMenu.cs" />
     <Compile Include="GameLoop\CollisionDetection.cs" />
     <Compile Include="GameLoop\ComponentsSector.cs" />
     <Compile Include="GameObjectFactory.cs" />
@@ -95,6 +100,9 @@
     <Content Include="C:\Program Files %28x86%29\MonoGame\v3.0\Assemblies\WindowsGL\SDL.dll">
       <Link>SDL.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Ship.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Test.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

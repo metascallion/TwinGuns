@@ -9,22 +9,38 @@ using WhiteSpace.Components.Drawables;
 using WhiteSpace.Components.Physics;
 using Microsoft.Xna.Framework;
 using WhiteSpace.GameClasses;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace WhiteSpace
 {
 
     public static class GameObjectFactory
     {
-        public static GameObject createBasicShip(Transform transform, Transform target, IComponentsSector sector, Color color)
+        public static GameObject createUnit(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health)
         {
             GameObject temp = new GameObject(sector);
             temp.addComponent(transform);
+            temp.addComponent(new TextureRegion(ContentLoader.getContent<Texture2D>(textureFile), effect));
+            Life life = new Life(health);
+            life.destroyOnDead = true;
+            temp.addComponent(life);
+            return temp;
+        }
+
+        public static GameObject createMotherShip(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health)
+        {
+            GameObject temp = createUnit(sector, transform, textureFile, effect, health);
+            temp.addComponent(new BoxCollider());
+            //temp.getComponent<BoxCollider>().body.BodyType = FarseerPhysics.Dynamics.BodyType.Kinematic;
+            return temp;
+        }
+
+        public static GameObject createBasicShip(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health, Transform target)
+        {
+            GameObject temp = createUnit(sector, transform, textureFile, effect, health);
             temp.addComponent(new BoxCollider());
             temp.addComponent(new CharacterControler());
             temp.addComponent(new Ship(target));
-            temp.addComponent(new Life(25));
-            temp.getComponent<Life>().destroyOnDead = true;
-            temp.addComponent(new ColoredBox(color));
             return temp;
         }
 

@@ -11,6 +11,7 @@ namespace WhiteSpace
         start,
         host,
         lobby,
+        hud
     }
 
     public enum gamestate

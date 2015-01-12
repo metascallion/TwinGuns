@@ -27,7 +27,7 @@ namespace WhiteSpace
             destroyOnStateChange = true;
         }
 
-        public void reload()
+        public virtual void reload()
         {
             destroyOnStateChange = false;
             registerInStateMachine();

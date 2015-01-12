@@ -55,6 +55,7 @@ namespace WhiteSpace.GameClasses
             this.collider = this.parent.getComponent<BoxCollider>();
             this.collider.body.BodyType = FarseerPhysics.Dynamics.BodyType.Dynamic;
             this.collider.body.IgnoreGravity = true;
+            this.collider.trigger = true;
             this.controller = this.parent.getComponent<CharacterControler>();
             this.transform = this.parent.getComponent<Transform>();
             this.collider.collisionMethods += this.onColliderHit;

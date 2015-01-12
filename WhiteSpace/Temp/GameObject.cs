@@ -53,15 +53,18 @@ namespace WhiteSpace.Temp
         public T getComponent<T>() where T : Component, new()
         {
             T t = new T();
-            foreach (Component component in children)
+            if (this.children != null)
             {
-                if(component.GetType() == typeof(T))
+                foreach (Component component in children)
                 {
-                //    component.unregisterInComponentSector();
-                    return (T)component;
+                    if (component.GetType() == typeof(T))
+                    {
+                        return (T)component;
+                    }
                 }
+                throw new MissingMemberException("No " + t.GetType().Name + " attached.");
             }
-            throw new MissingMemberException("No " + t.GetType().Name + " attached.");
+            return null;
         }
 
         public void destroy()

@@ -20,6 +20,7 @@ namespace WhiteSpace.Network
         {
             config = new NetPeerConfiguration(appId);
             config.EnableMessageType(NetIncomingMessageType.Data);
+            config.EnableMessageType(NetIncomingMessageType.StatusChanged);
             client = new NetClient(config);
             client.Start();
         }
@@ -42,6 +43,11 @@ namespace WhiteSpace.Network
             }
         }
 
+        public static void unregisterNetworkListenerMethod(string header, OnNetworkMessageEnter method)
+        {
+            networkMessageListeners[header].Remove(method);
+        }
+
         public static void pollNetworkMessage()
         {
             NetIncomingMessage msg;
@@ -51,6 +57,14 @@ namespace WhiteSpace.Network
                 if (msg.MessageType == NetIncomingMessageType.Data)
                 {
                     onNetworkMessageEnter(ReceiveableNetworkMessage.createMessageFromString(msg.ReadString()));
+                }
+
+                else if (msg.MessageType == NetIncomingMessageType.StatusChanged)
+                {
+                    if (msg.SenderConnection.RemoteHailMessage != null)
+                    {
+                        onNetworkMessageEnter(ReceiveableNetworkMessage.createMessageFromString(msg.SenderConnection.RemoteHailMessage.ReadString()));
+                    }
                 }
             }
         }
@@ -71,6 +85,11 @@ namespace WhiteSpace.Network
             NetOutgoingMessage msg = client.CreateMessage();
             msg.Write(message.getStringFromMessage());
             client.SendMessage(msg, NetDeliveryMethod.UnreliableSequenced);
+        }
+
+        public static void shutdown()
+        {
+            client.Shutdown("Bye");
         }
     }
 }

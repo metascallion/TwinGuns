@@ -7,21 +7,28 @@ using System.Threading;
 
 namespace WhiteSpace.Network
 {
-    public static class Server
+    public class Server
     {
         public delegate void OnNetworkMessageEnter(ReceiveableNetworkMessage message);
 
-        public static Dictionary<string, List<OnNetworkMessageEnter>> networkMessageListeners = new Dictionary<string, List<OnNetworkMessageEnter>>();
+        public Dictionary<string, List<OnNetworkMessageEnter>> networkMessageListeners = new Dictionary<string, List<OnNetworkMessageEnter>>();
+        public event OnNetworkMessageEnter OnConnectionEnter;
 
-        public static NetServer server;
-        public static NetPeerConfiguration config;
+        public NetServer server;
+        public NetPeerConfiguration config;
 
-        public static void startServer(string appId, int portToListenOn)
+        private static int serverCounter = 0;
+
+        public SendableNetworkMessage HailMessage { get; set; }
+
+        public void startServer(string appId, int portToListenOn)
         {
             config = new NetPeerConfiguration(appId);
-            config.Port = portToListenOn;
+            config.Port = portToListenOn + serverCounter;
+            serverCounter++;
             config.EnableMessageType(NetIncomingMessageType.ConnectionApproval);
             config.EnableMessageType(NetIncomingMessageType.Data);
+            config.EnableMessageType(NetIncomingMessageType.StatusChanged);
             server = new NetServer(config);
             server.Start();
             Console.WriteLine("Server started.");
@@ -30,12 +37,12 @@ namespace WhiteSpace.Network
             Console.WriteLine("Message Callback registered.");
         }
 
-        public static void setSynchronizationContext()
+        public void setSynchronizationContext()
         {
             SynchronizationContext.SetSynchronizationContext(new SynchronizationContext());
         }
 
-        public static void registerNetworkListenerMethod(string headerToListenTo, OnNetworkMessageEnter method)
+        public void registerNetworkListenerMethod(string headerToListenTo, OnNetworkMessageEnter method)
         {
             if (!networkMessageListeners.Keys.Contains(headerToListenTo))
             {
@@ -44,7 +51,7 @@ namespace WhiteSpace.Network
             networkMessageListeners[headerToListenTo].Add(method);
         }
 
-        public static void pollNetworkMessage(object state)
+        public void pollNetworkMessage(object state)
         {
             NetIncomingMessage msg;
 
@@ -57,14 +64,39 @@ namespace WhiteSpace.Network
 
                 else if(msg.MessageType == NetIncomingMessageType.ConnectionApproval)
                 {
-                    Console.WriteLine("Client trying to connect.");
-                    msg.SenderConnection.Approve();
-                    Console.WriteLine("Client connected");
+                    onConnectionEnter(ReceiveableNetworkMessage.createMessageFromString("", msg.SenderConnection));
+                    approveConnection(msg.SenderConnection);
                 }
             }
         }
 
-        public static void onNetworkMessageEnter(ReceiveableNetworkMessage message)
+        public void onConnectionEnter(ReceiveableNetworkMessage message)
+        {
+            if (OnConnectionEnter != null)
+            {
+                OnConnectionEnter(message);
+            }
+        }
+
+        private void approveConnection(NetConnection senderConnection)
+        {
+            if (HailMessage != null)
+            {
+                NetOutgoingMessage msg = server.CreateMessage();
+                msg.Write(HailMessage.getStringFromMessage());
+
+                senderConnection.Approve(msg);
+            }
+
+            else
+            {
+                senderConnection.Approve();
+            }
+
+            Console.WriteLine("Client connected");
+        }
+
+        public void onNetworkMessageEnter(ReceiveableNetworkMessage message)
         {
             foreach (OnNetworkMessageEnter t in networkMessageListeners[message.Header])
             {
@@ -72,14 +104,14 @@ namespace WhiteSpace.Network
             }
         }
 
-        public static void sendMessage(SendableNetworkMessage message)
+        public void sendMessage(SendableNetworkMessage message)
         {
             NetOutgoingMessage msg = server.CreateMessage();
             msg.Write(message.getStringFromMessage());
             server.SendToAll(msg, NetDeliveryMethod.UnreliableSequenced);
         }
 
-        public static void sendMessageToSingleRecipient(SendableNetworkMessage message, NetConnection recipientConnection)
+        public void sendMessageToSingleRecipient(SendableNetworkMessage message, NetConnection recipientConnection)
         {
             NetOutgoingMessage msg = server.CreateMessage();
             msg.Write(message.getStringFromMessage());

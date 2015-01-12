@@ -7,10 +7,11 @@ using WhiteSpace.GameLoop;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Network;
 using WhiteSpace.Temp;
+using WhiteSpace.Components.Drawables;
 
 namespace WhiteSpace.GameClasses
 {
-    public class StartMenu
+    public class MatchmakingMenu
     {
         ComponentsSector<lobbystate> sector;
 
@@ -18,13 +19,13 @@ namespace WhiteSpace.GameClasses
 
         string lobbyName = "";
 
-        public StartMenu()
+        public MatchmakingMenu()
         {
             this.sector = new ComponentsSector<lobbystate>(lobbystate.start);
             buildUI();
             StateMachine<lobbystate>.getInstance().loadNextState();
-            Client.registerNetworkListenerMethod("Close", OnCloseMessageEnter);
         }
+
         public void buildUI()
         {
             buildGameNameTextField();
@@ -40,6 +41,7 @@ namespace WhiteSpace.GameClasses
             GameObjectFactory.createLabel(this.sector, nameTransform, "Game Name");
         }
 
+        ComponentsSector<lobbystate> leaveSector = new ComponentsSector<lobbystate>(lobbystate.lobby);
         private void buildHostButton()
         {
             Transform buttonTransform = Transform.createTransformWithSizeOnPosition(new Vector2(340, 10), new Vector2(150, 30));
@@ -53,37 +55,17 @@ namespace WhiteSpace.GameClasses
             msg.addInformation("PlayerName", Client.name);
             Client.sendMessage(msg);
             Client.registerNetworkListenerMethod("Host", OnHostMessageEnter);
-            Client.registerNetworkListenerMethod("FoundPlayers", OnFoundPlayersMessageEnter);
         }
 
         private void OnHostMessageEnter(ReceiveableNetworkMessage msg)
         {
             activeGames.destroy();
             this.lobbyName = msg.getInformation("GameName");
+            Client.shutdown();
+            Client.startClient("test");
+            Client.connect("localhost", int.Parse(msg.getInformation("Port")));
+            new HostLobby(this.textField.getComponent<EditableText>().textDrawer.text);
             StateMachine<lobbystate>.getInstance().changeState(lobbystate.lobby);
-            buildCloseButton();
-        }
-
-        private void buildCloseButton()
-        {
-            Transform closeBtnTransform = Transform.createTransformWithSizeOnPosition(new Vector2(10, 450), new Vector2(100, 30));
-            GameObjectFactory.createButton(leaveSector, closeBtnTransform, "Close", sendCloseMessage);
-        }
-
-        private void sendCloseMessage(Button sender)
-        {
-            SendableNetworkMessage msg = new SendableNetworkMessage("Close");
-            msg.addInformation("GameName", this.lobbyName);
-            Client.sendMessage(msg);
-        }
-
-        private void OnCloseMessageEnter(ReceiveableNetworkMessage msg)
-        {
-            if (msg.getInformation("GameName") == this.lobbyName)
-            {
-                StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
-                leaveSector.destroy();
-            }
         }
 
         private void buildFindGamesButton()
@@ -98,7 +80,6 @@ namespace WhiteSpace.GameClasses
             activeGames.destroy();
             Client.sendMessage(new SendableNetworkMessage("FindGames"));
             Client.registerNetworkListenerMethod("FoundGames", OnFoundGamesMessageEnter);
-            Client.registerNetworkListenerMethod("FoundPlayers", OnFoundPlayersMessageEnter);
         }
 
         private void OnFoundGamesMessageEnter(ReceiveableNetworkMessage msg)
@@ -107,20 +88,6 @@ namespace WhiteSpace.GameClasses
             {
                 Transform buttonTransform = Transform.createTransformWithSizeOnPosition(new Vector2(10, 100 + 35 * i), new Vector2(150, 30));
                 GameObjectFactory.createButton(activeGames, buttonTransform, msg.getInformationContent("GameName")[i], sendJoinRequest);
-            }
-        }
-
-        ComponentsSector<lobbystate> lobbySector = new ComponentsSector<lobbystate>(lobbystate.lobby);
-        private void OnFoundPlayersMessageEnter(ReceiveableNetworkMessage msg)
-        {
-            if (this.lobbyName == msg.getInformation("GameName"))
-            {
-                lobbySector.destroy();
-                for (int i = 0; i < msg.getInformationContent("Name").Count(); i++)
-                {
-                    Transform textTransform = Transform.createTransformWithSizeOnPosition(new Vector2(10, 100 + 35 * i), new Vector2(150, 30));
-                    GameObjectFactory.createLabel(lobbySector, textTransform, msg.getInformationContent("Name")[i]);
-                }
             }
         }
 
@@ -136,31 +103,11 @@ namespace WhiteSpace.GameClasses
         private void OnJoinMessageEnter(ReceiveableNetworkMessage msg)
         {
             activeGames.destroy();
+            Client.shutdown();
+            Client.startClient("test");
+            Client.connect("localhost", int.Parse(msg.getInformation("GamePort")));
+            new PlayerLobby();
             StateMachine<lobbystate>.getInstance().changeState(lobbystate.lobby);
-            this.lobbyName = msg.getInformation("GameName");
-            buildLeaveButton();
         }
-
-        ComponentsSector<lobbystate> leaveSector = new ComponentsSector<lobbystate>(lobbystate.lobby);
-        private void buildLeaveButton()
-        {
-            Transform leaveBtnTransform = Transform.createTransformWithSizeOnPosition(new Vector2(10, 450), new Vector2(100, 30));
-            GameObjectFactory.createButton(leaveSector, leaveBtnTransform, "Leave", sendLeaveRequest);
-        }
-
-        private void sendLeaveRequest(Button sender)
-        {
-            SendableNetworkMessage msg = new SendableNetworkMessage("Leave");
-            msg.addInformation("PlayerName", Client.name);
-            Client.sendMessage(msg);
-            Client.registerNetworkListenerMethod("Leave", OnLeaveMessageEnter);
-        }
-
-        private void OnLeaveMessageEnter(ReceiveableNetworkMessage msg)
-        {
-            StateMachine<lobbystate>.getInstance().changeState(lobbystate.start);
-            leaveSector.destroy();
-        }
-
     }
 }

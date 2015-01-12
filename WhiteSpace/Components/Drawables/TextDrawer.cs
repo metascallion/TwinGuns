@@ -17,6 +17,10 @@ namespace WhiteSpace.Components.Drawables
         public Color TextColor { get; set; }
         Transform transform;
 
+        public TextDrawer()
+        {
+        }
+
         public TextDrawer(string fontName, string text)
         {
             this.text = text;

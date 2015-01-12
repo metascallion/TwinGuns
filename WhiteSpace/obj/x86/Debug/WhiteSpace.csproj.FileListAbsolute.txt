@@ -39,3 +39,4 @@ C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Test.
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\CSCore.dll
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.dll
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.pdb
+C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Ship.png

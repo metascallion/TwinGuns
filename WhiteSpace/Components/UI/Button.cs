@@ -129,10 +129,10 @@ namespace WhiteSpace.Components
                 initialised = true;
                 activateStandartDrawer();
             }
-            JustReleased = false;
-            base.update(gameTime);
             this.parent.removeComponent(textD);
             this.parent.addComponent(textD);
+            JustReleased = false;
+            base.update(gameTime);
         }
     }
 }

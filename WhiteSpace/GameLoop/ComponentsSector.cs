@@ -130,5 +130,11 @@ namespace WhiteSpace.GameLoop
             unregisterInUpdateExecuter();
             unregisterInStateMachine();
         }
+
+        public override void reload()
+        {
+            base.reload();
+            registerInUpdateExecuter();
+        }
     }
 }

@@ -50,7 +50,8 @@ namespace WhiteSpace.GameClasses
         private void nextState(Button sender)
         {
             Client.name = go.getComponent<EditableText>().textDrawer.text;
-            new StartMenu();
+            new MatchmakingMenu();
+
         }
 
     }

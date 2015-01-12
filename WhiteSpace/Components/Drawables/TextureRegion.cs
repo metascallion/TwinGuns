@@ -17,11 +17,23 @@ namespace WhiteSpace.Components.Drawables
         public SpriteEffects SpriteEffect { private get; set; }
         Transform transform;
 
-        public TextureRegion(Transform transform, Texture2D texture)
+        public TextureRegion(Texture2D texture)
         {
-            this.transform = transform;
             this.Texture = texture;
             this.VisibleArea = texture.Bounds;
+        }
+
+        public TextureRegion(Texture2D texture, SpriteEffects effect)
+        {
+            this.Texture = texture;
+            this.VisibleArea = texture.Bounds;
+            this.SpriteEffect = effect;
+        }
+
+        public override void start()
+        {
+            base.start();
+            this.transform = this.parent.getComponent<Transform>();
         }
 
         protected override void draw(SpriteBatch spriteBatch)
