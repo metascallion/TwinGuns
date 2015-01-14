@@ -18,6 +18,7 @@ namespace WhiteSpace.GameClasses
         public HostLobby(string lobbyName)
         {
             this.lobbyName = lobbyName;
+            Client.host = true;
             buildHostMenu();
 
         }
@@ -36,6 +37,7 @@ namespace WhiteSpace.GameClasses
             msg.addInformation("GameName", this.lobbyName);
             Client.sendMessage(msg);
             Client.unregisterNetworkListenerMethod("NotAccepted", OnNotAccepted);
+            Client.host = false;
         }
 
         GameObject waitText;

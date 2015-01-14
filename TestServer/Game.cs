@@ -11,9 +11,18 @@ namespace TestServer
     {
         public Server gameServer = new Server();
 
+
         public Game()
         {
             gameServer.startServer("test", 1111);
+            gameServer.registerNetworkListenerMethod("BuildDrone", OnBuildDroneRequest);
+        }
+
+        public void OnBuildDroneRequest(ReceiveableNetworkMessage msg)
+        {
+            SendableNetworkMessage smsg = new SendableNetworkMessage("BuildDrone");
+            smsg.addInformation("Player", msg.getInformation("Player"));
+            gameServer.sendMessage(smsg);
         }
 
     }

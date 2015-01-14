@@ -15,6 +15,7 @@ namespace WhiteSpace.Network
         public static NetPeerConfiguration config;
 
         public static string name;
+        public static bool host;
 
         public static void startClient(string appId)
         {
