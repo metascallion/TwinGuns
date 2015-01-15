@@ -63,9 +63,8 @@ namespace WhiteSpace
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             Client.startClient("test");
             Client.connect("localhost", 1111);
-
-            new SelectionMenu();
-            //new NetworkGame();
+            //new SelectionMenu();
+            new NetworkGame();
         }
 
         /// <summary>

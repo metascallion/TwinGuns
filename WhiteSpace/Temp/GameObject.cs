@@ -28,6 +28,12 @@ namespace WhiteSpace.Temp
             componentToAdd.start();
         }
 
+        public void addComponent<T>() where T : Component, new()
+        {
+            T t = new T();
+            this.addComponent(t);
+        }
+
         public void removeComponent(Component componentToRemove)
         {
             if (children.Contains(componentToRemove))

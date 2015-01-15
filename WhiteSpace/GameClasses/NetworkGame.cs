@@ -22,6 +22,11 @@ namespace WhiteSpace.GameClasses
         {
             buildMotherShips();
             buildDroneButton();
+
+            Grid grid = new Grid(5, 5, 45, new Vector2(200, 200), 10);
+            GameObject go = new GameObject(gameSector);
+            go.addComponent(grid);
+            grid.addComponent<Button>();
             StateMachine<gamestate>.getInstance().changeState(gamestate.game);
             Client.registerNetworkListenerMethod("BuildDrone", OnBuildDroneMessageEnter);
         }
@@ -34,6 +39,10 @@ namespace WhiteSpace.GameClasses
             p2Ship = GameObjectFactory.createMotherShip(gameSector, ship2Transform, ship1Transform, "Ship", Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally, 100);
         }
 
+
+        /// <summary>
+        /// Droneeee
+        /// </summary>
         void buildDroneButton()
         {
             Transform transform = Transform.createTransformWithSizeOnPosition(new Vector2(10, 430), new Vector2(100, 30));

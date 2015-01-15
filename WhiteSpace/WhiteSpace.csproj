@@ -45,6 +45,7 @@
     <Compile Include="Components\Drawables\TextDrawer.cs" />
     <Compile Include="Components\Drawables\TextureRegion.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="GameClasses\Grid.cs" />
     <Compile Include="GameClasses\Hangar.cs" />
     <Compile Include="GameClasses\NetworkGame.cs" />
     <Compile Include="GameClasses\HostLobby.cs" />
@@ -53,6 +54,7 @@
     <Compile Include="GameClasses\Projectile.cs" />
     <Compile Include="GameClasses\SelectionMenu.cs" />
     <Compile Include="GameClasses\MatchmakingMenu.cs" />
+    <Compile Include="GameClasses\TowerGrid.cs" />
     <Compile Include="GameLoop\CollisionDetection.cs" />
     <Compile Include="GameLoop\ComponentsSector.cs" />
     <Compile Include="GameObjectFactory.cs" />
