@@ -8,14 +8,43 @@ using Microsoft.Xna.Framework;
 
 namespace WhiteSpace.Components
 {
+    public enum displaystate
+    {
+        normal,
+        hover,
+        clicked
+    }
+
+
     public class Button : Clickable
     {
         public TextDrawer textD;
-        ColoredBox standartDrawer;
-        ColoredBox hoverDrawer;
-        ColoredBox clickedDrawer;
+        private ColoredBox standartDrawer;
+        private ColoredBox hoverDrawer;
+        private ColoredBox clickedDrawer;
 
         public bool JustReleased { get; protected set; }
+
+        protected displaystate state;
+
+
+        public void setStandartDrawer(ColoredBox drawer)
+        {
+            this.standartDrawer = drawer;
+            displayDrawer();
+        }
+
+        public void setHoverDrawer(ColoredBox drawer)
+        {
+            this.hoverDrawer = drawer;
+            displayDrawer();
+        }
+
+        public void setClickedDrawer(ColoredBox drawer)
+        {
+            this.clickedDrawer = drawer;
+            displayDrawer();
+        }
 
         private void activateStandartDrawer()
         {
@@ -37,9 +66,7 @@ namespace WhiteSpace.Components
 
         private void deactivateDrawers()
         {
-            this.parent.removeComponent(standartDrawer);
-            this.parent.removeComponent(hoverDrawer);
-            this.parent.removeComponent(clickedDrawer);
+            this.parent.removeComponent<ColoredBox>();
         }
 
         public Button()
@@ -53,6 +80,7 @@ namespace WhiteSpace.Components
             standartDrawer = new ColoredBox(Color.Gray);
             hoverDrawer = new ColoredBox(Color.LightGray);
             clickedDrawer = new ColoredBox(Color.Silver);
+            activateStandartDrawer();
         }
 
         public Button(string text)
@@ -67,13 +95,16 @@ namespace WhiteSpace.Components
 
         protected override void onHover()
         {
+            this.state = displaystate.hover;
+            displayDrawer();
             activateHoverDrawer();
             base.onHover();
         }
 
         protected override void onHoverLeave()
         {
-            activateStandartDrawer();
+            this.state = displaystate.normal;
+            displayDrawer();
             if (hover)
             {
                 hover = !hover;
@@ -84,13 +115,15 @@ namespace WhiteSpace.Components
         protected override void onClick()
         {
             base.onClick();
-            activateClickedDrawer();
+            this.state = displaystate.clicked;
+            displayDrawer();
         }
 
         protected override void onRelease()
         {
             base.onRelease();
-            activateHoverDrawer();
+            this.state = displaystate.hover;
+            displayDrawer();
             JustReleased = true;
         }
 
@@ -102,10 +135,30 @@ namespace WhiteSpace.Components
                 initialised = true;
                 activateStandartDrawer();
             }
+
             this.parent.removeComponent(textD);
             this.parent.addComponent(textD);
             JustReleased = false;
             base.update(gameTime);
         }
+
+        public void displayDrawer()
+        {
+            if (this.state == displaystate.normal)
+            {
+                activateStandartDrawer();
+            }
+
+            else if (this.state == displaystate.hover)
+            {
+                activateHoverDrawer();
+            }
+
+            else if (this.state == displaystate.clicked)
+            {
+                activateClickedDrawer();
+            }
+        }
+
     }
 }

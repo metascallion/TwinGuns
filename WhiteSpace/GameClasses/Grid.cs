@@ -10,7 +10,7 @@ namespace WhiteSpace.GameClasses
 {
     public class Grid : StandardComponent
     {
-        GameObject[,] gameObjects;
+        protected GameObject[,] gameObjects;
         int tileSize;
         Vector2 position;
         int offset;
@@ -37,6 +37,7 @@ namespace WhiteSpace.GameClasses
                 {
                     Transform transform = Transform.createTransformWithSizeOnPosition(new Vector2(position.X + (tileSize + offset) * x, position.Y + (tileSize + offset) * y), new Vector2(tileSize, tileSize));
                     gameObjects[x, y] = new GameObject(this.parent.sector);
+                    gameObjects[x, y].addComponent(new GridTile(x, y));
                     gameObjects[x, y].addComponent(transform);
                 }
             }
@@ -49,5 +50,16 @@ namespace WhiteSpace.GameClasses
                 g.addComponent<T>();
             }
         }
+
+        public List<T>getComponents<T>() where T : Component, new()
+        {
+            List<T> tempList = new List<T>();
+            foreach(GameObject g in gameObjects)
+            {
+                tempList.Add(g.getComponent<T>());
+            }
+            return tempList;
+        }
+
     }
 }

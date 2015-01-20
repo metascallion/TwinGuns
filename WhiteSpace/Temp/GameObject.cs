@@ -22,10 +22,22 @@ namespace WhiteSpace.Temp
 
         public void addComponent(Component componentToAdd)
         {
-            this.children.Add(componentToAdd);
-            componentToAdd.parent = this;
-            componentToAdd.registerInComponentSector();
-            componentToAdd.start();
+            bool contains = false;
+            foreach(Component c in children)
+            {
+                if(c.GetType() == componentToAdd.GetType())
+                {
+                    contains = true;
+                }
+            }
+
+            if (!contains)
+            {
+                this.children.Add(componentToAdd);
+                componentToAdd.parent = this;
+                componentToAdd.registerInComponentSector();
+                componentToAdd.start();
+            }
         }
 
         public void addComponent<T>() where T : Component, new()

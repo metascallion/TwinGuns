@@ -103,8 +103,6 @@ namespace WhiteSpace.Components
         }
         protected virtual void onHover()
         {
-            hover = true;
-
             if (!hover)
             {
                 hover = !hover;
@@ -113,6 +111,8 @@ namespace WhiteSpace.Components
                     hoverMethods(this);
                 }
             }
+
+            hover = true;
         }
         protected virtual void onHoverLeave()
         {

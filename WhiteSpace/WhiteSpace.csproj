@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\GridTile.cs" />
     <Compile Include="Components\Life.cs" />
     <Compile Include="Components\OverTimeDestroyer.cs" />
     <Compile Include="Components\UI\Button.cs" />

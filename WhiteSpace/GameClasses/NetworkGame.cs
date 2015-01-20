@@ -17,18 +17,54 @@ namespace WhiteSpace.GameClasses
         ComponentsSector<gamestate> gameSector = new ComponentsSector<gamestate>(gamestate.game);
         GameObject p1Ship;
         GameObject p2Ship;
+        TowerGrid grid;
+        TowerGrid grid2;
 
         public NetworkGame()
         {
             buildMotherShips();
             buildDroneButton();
 
-            Grid grid = new Grid(5, 5, 45, new Vector2(200, 200), 10);
+
+            grid = new TowerGrid(4, 3, 30, new Vector2(230, 350), 5);
             GameObject go = new GameObject(gameSector);
             go.addComponent(grid);
-            grid.addComponent<Button>();
+
+            foreach(Button b in grid.getComponents<Button>())
+            {
+                b.releaseMethods += sendBuildTowerMessage;
+            }
+
+            grid2 = new TowerGrid(4, 3, 30, new Vector2(420, 350), 5);
+            GameObject go2 = new GameObject(gameSector);
+            go2.addComponent(grid2);
+            grid2.addComponent<Button>();
+            
             StateMachine<gamestate>.getInstance().changeState(gamestate.game);
             Client.registerNetworkListenerMethod("BuildDrone", OnBuildDroneMessageEnter);
+            Client.registerNetworkListenerMethod("BuildTower", OnBuildTowerMessage);
+        }
+
+        void OnBuildTowerMessage(ReceiveableNetworkMessage msg)
+        {
+            if(Boolean.Parse(msg.getInformation("Player")) == Client.host)
+            {
+                grid.buildTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+            }
+
+            else
+            {
+                grid2.buildMirroredTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+            }
+        }
+
+        void sendBuildTowerMessage(Clickable sender)
+        {
+            SendableNetworkMessage msg = new SendableNetworkMessage("BuildTower");
+            msg.addInformation("x", sender.parent.getComponent<GridTile>().x);
+            msg.addInformation("y", sender.parent.getComponent<GridTile>().y);
+            msg.addInformation("Player", Client.host);
+            Client.sendMessage(msg);
         }
 
         void buildMotherShips()

@@ -18,6 +18,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Media;
 using System.Reflection.Emit;
 using WhiteSpace.GameClasses;
+using System.Reflection;
 
 
 #endregion
@@ -63,8 +64,8 @@ namespace WhiteSpace
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             Client.startClient("test");
             Client.connect("localhost", 1111);
-            //new SelectionMenu();
-            new NetworkGame();
+            new SelectionMenu();
+            //new NetworkGame();
         }
 
         /// <summary>
