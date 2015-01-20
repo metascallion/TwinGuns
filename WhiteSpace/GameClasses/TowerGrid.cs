@@ -24,6 +24,8 @@ namespace WhiteSpace.GameClasses
         {
             base.start();
             this.addComponent<Button>();
+
+            
         }
 
         public void buildTower(int x, int y)
@@ -40,6 +42,17 @@ namespace WhiteSpace.GameClasses
             buildTower(this.gameObjects.GetLength(0) - x - 1, y);
         }
 
+        public void destroyTower(int x, int y)
+        {
+            GameObject o = this.gameObjects[x, y];
+            o.getComponent<Button>().resetDrawers();
+            
+        }
+
+        public void destroyMirroredTower(int x, int y)
+        {
+            destroyTower(this.gameObjects.GetLength(0) - x -1, y);
+        }
 
     }
 }

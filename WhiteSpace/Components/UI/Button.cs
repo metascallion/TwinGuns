@@ -74,12 +74,19 @@ namespace WhiteSpace.Components
             textD = new TextDrawer("Font", "");
         }
 
-        public override void start()
+        public void resetDrawers()
         {
-            base.start();
             standartDrawer = new ColoredBox(Color.Gray);
             hoverDrawer = new ColoredBox(Color.LightGray);
             clickedDrawer = new ColoredBox(Color.Silver);
+            displayDrawer();
+
+        }
+
+        public override void start()
+        {
+            base.start();
+            resetDrawers();
             activateStandartDrawer();
         }
 

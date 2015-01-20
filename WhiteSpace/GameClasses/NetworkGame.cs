@@ -39,10 +39,16 @@ namespace WhiteSpace.GameClasses
             GameObject go2 = new GameObject(gameSector);
             go2.addComponent(grid2);
             grid2.addComponent<Button>();
+
+            foreach (Button b in grid2.getComponents<Button>())
+            {
+                b.releaseMethods += sendDestroyTowerMessage;
+            }
             
             StateMachine<gamestate>.getInstance().changeState(gamestate.game);
             Client.registerNetworkListenerMethod("BuildDrone", OnBuildDroneMessageEnter);
             Client.registerNetworkListenerMethod("BuildTower", OnBuildTowerMessage);
+            Client.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerMessage);
         }
 
         void OnBuildTowerMessage(ReceiveableNetworkMessage msg)
@@ -50,6 +56,7 @@ namespace WhiteSpace.GameClasses
             if(Boolean.Parse(msg.getInformation("Player")) == Client.host)
             {
                 grid.buildTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+                Button b = grid.gameObjects[int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y"))].getComponent<Button>();
             }
 
             else
@@ -58,9 +65,31 @@ namespace WhiteSpace.GameClasses
             }
         }
 
+        void OnDestroyTowerMessage(ReceiveableNetworkMessage msg)
+        {
+            if (Boolean.Parse(msg.getInformation("Player")) == Client.host)
+            {
+                grid2.destroyTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+            }
+
+            else
+            {
+                grid.destroyMirroredTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+            }
+        }
+
         void sendBuildTowerMessage(Clickable sender)
         {
             SendableNetworkMessage msg = new SendableNetworkMessage("BuildTower");
+            msg.addInformation("x", sender.parent.getComponent<GridTile>().x);
+            msg.addInformation("y", sender.parent.getComponent<GridTile>().y);
+            msg.addInformation("Player", Client.host);
+            Client.sendMessage(msg);
+        }
+
+        void sendDestroyTowerMessage(Clickable sender)
+        {
+            SendableNetworkMessage msg = new SendableNetworkMessage("DestroyTower");
             msg.addInformation("x", sender.parent.getComponent<GridTile>().x);
             msg.addInformation("y", sender.parent.getComponent<GridTile>().y);
             msg.addInformation("Player", Client.host);
@@ -121,7 +150,7 @@ namespace WhiteSpace.GameClasses
                 target = p1Ship.getComponent<Transform>();
             }
 
-            GameObjectFactory.createDrone(gameSector, transform, "Ship", effect, 5, target);
+            GameObject go = GameObjectFactory.createDrone(gameSector, transform, "Ship", effect, 5, target);
         }
     }
 }

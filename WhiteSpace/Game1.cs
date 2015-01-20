@@ -30,6 +30,7 @@ namespace WhiteSpace
     /// </summary>
     /// 
 
+
     public class Game1 : Game
     {
         public static GraphicsDeviceManager graphics;

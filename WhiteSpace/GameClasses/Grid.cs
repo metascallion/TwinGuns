@@ -10,7 +10,7 @@ namespace WhiteSpace.GameClasses
 {
     public class Grid : StandardComponent
     {
-        protected GameObject[,] gameObjects;
+        public GameObject[,] gameObjects;
         int tileSize;
         Vector2 position;
         int offset;
