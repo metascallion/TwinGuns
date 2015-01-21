@@ -10,22 +10,22 @@ namespace TestServer
     public class Game
     {
         public Server gameServer = new Server();
-        Registration registration = new Registration();
+        Registration registration;
         public Game()
         {
             gameServer.startServer("test", 1111);
             gameServer.registerNetworkListenerMethod("BuildDrone", OnBuildDroneRequest);
             gameServer.registerNetworkListenerMethod("BuildTower", OnBuildTowerRequest);
             gameServer.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerRequest);
+            registration = new Registration(gameServer);
         }
 
         public void OnBuildDroneRequest(ReceiveableNetworkMessage msg)
         {
             SendableNetworkMessage smsg = new SendableNetworkMessage("BuildDrone");
             smsg.addInformation("Player", msg.getInformation("Player"));
-            NetworkPart part = new NetworkPart();
-            registration.enqueueClass(part);
-            smsg.addInformation("Id", part.Id);
+            Drone drone = new Drone(gameServer);
+            registration.enqueueClass(drone);
             gameServer.sendMessage(smsg);
         }
 

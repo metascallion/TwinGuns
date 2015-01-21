@@ -132,7 +132,7 @@ namespace WhiteSpace.GameClasses
 
         void OnBuildDroneMessageEnter(ReceiveableNetworkMessage msg)
         {
-            Transform transform = Transform.createTransformWithSize(new Vector2(25, 25));
+            Transform transform = Transform.createTransformWithSize(new Vector2(55, 55));
             Transform target = new Transform();
             SpriteEffects effect;
 
@@ -151,6 +151,13 @@ namespace WhiteSpace.GameClasses
             }
 
             GameObject go = GameObjectFactory.createDrone(gameSector, transform, "Ship", effect, 5, target);
+
+            if (Client.host)
+            {
+                SendableNetworkMessage test = new SendableNetworkMessage("Update");
+                test.addInformation("Id", 0);
+                Client.sendMessage(test);
+            }
         }
     }
 }

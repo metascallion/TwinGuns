@@ -39,11 +39,15 @@ namespace WhiteSpace
 
         public static GameObject createDrone(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health, Transform target)
         {
-            Transform droneTransform = Transform.createTransformWithSizeOnPosition(transform.Position, new Vector2(25, 25));
+            Transform droneTransform = Transform.createTransformWithSizeOnPosition(transform.Position, new Vector2(55, 55));
             GameObject temp = createUnit(sector, droneTransform, textureFile, effect, health);
             temp.addComponent(new BoxCollider());
             temp.addComponent(new CharacterControler());
             temp.addComponent(new Ship(target));
+            Life life = new Life(health);
+            life.destroyOnDead = true;
+            temp.addComponent(life);
+            temp.addComponent<Clickable>();
             return temp;
         }
 

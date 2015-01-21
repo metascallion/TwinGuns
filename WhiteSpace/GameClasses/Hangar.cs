@@ -35,9 +35,13 @@ namespace WhiteSpace.GameClasses
 
         private void OnBuildButtonClicked(Clickable sender)
         {
-            GameObjectFactory.createDrone(this.parent.sector, this.transform, "Ship", this.parent.getComponent<TextureRegion>().SpriteEffect, 10, this.targetTransform);
+            GameObject go = GameObjectFactory.createDrone(this.parent.sector, this.transform, "Ship", this.parent.getComponent<TextureRegion>().SpriteEffect, 3, this.targetTransform);
+            go.getComponent<Clickable>().releaseMethods += OnDroneClick;
         }
 
-
+        private void OnDroneClick(Clickable sender)
+        {
+            sender.parent.getComponent<Life>().reduceHealth();
+        }
     }
 }

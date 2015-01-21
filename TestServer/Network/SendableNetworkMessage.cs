@@ -30,15 +30,15 @@ namespace WhiteSpace.Network
             this.informations[key] = value.ToString();
         }
 
-        public void addInformationContent(string key, object value)
+        public void addInformationContent(string header, object value)
         {
-            if (!this.informations.Keys.Contains(key))
+            if (!this.informations.Keys.Contains(header))
             {
-                this.informations[key] = value.ToString();
+                this.informations[header] = value.ToString();
             }
             else
             {
-                this.informations[key] += "+" + value.ToString();
+                this.informations[header] += "+" + value.ToString();
             }
         }
     }
