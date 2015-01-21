@@ -55,6 +55,7 @@
     <Compile Include="GameClasses\Projectile.cs" />
     <Compile Include="GameClasses\SelectionMenu.cs" />
     <Compile Include="GameClasses\MatchmakingMenu.cs" />
+    <Compile Include="GameClasses\Tower.cs" />
     <Compile Include="GameClasses\TowerGrid.cs" />
     <Compile Include="GameLoop\CollisionDetection.cs" />
     <Compile Include="GameLoop\ComponentsSector.cs" />
@@ -129,6 +130,7 @@
     <Content Include="Content\Walcycle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="CSCore.dll" />
     <Content Include="Icon.ico" />
   </ItemGroup>
   <ItemGroup>

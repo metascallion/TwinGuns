@@ -55,13 +55,13 @@ namespace WhiteSpace.GameClasses
         {
             if(Boolean.Parse(msg.getInformation("Player")) == Client.host)
             {
-                grid.buildTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+                grid.buildTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")), true);
                 Button b = grid.gameObjects[int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y"))].getComponent<Button>();
             }
 
             else
             {
-                grid2.buildMirroredTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+                grid2.buildMirroredTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")), false);
             }
         }
 
@@ -141,23 +141,19 @@ namespace WhiteSpace.GameClasses
                 transform.Position = p1Ship.getComponent<Transform>().Position + new Vector2(0, p1Ship.getComponent<Transform>().Size.Y * 0.5f);
                 effect = SpriteEffects.None;
                 target = p2Ship.getComponent<Transform>();
+                GameObject go = GameObjectFactory.createDrone(gameSector, transform, "Ship", effect, 15, target);
+                Tower.thisDronesTransforms.Add(go.getComponent<Transform>());
             }
 
             else
             {
-                transform.Position = p2Ship.getComponent<Transform>().Position + new Vector2(p2Ship.getComponent<Transform>().Size.X, p2Ship.getComponent<Transform>().Size.Y * 0.5f);
+                transform.Position = p2Ship.getComponent<Transform>().Position + new Vector2(p2Ship.getComponent<Transform>().Size.X - 55, p2Ship.getComponent<Transform>().Size.Y * 0.5f);
                 effect = SpriteEffects.None;
                 target = p1Ship.getComponent<Transform>();
+                GameObject go = GameObjectFactory.createDrone(gameSector, transform, "Ship", effect, 15, target);
+                Tower.enemyDronesTransforms.Add(go.getComponent<Transform>());
             }
 
-            GameObject go = GameObjectFactory.createDrone(gameSector, transform, "Ship", effect, 5, target);
-
-            if (Client.host)
-            {
-                SendableNetworkMessage test = new SendableNetworkMessage("Update");
-                test.addInformation("Id", 0);
-                Client.sendMessage(test);
-            }
         }
     }
 }

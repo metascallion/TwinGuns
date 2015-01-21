@@ -51,8 +51,6 @@
     <Compile Include="Network\Server.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Registration.cs" />
-    <Compile Include="SendableObjectUpdate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

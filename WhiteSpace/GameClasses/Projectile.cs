@@ -17,7 +17,7 @@ namespace WhiteSpace.GameClasses
         public Ship(Transform transform)
             : base(transform)
         {
-            this.speed = 2;
+            this.speed = 1;
         }
 
         public override void onDestroy()
@@ -28,6 +28,11 @@ namespace WhiteSpace.GameClasses
         protected override void onTargetHit(BoxCollider targetCollider)
         {
             this.parent.destroy();
+        }
+
+        protected override void update(GameTime gameTime)
+        {
+            base.update(gameTime);
         }
 
         //protected override void update(GameTime gameTime)

@@ -28,18 +28,19 @@ namespace WhiteSpace.GameClasses
             
         }
 
-        public void buildTower(int x, int y)
+        public void buildTower(int x, int y, bool playerOne)
         {
             GameObject o = this.gameObjects[x, y];
             o.getComponent<Button>().setStandartDrawer(new ColoredBox(Color.Red));
             o.getComponent<Button>().setHoverDrawer(new ColoredBox(Color.Red));
             o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Red));
+            o.addComponent(new Tower(300, playerOne));
         }
 
 
-        public void buildMirroredTower(int x, int y)
+        public void buildMirroredTower(int x, int y, bool playerOne)
         {
-            buildTower(this.gameObjects.GetLength(0) - x - 1, y);
+            buildTower(this.gameObjects.GetLength(0) - x - 1, y, playerOne);
         }
 
         public void destroyTower(int x, int y)
