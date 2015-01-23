@@ -40,6 +40,14 @@ namespace WhiteSpace.Temp
             }
         }
 
+        public void addComponentIgnoreDuplication(Component componentToAdd)
+        {
+            this.children.Add(componentToAdd);
+            componentToAdd.parent = this;
+            componentToAdd.registerInComponentSector();
+            componentToAdd.start();
+        }
+
         public void addComponent<T>() where T : Component, new()
         {
             T t = new T();

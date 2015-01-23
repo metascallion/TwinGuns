@@ -17,6 +17,8 @@ namespace WhiteSpace.GameClasses
         Transform targetTransform;
         Transform transform;
 
+        GameObject[,] droneStocks = new GameObject[3, 3];
+
         public Hangar()
         {
         }
@@ -31,6 +33,31 @@ namespace WhiteSpace.GameClasses
             base.start();
             this.transform = this.parent.getComponent<Transform>();
             this.parent.getComponent<Clickable>().releaseMethods += OnBuildButtonClicked;
+        }
+
+        public void addDrone(int stock)
+        {
+            for(int i = 0; i <= 2; i++)
+            {
+                if(droneStocks[i, stock] == null)
+                {
+                    Transform transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + 40 * i, this.transform.Center.Y + 30 + stock * 40));
+                    droneStocks[i, stock] = GameObjectFactory.createDrone(this.parent.sector, transform, "Ship", Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 15, targetTransform);
+                    break;
+                }
+            }
+        }
+
+        public void openStock(int stock)
+        {
+            for (int i = 0; i <= 2; i++)
+            {
+                if (droneStocks[i, stock] != null)
+                {
+                    droneStocks[i, stock].addComponent(new Ship(targetTransform));
+                    droneStocks[i, stock] = null;
+                }
+            }
         }
 
         private void OnBuildButtonClicked(Clickable sender)

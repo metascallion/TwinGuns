@@ -20,6 +20,12 @@ namespace WhiteSpace.GameClasses
             this.speed = 1;
         }
 
+        public override void start()
+        {
+            base.start();
+            transform.lookAt(new Vector2(target.Center.X, this.parent.getComponent<Transform>().Position.Y));
+        }
+
         public override void onDestroy()
         {
             base.onDestroy();
@@ -32,7 +38,8 @@ namespace WhiteSpace.GameClasses
 
         protected override void update(GameTime gameTime)
         {
-            base.update(gameTime);
+            //base.update(gameTime);
+            controller.move(collider.transform.transformDirection(direction.right) * speed);
         }
 
         //protected override void update(GameTime gameTime)
@@ -46,7 +53,7 @@ namespace WhiteSpace.GameClasses
         public Transform target;
         public BoxCollider collider;
         protected Transform transform;
-        CharacterControler controller;
+        protected CharacterControler controller;
         public int speed;
 
         public Projectile(Transform target)

@@ -78,6 +78,5 @@ namespace WhiteSpace.Network
             msg.Write(message.getStringFromMessage());
             server.SendToAll(msg, NetDeliveryMethod.UnreliableSequenced);
         }
-
     }
 }

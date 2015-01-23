@@ -33,17 +33,16 @@ namespace WhiteSpace
             temp.addComponent(new BoxCollider());
             temp.addComponent(new Clickable());
             temp.addComponent(new Hangar(enemyTransform));
-            //temp.getComponent<BoxCollider>().body.BodyType = FarseerPhysics.Dynamics.BodyType.Kinematic;
             return temp;
         }
 
         public static GameObject createDrone(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health, Transform target)
         {
-            Transform droneTransform = Transform.createTransformWithSizeOnPosition(transform.Position, new Vector2(55, 55));
+            Transform droneTransform = Transform.createTransformWithSizeOnPosition(transform.Position, new Vector2(25, 25));
             GameObject temp = createUnit(sector, droneTransform, textureFile, effect, health);
             temp.addComponent(new BoxCollider());
             temp.addComponent(new CharacterControler());
-            temp.addComponent(new Ship(target));
+            //temp.addComponent(new Ship(target));
             Life life = new Life(health);
             life.destroyOnDead = true;
             temp.addComponent(life);
@@ -86,11 +85,31 @@ namespace WhiteSpace
             return temp;
         }
 
+        public static GameObject createButton(IComponentsSector sector, Transform transform, int id, Button.stateChange clickMethod)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new Button());
+            temp.getComponent<Button>().id = id;
+            temp.getComponent<Button>().clickMethods += clickMethod;
+            return temp;
+        }
+
         public static GameObject createButton(IComponentsSector sector, Transform transform, string text, Button.stateChange clickMethod)
         {
             GameObject temp = new GameObject(sector);
             temp.addComponent(transform);
             temp.addComponent(new Button(text));
+            temp.getComponent<Button>().clickMethods += clickMethod;
+            return temp;
+        }
+
+        public static GameObject createButton(IComponentsSector sector, Transform transform, string text, int id, Button.stateChange clickMethod)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new Button(text));
+            temp.getComponent<Button>().id = id;
             temp.getComponent<Button>().clickMethods += clickMethod;
             return temp;
         }

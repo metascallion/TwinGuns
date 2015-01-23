@@ -25,6 +25,8 @@ namespace WhiteSpace.Components
 
         private Transform transform;
 
+        public int id;
+
         public Clickable()
         {
         }
