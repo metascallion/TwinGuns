@@ -16,12 +16,14 @@ namespace TestServer
             gameServer.registerNetworkListenerMethod("BuildDrone", OnBuildDroneRequest);
             gameServer.registerNetworkListenerMethod("BuildTower", OnBuildTowerRequest);
             gameServer.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerRequest);
+            gameServer.registerNetworkListenerMethod("OpenHangar", OnOpenHangarRequest);
         }
 
         public void OnBuildDroneRequest(ReceiveableNetworkMessage msg)
         {
             SendableNetworkMessage smsg = new SendableNetworkMessage("BuildDrone");
             smsg.addInformation("Player", msg.getInformation("Player"));
+            smsg.addInformation("Index", msg.getInformation("Index"));
             gameServer.sendMessage(smsg);
         }
 
@@ -31,7 +33,7 @@ namespace TestServer
             smsg.addInformation("x", msg.getInformation("x"));
             smsg.addInformation("y", msg.getInformation("y"));
             smsg.addInformation("Player", msg.getInformation("Player"));
-
+            smsg.addInformation("Type", msg.getInformation("Type"));
             gameServer.sendMessage(smsg);
         }
 
@@ -41,7 +43,14 @@ namespace TestServer
             smsg.addInformation("x", msg.getInformation("x"));
             smsg.addInformation("y", msg.getInformation("y"));
             smsg.addInformation("Player", msg.getInformation("Player"));
+            gameServer.sendMessage(smsg);
+        }
 
+        public void OnOpenHangarRequest(ReceiveableNetworkMessage msg)
+        {
+            SendableNetworkMessage smsg = new SendableNetworkMessage("OpenHangar");
+            smsg.addInformation("Index", msg.getInformation("Index"));
+            smsg.addInformation("Player", msg.getInformation("Player"));
             gameServer.sendMessage(smsg);
         }
 

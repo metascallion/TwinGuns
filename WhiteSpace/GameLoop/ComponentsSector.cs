@@ -17,6 +17,9 @@ namespace WhiteSpace.GameLoop
         void addUpdateMethod(Update updateMethodToAdd);
         void removeDrawMethod(Draw drawMethodToRemove);
         void removeUpdateMethod(Update updateToRemove);
+        void destroy();
+        void reload();
+        void deactivate();
     }
 
     public class ComponentsSector<StateType> : StateListener<StateType>, IComponentsSector where StateType : struct

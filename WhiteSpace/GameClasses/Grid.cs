@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 
 namespace WhiteSpace.GameClasses
 {
-    public class Grid : StandardComponent
+    public class Grid : UpdateableComponent
     {
         public GameObject[,] gameObjects;
         int tileSize;
@@ -21,6 +21,11 @@ namespace WhiteSpace.GameClasses
             this.tileSize = tileSize;
             this.position = position;
             this.offset = offset;
+        }
+
+        protected override void update(GameTime gameTime)
+        {
+            throw new NotImplementedException();
         }
 
         public override void start()

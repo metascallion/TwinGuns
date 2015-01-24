@@ -20,6 +20,11 @@ namespace WhiteSpace.GameClasses
             this.speed = 1;
         }
 
+        public Ship()
+        {
+
+        }
+
         public override void start()
         {
             base.start();
@@ -33,6 +38,7 @@ namespace WhiteSpace.GameClasses
 
         protected override void onTargetHit(BoxCollider targetCollider)
         {
+            this.target.parent.getComponent<Life>().reduceHealth();
             this.parent.destroy();
         }
 
@@ -55,6 +61,10 @@ namespace WhiteSpace.GameClasses
         protected Transform transform;
         protected CharacterControler controller;
         public int speed;
+
+        public Projectile()
+        {
+        }
 
         public Projectile(Transform target)
         {

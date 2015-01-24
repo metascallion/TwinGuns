@@ -89,13 +89,6 @@ namespace WhiteSpace
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
-            if(KeyboardInput.isKeyDown(Keys.B))
-            {
-                for (int i = 0; i < 5; i++ )
-                    NetworkGame.sendBuildDroneMessage(new Clickable());
-            }
-
             UpdateExecuter.executeUpdates(gameTime);
             Client.pollNetworkMessage();
             base.Update(gameTime);

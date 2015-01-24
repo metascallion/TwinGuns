@@ -20,6 +20,10 @@ namespace WhiteSpace.GameClasses
         public static List<Transform> enemyDronesTransforms = new List<Transform>();
         public static List<Transform> thisDronesTransforms = new List<Transform>();
 
+        bool firstTargetFound = false;
+
+        Transform target;
+
         bool playerOne;
         public static void unregister(Transform transform)
         {
@@ -70,17 +74,61 @@ namespace WhiteSpace.GameClasses
             }
         }
 
+        Transform getClosestTarget()
+        {
+            if (playerOne && enemyDronesTransforms.Count > 0)
+            {
+                return getClosestTarget(enemyDronesTransforms);
+            }
+            else if (!playerOne && thisDronesTransforms.Count > 0)
+            {
+                return getClosestTarget(thisDronesTransforms);
+            }
+
+            return null;
+        }
+
+       Transform getClosestTarget(List<Transform> listToSearchIn)
+        {
+           Transform closestTransform = null;
+           float closestDistance = float.MaxValue;
+
+           foreach(Transform transform in listToSearchIn)
+           {
+               if (transform.parent != null)
+               {
+                   float distance = Math.Abs(transform.parent.getComponent<Ship>().target.Position.X - transform.Position.X);
+                   
+                   if (distance < closestDistance)
+                   {
+                       closestTransform = transform;
+                       closestDistance = distance;
+                   }
+               }
+           }
+
+           return closestTransform;
+        }
+
         private void spawnShot()
         {
             Transform transform = Transform.createTransformWithSizeOnPosition(this.parent.getComponent<Transform>().Position, new Vector2(20, 20));
-            
-            if (playerOne && enemyDronesTransforms.Count > 0)
+
+            if (!firstTargetFound)
             {
-                GameObjectFactory.createProjectileWithCustomSpeed(transform, enemyDronesTransforms[0], this.parent.sector, Color.AliceBlue, 20);
+                target = getClosestTarget();
             }
-            else if(!playerOne && thisDronesTransforms.Count > 0)
+            else if(target.parent == null)
             {
-                GameObjectFactory.createProjectileWithCustomSpeed(transform, thisDronesTransforms[0], this.parent.sector, Color.Green, 20);
+                target = null;
+                firstTargetFound = false;
+                target = getClosestTarget();
+            }
+
+            if (target != null)
+            {
+                firstTargetFound = true;
+                GameObjectFactory.createProjectileWithCustomSpeed(transform, target, this.parent.sector, Color.AliceBlue, 20);
             }
         }
 

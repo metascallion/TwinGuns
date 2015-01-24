@@ -37,6 +37,7 @@
   <ItemGroup>
     <Compile Include="Components\GridTile.cs" />
     <Compile Include="Components\Life.cs" />
+    <Compile Include="Components\NetworkMessageReceiver.cs" />
     <Compile Include="Components\OverTimeDestroyer.cs" />
     <Compile Include="Components\UI\Button.cs" />
     <Compile Include="Components\UI\EditableText.cs" />
@@ -48,11 +49,14 @@
     <Compile Include="Game1.cs" />
     <Compile Include="GameClasses\Grid.cs" />
     <Compile Include="GameClasses\Hangar.cs" />
+    <Compile Include="GameClasses\HealthRenderer.cs" />
     <Compile Include="GameClasses\NetworkGame.cs" />
     <Compile Include="GameClasses\HostLobby.cs" />
     <Compile Include="GameClasses\Lobby.cs" />
     <Compile Include="GameClasses\PlayerLobby.cs" />
     <Compile Include="GameClasses\Projectile.cs" />
+    <Compile Include="GameClasses\RessourceContributor.cs" />
+    <Compile Include="GameClasses\Ressources.cs" />
     <Compile Include="GameClasses\SelectionMenu.cs" />
     <Compile Include="GameClasses\MatchmakingMenu.cs" />
     <Compile Include="GameClasses\Tower.cs" />

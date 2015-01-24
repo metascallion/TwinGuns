@@ -15,7 +15,7 @@ namespace WhiteSpace.Components.Drawables
         private SpriteFont font;
         public string text = "";
         public Color TextColor { get; set; }
-        Transform transform;
+        public Transform transform;
 
         public TextDrawer()
         {

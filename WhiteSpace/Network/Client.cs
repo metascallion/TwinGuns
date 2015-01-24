@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Lidgren.Network;
+using System.IO;
 
 namespace WhiteSpace.Network
 {
@@ -17,6 +18,8 @@ namespace WhiteSpace.Network
         public static string name;
         public static bool host;
 
+        static StreamReader reader;
+
         public static void startClient(string appId)
         {
             config = new NetPeerConfiguration(appId);
@@ -28,8 +31,10 @@ namespace WhiteSpace.Network
 
         public static void connect(string ip, int port)
         {
-            client.Connect(ip, port);
-            Console.WriteLine("Try to connect");
+            reader = new StreamReader("IPCONFIG.txt");
+            //client.Connect(ip, port);
+            client.Connect(reader.ReadLine(), port);
+            reader.Close();
         }
 
         public static void registerNetworkListenerMethod(string headerToListenTo, OnNetworkMessageEnter method)
