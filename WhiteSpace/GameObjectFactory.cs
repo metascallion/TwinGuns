@@ -42,9 +42,9 @@ namespace WhiteSpace
         {
             Transform droneTransform = Transform.createTransformWithSizeOnPosition(transform.Position, new Vector2(25, 25));
             GameObject temp = createUnit(sector, droneTransform, textureFile, effect, health);
+            temp.removeComponent<TextureRegion>();
             temp.addComponent(new BoxCollider());
             temp.addComponent(new CharacterControler());
-            //temp.addComponent(new Ship(target));
             Life life = new Life(health);
             life.destroyOnDead = true;
             temp.addComponent(life);
@@ -60,6 +60,14 @@ namespace WhiteSpace
             temp.addComponent(new CharacterControler());
             temp.addComponent(new Shot(target, speed));
             temp.addComponent(new ColoredBox(color));
+            return temp;
+        }
+
+        public static GameObject createTemporaryObjectWithTransform(IComponentsSector sector, Vector2 position, Vector2 size, int timeToStay)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(new OverTimeDestroyer(timeToStay));
+            temp.addComponent(Transform.createTransformWithSizeOnPosition(position, size));
             return temp;
         }
 

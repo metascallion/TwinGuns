@@ -116,7 +116,7 @@ namespace WhiteSpace.GameClasses
 
         public void sendBuildDroneMessage(Clickable sender)
         {
-            if (ressources.haveEnoughRessources(15))
+            if (ressources.haveEnoughRessources(15) && !isStockFull(sender.id))
             {
                 SendableNetworkMessage msg = new SendableNetworkMessage("BuildDrone");
                 msg.addInformation("Player", player);
@@ -156,9 +156,21 @@ namespace WhiteSpace.GameClasses
             }
         }
 
+        public bool isStockFull(int stock)
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                if(droneStocks[i, stock] == null)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public void addDrone(int stock)
         {
-            for(int i = 0; i <= 2; i++)
+            for(int i = 2; i >= 0; i--)
             {
                 if(droneStocks[i, stock] == null)
                 {
@@ -179,8 +191,10 @@ namespace WhiteSpace.GameClasses
                         transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + (this.transform.Size.X -25) - 40 * i, this.transform.Center.Y + 30 + 25 + stock * 40));
                     }
 
-                    droneStocks[i, stock] = GameObjectFactory.createDrone(this.parent.sector, transform, "Ship", effect, 8, targetTransform);
-                    droneStocks[i, stock].addComponent(new AfterTimeComponentAdder(4000));
+                    droneStocks[i, stock] = GameObjectFactory.createDrone(this.parent.sector, transform, "Ship", effect, 6, targetTransform);
+                    AfterTimeComponentAdder adder = new AfterTimeComponentAdder(4000);
+                    adder.addToComponentsToAddAfterTime(new TextureRegion(ContentLoader.getContent<Texture2D>("Ship"), effect));
+                    droneStocks[i, stock].addComponent(adder);
                     break;
                 }
             }
@@ -190,7 +204,7 @@ namespace WhiteSpace.GameClasses
         {
             for (int i = 0; i <= 2; i++)
             {
-                if (droneStocks[i, stock] != null)
+                if (droneStocks[i, stock] != null && !droneStocks[i, stock].hasComponent<AfterTimeComponentAdder>())
                 {
                     if (this.player == Client.host)
                     {

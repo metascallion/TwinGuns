@@ -17,7 +17,7 @@ namespace TestServer
         ThreadStart start;
         Thread ressourceThread;
         public float ressourceGain;
-        public float ressourceGainPerTower = 0.2f;
+        public float ressourceGainPerTower = 0.3f;
 
         public Player(int ressources, bool player1, Server gameServer)
         {
@@ -55,8 +55,9 @@ namespace TestServer
 
         public void OnDestroyTowerRequest(ReceiveableNetworkMessage msg)
         {
-            if (Boolean.Parse(msg.getInformation("Player")) == this.player1)
+            if (Boolean.Parse(msg.getInformation("Player")) != this.player1)
             {
+                ressources -= towerCosts;
                 SendableNetworkMessage smsg = new SendableNetworkMessage("DestroyTower");
                 smsg.addInformation("x", msg.getInformation("x"));
                 smsg.addInformation("y", msg.getInformation("y"));

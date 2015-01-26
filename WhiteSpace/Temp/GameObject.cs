@@ -111,9 +111,15 @@ namespace WhiteSpace.Temp
             {
                 children[i].unregisterInComponentSector();
                 children[i].onDestroy();
+
+            }
+
+            for (int i = 0; i < this.children.Count; i++)
+            {
                 children[i].parent = null;
                 children[i] = null;
             }
+            
             this.children.Clear();
             this.children = null;
             this.sector = null;

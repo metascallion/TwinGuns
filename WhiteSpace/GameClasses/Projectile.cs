@@ -9,6 +9,8 @@ using WhiteSpace.Components.Drawables;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Temp;
 using WhiteSpace.Network;
+using Microsoft.Xna.Framework.Graphics;
+using WhiteSpace.Components.Animation;
 
 namespace WhiteSpace.GameClasses
 {
@@ -34,6 +36,12 @@ namespace WhiteSpace.GameClasses
 
         public override void onDestroy()
         {
+            new Sound("Explode", false, 0.65f);
+            Transform transform = this.parent.getComponent<Transform>();
+            GameObject go = GameObjectFactory.createTemporaryObjectWithTransform(this.parent.sector, new Vector2(transform.Position.X - 25, transform.Position.Y - 25), new Vector2(50, 50), 300);
+            go.addComponent(new TextureRegion(ContentLoader.getContent<Texture2D>("Explosion")));
+            go.addComponent(Animator.loadAnimator(go.getComponent<TextureRegion>(), "ExplosionAnimator", 10));
+            go.getComponent<Animator>().playAnimation("Explosion", false);
             base.onDestroy();
         }
 
@@ -132,6 +140,7 @@ namespace WhiteSpace.GameClasses
         protected override void onTargetHit(BoxCollider targetCollider)
         {
             targetCollider.parent.getComponent<Life>().reduceHealth();
+            Sound sound = new Sound("Shot", false, 0.3f);
             this.parent.destroy();
         }
     }

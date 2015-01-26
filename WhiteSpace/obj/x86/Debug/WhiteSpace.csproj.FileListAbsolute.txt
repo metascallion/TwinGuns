@@ -41,3 +41,4 @@ C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysic
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.pdb
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Ship.png
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Ship.png
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Explosion.png

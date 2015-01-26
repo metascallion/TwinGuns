@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework;
 using WhiteSpace.Network;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Components.Drawables;
+using System.Threading;
 
 
 namespace WhiteSpace.GameClasses
@@ -65,7 +66,7 @@ namespace WhiteSpace.GameClasses
 
         void sendBuildTowerMessage(Clickable sender)
         {
-            if (ressources.haveEnoughRessources(25))
+            if (ressources.haveEnoughRessources(25) && (!sender.parent.hasComponent<Tower>() && !sender.parent.hasComponent<RessourceTower>()))
             {
                 sender.parent.removeComponent<Tower>();
                 SendableNetworkMessage msg = new SendableNetworkMessage("BuildTower");
@@ -79,7 +80,7 @@ namespace WhiteSpace.GameClasses
 
         void sendDestroyTowerMessage(Clickable sender)
         {
-            if (ressources.haveEnoughRessources(25))
+            if (ressources.haveEnoughRessources(25) && (sender.parent.hasComponent<Tower>() || sender.parent.hasComponent<RessourceTower>()))
             {
                 SendableNetworkMessage msg = new SendableNetworkMessage("DestroyTower");
                 msg.addInformation("x", sender.parent.getComponent<GridTile>().x);
@@ -128,10 +129,15 @@ namespace WhiteSpace.GameClasses
             GameObject o = this.gameObjects[x, y];
             if (towerType)
             {
-                o.getComponent<Button>().setStandartDrawer(new ColoredBox(Color.Red));
-                o.getComponent<Button>().setHoverDrawer(new ColoredBox(Color.Red));
-                o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Red));
-                o.addComponent(new Tower(1000, playerOne));
+                AfterTimeComponentAdder adder = new AfterTimeComponentAdder(3000);
+                adder.addToComponentsToAddAfterTime(new Tower(1000, playerOne));
+                o.addComponent(adder);
+                adder.expiredFunctions += delegate
+               {
+                   o.getComponent<Button>().setStandartDrawer(new ColoredBox(Color.Red));
+                   o.getComponent<Button>().setHoverDrawer(new ColoredBox(Color.Red));
+                   o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Red));
+               };
             }
 
             else
@@ -139,6 +145,7 @@ namespace WhiteSpace.GameClasses
                 o.getComponent<Button>().setStandartDrawer(new ColoredBox(Color.Blue));
                 o.getComponent<Button>().setHoverDrawer(new ColoredBox(Color.Blue));
                 o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Blue));
+                o.addComponent<RessourceTower>();
             }
         }
 
@@ -153,6 +160,7 @@ namespace WhiteSpace.GameClasses
             GameObject o = this.gameObjects[x, y];
             o.getComponent<Button>().resetDrawers();
             o.removeComponent<Tower>();
+            o.removeComponent<RessourceTower>();
         }
 
         public void destroyMirroredTower(int x, int y)

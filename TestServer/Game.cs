@@ -15,9 +15,9 @@ namespace TestServer
         {
             gameServer.startServer("test", 1111);
             Player p1 = new Player(100, true, this.gameServer);
-            p1.ressourceGain = 0.25f;
+            p1.ressourceGain = 0.6f;
             Player p2 = new Player(100, false, this.gameServer);
-            p2.ressourceGain = 0.25f;
+            p2.ressourceGain = 0.6f;
             gameServer.registerNetworkListenerMethod("OpenHangar", OnOpenHangarRequest);
             gameServer.registerNetworkListenerMethod("Life", OnDamageDealed);
         }

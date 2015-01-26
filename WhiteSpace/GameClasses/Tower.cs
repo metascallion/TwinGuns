@@ -8,10 +8,15 @@ using WhiteSpace.Components.Physics;
 using WhiteSpace.Components.Drawables;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Temp;
+using WhiteSpace.Network;
 
 
 namespace WhiteSpace.GameClasses
 {
+    public class RessourceTower : StandardComponent
+    {
+    }
+
     public class Tower : UpdateableComponent
     {
         float kadenz;
@@ -112,7 +117,7 @@ namespace WhiteSpace.GameClasses
 
         private void spawnShot()
         {
-            Transform transform = Transform.createTransformWithSizeOnPosition(this.parent.getComponent<Transform>().Position, new Vector2(20, 20));
+            Transform transform = Transform.createTransformWithSizeOnPosition(this.parent.getComponent<Transform>().Position, new Vector2(7, 7));
 
             if (!firstTargetFound)
             {
@@ -127,8 +132,18 @@ namespace WhiteSpace.GameClasses
 
             if (target != null)
             {
+                Color color;
+                if(playerOne)
+                {
+                    color = Color.Green;
+                }
+
+                else
+                {
+                    color = Color.Red;
+                }
                 firstTargetFound = true;
-                GameObjectFactory.createProjectileWithCustomSpeed(transform, target, this.parent.sector, Color.AliceBlue, 20);
+                GameObjectFactory.createProjectileWithCustomSpeed(transform, target, this.parent.sector, color, 20);
             }
         }
 

@@ -26,10 +26,16 @@ namespace WhiteSpace.Components.Animation
 
         Animation activeAnimation;
 
-        public static Animator loadAnimator(TextureRegion regionToAnimate, string animatorName)
+        public Animator()
+        {
+
+        }
+
+        public static Animator loadAnimator(TextureRegion regionToAnimate, string animatorName, int animationInterval)
         {
             StreamReader reader = new StreamReader(animatorName + ".txt");
             Animator animatorToReturn = new Animator(regionToAnimate);
+            animatorToReturn.AnimationSpeed = animationInterval;
             string[] spriteSheetData = reader.ReadLine().Split(',');
             animatorToReturn.SheetToTakeFramesFrom = new SpriteSheet(regionToAnimate.Texture, int.Parse(spriteSheetData[0]), int.Parse(spriteSheetData[1]));
             string animation;
