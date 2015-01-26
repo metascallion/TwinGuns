@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\AfterTimeComponentAdder.cs" />
     <Compile Include="Components\GridTile.cs" />
     <Compile Include="Components\Life.cs" />
     <Compile Include="Components\NetworkMessageReceiver.cs" />
@@ -57,7 +58,6 @@
     <Compile Include="GameClasses\Lobby.cs" />
     <Compile Include="GameClasses\PlayerLobby.cs" />
     <Compile Include="GameClasses\Projectile.cs" />
-    <Compile Include="GameClasses\RessourceContributor.cs" />
     <Compile Include="GameClasses\GameRessources.cs" />
     <Compile Include="GameClasses\SelectionMenu.cs" />
     <Compile Include="GameClasses\MatchmakingMenu.cs" />

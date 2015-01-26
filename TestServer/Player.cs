@@ -4,15 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WhiteSpace.Network;
+using System.Threading;
 
 namespace TestServer
 {
     public class Player
     {
-        int ressources;
+        float ressources;
         bool player1;
         Server gameServer;
         int towerCosts = 25;
+        ThreadStart start;
+        Thread ressourceThread;
+        public float ressourceGain;
+        public float ressourceGainPerTower = 0.2f;
 
         public Player(int ressources, bool player1, Server gameServer)
         {
@@ -22,6 +27,10 @@ namespace TestServer
             gameServer.registerNetworkListenerMethod("BuildTower", OnBuildTowerRequest);
             gameServer.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerRequest);
             gameServer.registerNetworkListenerMethod("BuildDrone", OnBuildDroneRequest);
+
+            start = new ThreadStart(this.higherRessources);
+            ressourceThread = new Thread(start);
+            ressourceThread.Start();
         }
 
         public void OnBuildTowerRequest(ReceiveableNetworkMessage msg)
@@ -36,6 +45,11 @@ namespace TestServer
                 smsg.addInformation("Type", msg.getInformation("Type"));
                 smsg.addInformation("Ressources", ressources);
                 gameServer.sendMessage(smsg);
+
+                if(Boolean.Parse(msg.getInformation("Type")) == false)
+                {
+                    ressourceGain += ressourceGainPerTower;
+                }
             }
         }
 
@@ -63,6 +77,26 @@ namespace TestServer
                 smsg.addInformation("Ressources", ressources);
                 gameServer.sendMessage(smsg);
             }
+        }
+
+        public void higherRessources()
+        {
+
+            Thread.Sleep(1000);
+            Console.WriteLine(this.ressources += ressourceGain);
+            sendRessourceUpdate();
+            higherRessources();
+        }
+
+
+        public void sendRessourceUpdate()
+        {
+            SendableNetworkMessage msg = new SendableNetworkMessage("RessourceUpdate");
+
+            msg.addInformation("Ressources", this.ressources);
+            msg.addInformation("Player", this.player1);
+
+            gameServer.sendMessage(msg);
         }
     }
 }

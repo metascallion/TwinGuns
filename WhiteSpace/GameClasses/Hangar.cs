@@ -142,7 +142,7 @@ namespace WhiteSpace.GameClasses
             {
                 if (this.player == Client.host)
                 {
-                    ressources.ressources = int.Parse(msg.getInformation("Ressources"));
+                    ressources.ressources = (int)float.Parse(msg.getInformation("Ressources"));
                 }
                 addDrone(int.Parse(msg.getInformation("Index")));
             }
@@ -180,6 +180,7 @@ namespace WhiteSpace.GameClasses
                     }
 
                     droneStocks[i, stock] = GameObjectFactory.createDrone(this.parent.sector, transform, "Ship", effect, 8, targetTransform);
+                    droneStocks[i, stock].addComponent(new AfterTimeComponentAdder(4000));
                     break;
                 }
             }

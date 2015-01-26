@@ -68,7 +68,6 @@ namespace WhiteSpace.GameClasses
             if (ressources.haveEnoughRessources(25))
             {
                 sender.parent.removeComponent<Tower>();
-                sender.parent.removeComponent<RessourceContributor>();
                 SendableNetworkMessage msg = new SendableNetworkMessage("BuildTower");
                 msg.addInformation("x", sender.parent.getComponent<GridTile>().x);
                 msg.addInformation("y", sender.parent.getComponent<GridTile>().y);
@@ -96,7 +95,7 @@ namespace WhiteSpace.GameClasses
             {
                 if (this.player == Client.host)
                 {
-                    ressources.ressources = int.Parse(msg.getInformation("Ressources"));
+                    ressources.ressources = (int)float.Parse(msg.getInformation("Ressources"));
                     this.buildTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")), true, Boolean.Parse(msg.getInformation("Type")));
                 }
 
@@ -118,7 +117,7 @@ namespace WhiteSpace.GameClasses
 
                 else
                 {
-                    ressources.ressources = int.Parse(msg.getInformation("Ressources"));
+                    ressources.ressources = (int)float.Parse(msg.getInformation("Ressources"));
                     this.destroyTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
                 }
             }
@@ -140,10 +139,6 @@ namespace WhiteSpace.GameClasses
                 o.getComponent<Button>().setStandartDrawer(new ColoredBox(Color.Blue));
                 o.getComponent<Button>().setHoverDrawer(new ColoredBox(Color.Blue));
                 o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Blue));
-                if (playerOne)
-                {
-                    o.addComponent(new RessourceContributor(this.ressources, 10, 5000));
-                }
             }
         }
 
@@ -158,7 +153,6 @@ namespace WhiteSpace.GameClasses
             GameObject o = this.gameObjects[x, y];
             o.getComponent<Button>().resetDrawers();
             o.removeComponent<Tower>();
-            o.removeComponent<RessourceContributor>();
         }
 
         public void destroyMirroredTower(int x, int y)

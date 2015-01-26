@@ -93,6 +93,18 @@ namespace WhiteSpace.Temp
             return null;
         }
 
+        public bool hasComponent<T>() where T : Component
+        {
+            foreach(Component c in children)
+            {
+                if(c.GetType() == typeof(T))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public void destroy()
         {
             for(int i = 0; i < this.children.Count; i++)
