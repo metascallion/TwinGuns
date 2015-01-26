@@ -25,15 +25,17 @@ namespace WhiteSpace.GameClasses
         ComponentsSector<gamestate> sector;
 
         GameObject ressourceCounter;
+        GameRessources ressources;
 
         public Hangar()
         {
         }
 
-        public Hangar(Transform target, bool player)
+        public Hangar(Transform target, bool player, GameRessources ressources)
         {
             this.targetTransform = target;
             this.player = player;
+            this.ressources = ressources;
         }
 
         public override void start()
@@ -101,6 +103,7 @@ namespace WhiteSpace.GameClasses
             {
                 this.player = !this.player;
                 Client.host = true;
+                this.parent.addComponent(new LifeSender(this.player));
             }
 
             if(KeyboardInput.wasKeyJustPressed(Microsoft.Xna.Framework.Input.Keys.U))
@@ -108,12 +111,12 @@ namespace WhiteSpace.GameClasses
                 sendOpenHangarMessage(new Clickable());
             }
 
-            ressourceCounter.getComponent<TextDrawer>().text = "Ressources: " + GameRessources.ressources.ToString();
+            ressourceCounter.getComponent<TextDrawer>().text = "Ressources: " + ressources.ressources.ToString();
         }
 
         public void sendBuildDroneMessage(Clickable sender)
         {
-            if (GameRessources.haveEnoughRessources(15))
+            if (ressources.haveEnoughRessources(15))
             {
                 SendableNetworkMessage msg = new SendableNetworkMessage("BuildDrone");
                 msg.addInformation("Player", player);
@@ -137,6 +140,10 @@ namespace WhiteSpace.GameClasses
 
             if (Boolean.Parse(msg.getInformation("Player")) == this.player)
             {
+                if (this.player == Client.host)
+                {
+                    ressources.ressources = int.Parse(msg.getInformation("Ressources"));
+                }
                 addDrone(int.Parse(msg.getInformation("Index")));
             }
         }

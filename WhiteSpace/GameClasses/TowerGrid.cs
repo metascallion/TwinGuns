@@ -18,9 +18,12 @@ namespace WhiteSpace.GameClasses
         bool player;
         bool attackTower;
 
-        public TowerGrid(int rows, int cols, int tileSize, Vector2 position, int offset, bool player) : base(rows, cols, tileSize, position, offset)
+        private GameRessources ressources;
+
+        public TowerGrid(int rows, int cols, int tileSize, Vector2 position, int offset, bool player, GameRessources ressources) : base(rows, cols, tileSize, position, offset)
         {
             this.player = player;
+            this.ressources = ressources;
             Client.registerNetworkListenerMethod("BuildTower", OnBuildTowerMessage);
             Client.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerMessage);
         }
@@ -62,7 +65,7 @@ namespace WhiteSpace.GameClasses
 
         void sendBuildTowerMessage(Clickable sender)
         {
-            if (GameRessources.haveEnoughRessources(25))
+            if (ressources.haveEnoughRessources(25))
             {
                 sender.parent.removeComponent<Tower>();
                 sender.parent.removeComponent<RessourceContributor>();
@@ -77,7 +80,7 @@ namespace WhiteSpace.GameClasses
 
         void sendDestroyTowerMessage(Clickable sender)
         {
-            if (GameRessources.haveEnoughRessources(25))
+            if (ressources.haveEnoughRessources(25))
             {
                 SendableNetworkMessage msg = new SendableNetworkMessage("DestroyTower");
                 msg.addInformation("x", sender.parent.getComponent<GridTile>().x);
@@ -93,6 +96,7 @@ namespace WhiteSpace.GameClasses
             {
                 if (this.player == Client.host)
                 {
+                    ressources.ressources = int.Parse(msg.getInformation("Ressources"));
                     this.buildTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")), true, Boolean.Parse(msg.getInformation("Type")));
                 }
 
@@ -114,6 +118,7 @@ namespace WhiteSpace.GameClasses
 
                 else
                 {
+                    ressources.ressources = int.Parse(msg.getInformation("Ressources"));
                     this.destroyTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
                 }
             }
@@ -137,7 +142,7 @@ namespace WhiteSpace.GameClasses
                 o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Blue));
                 if (playerOne)
                 {
-                    o.addComponent(new RessourceContributor(10, 5000));
+                    o.addComponent(new RessourceContributor(this.ressources, 10, 5000));
                 }
             }
         }

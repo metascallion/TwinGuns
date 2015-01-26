@@ -8,6 +8,7 @@ using WhiteSpace.Components.Physics;
 using WhiteSpace.Components.Drawables;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Temp;
+using WhiteSpace.Network;
 
 namespace WhiteSpace.GameClasses
 {
@@ -38,7 +39,11 @@ namespace WhiteSpace.GameClasses
 
         protected override void onTargetHit(BoxCollider targetCollider)
         {
-            this.target.parent.getComponent<Life>().reduceHealth();
+            if (Client.host)
+            {
+                this.target.parent.getComponent<Life>().reduceHealth();
+                this.target.parent.getComponent<LifeSender>().sendLife();
+            }
             this.parent.destroy();
         }
 

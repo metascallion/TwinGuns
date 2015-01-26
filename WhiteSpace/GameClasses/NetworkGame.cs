@@ -28,31 +28,29 @@ namespace WhiteSpace.GameClasses
         GameObject p2Ship;
         TowerGrid grid;
         TowerGrid grid2;
+        GameRessources ressources = new GameRessources();
 
         public NetworkGame()
         {
             buildMotherShips();
-
-            grid = new TowerGrid(4, 3, 30, new Vector2(230, 350), 5, Client.host);
+            grid = new TowerGrid(4, 3, 30, new Vector2(230, 350), 5, Client.host, ressources);
             GameObject go = new GameObject(gameSector);
             go.addComponent(grid);
 
-            grid2 = new TowerGrid(4, 3, 30, new Vector2(420, 350), 5, !Client.host);
+            grid2 = new TowerGrid(4, 3, 30, new Vector2(420, 350), 5, !Client.host, ressources);
             GameObject go2 = new GameObject(gameSector);
             go2.addComponent(grid2);
             grid2.addComponent<Button>();
 
             StateMachine<gamestate>.getInstance().changeState(gamestate.game);
-            //Client.registerNetworkListenerMethod("BuildTower", OnBuildTowerMessage);
-            //Client.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerMessage);
         }
 
         void buildMotherShips()
         {
             Transform ship1Transform = Transform.createTransformWithSizeOnPosition(new Vector2(), new Vector2(150,350));
             Transform ship2Transform = Transform.createTransformWithSizeOnPosition(new Vector2(650, 0), new Vector2(150, 350));
-            p1Ship = GameObjectFactory.createMotherShip(gameSector, ship1Transform, ship2Transform, "Ship", Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 25, Client.host);
-            p2Ship = GameObjectFactory.createMotherShip(gameSector, ship2Transform, ship1Transform, "Ship", Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally, 25, !Client.host);
+            p1Ship = GameObjectFactory.createMotherShip(gameSector, ship1Transform, ship2Transform, "Ship", Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 25, Client.host, ressources);
+            p2Ship = GameObjectFactory.createMotherShip(gameSector, ship2Transform, ship1Transform, "Ship", Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally, 25, !Client.host, ressources);
         }
     }
 }

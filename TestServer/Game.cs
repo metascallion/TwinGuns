@@ -10,40 +10,14 @@ namespace TestServer
     public class Game
     {
         public Server gameServer = new Server();
+
         public Game()
         {
             gameServer.startServer("test", 1111);
-            gameServer.registerNetworkListenerMethod("BuildDrone", OnBuildDroneRequest);
-            gameServer.registerNetworkListenerMethod("BuildTower", OnBuildTowerRequest);
-            gameServer.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerRequest);
+            new Player(100, true, this.gameServer);
+            new Player(100, false, this.gameServer);
             gameServer.registerNetworkListenerMethod("OpenHangar", OnOpenHangarRequest);
-        }
-
-        public void OnBuildDroneRequest(ReceiveableNetworkMessage msg)
-        {
-            SendableNetworkMessage smsg = new SendableNetworkMessage("BuildDrone");
-            smsg.addInformation("Player", msg.getInformation("Player"));
-            smsg.addInformation("Index", msg.getInformation("Index"));
-            gameServer.sendMessage(smsg);
-        }
-
-        public void OnBuildTowerRequest(ReceiveableNetworkMessage msg)
-        {
-            SendableNetworkMessage smsg = new SendableNetworkMessage("BuildTower");
-            smsg.addInformation("x", msg.getInformation("x"));
-            smsg.addInformation("y", msg.getInformation("y"));
-            smsg.addInformation("Player", msg.getInformation("Player"));
-            smsg.addInformation("Type", msg.getInformation("Type"));
-            gameServer.sendMessage(smsg);
-        }
-
-        public void OnDestroyTowerRequest(ReceiveableNetworkMessage msg)
-        {
-            SendableNetworkMessage smsg = new SendableNetworkMessage("DestroyTower");
-            smsg.addInformation("x", msg.getInformation("x"));
-            smsg.addInformation("y", msg.getInformation("y"));
-            smsg.addInformation("Player", msg.getInformation("Player"));
-            gameServer.sendMessage(smsg);
+            gameServer.registerNetworkListenerMethod("Life", OnDamageDealed);
         }
 
         public void OnOpenHangarRequest(ReceiveableNetworkMessage msg)
@@ -54,5 +28,12 @@ namespace TestServer
             gameServer.sendMessage(smsg);
         }
 
+        public void OnDamageDealed(ReceiveableNetworkMessage msg)
+        {
+            SendableNetworkMessage smsg = new SendableNetworkMessage(msg.Header);
+            smsg.addInformation("Player", msg.getInformation("Player"));
+            smsg.addInformation("Health", msg.getInformation("Health"));
+            gameServer.sendMessage(smsg);
+        }
     }
 }

@@ -27,13 +27,14 @@ namespace WhiteSpace
             return temp;
         }
 
-        public static GameObject createMotherShip(IComponentsSector sector, Transform transform, Transform enemyTransform, string textureFile, SpriteEffects effect, int health, bool player)
+        public static GameObject createMotherShip(IComponentsSector sector, Transform transform, Transform enemyTransform, string textureFile, SpriteEffects effect, int health, bool player, GameRessources ressources)
         {
             GameObject temp = createUnit(sector, transform, textureFile, effect, health);
             temp.addComponent(new BoxCollider());
             temp.addComponent(new Clickable());
-            temp.addComponent(new Hangar(enemyTransform, player));
+            temp.addComponent(new Hangar(enemyTransform, player, ressources));
             temp.addComponent(new HealthRenderer());
+            temp.addComponent(new LifeUpdater(player));
             return temp;
         }
 

@@ -11,7 +11,7 @@ namespace WhiteSpace.Components
     class Life : StandardComponent
     {
         public event onDead killMethods;
-        public int Health{ get; private set; }
+        public int Health{ get; set; }
 
         public bool destroyOnDead = false;
 
