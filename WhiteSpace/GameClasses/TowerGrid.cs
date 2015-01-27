@@ -10,7 +10,7 @@ using WhiteSpace.Network;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Components.Drawables;
 using System.Threading;
-
+using WhiteSpace.Components.Physics;
 
 namespace WhiteSpace.GameClasses
 {
@@ -66,7 +66,7 @@ namespace WhiteSpace.GameClasses
 
         void sendBuildTowerMessage(Clickable sender)
         {
-            if (ressources.haveEnoughRessources(25) && (!sender.parent.hasComponent<Tower>() && !sender.parent.hasComponent<RessourceTower>()))
+            if (!sender.parent.hasComponent<Tower>() && !sender.parent.hasComponent<RessourceTower>())
             {
                 sender.parent.removeComponent<Tower>();
                 SendableNetworkMessage msg = new SendableNetworkMessage("BuildTower");
@@ -80,12 +80,18 @@ namespace WhiteSpace.GameClasses
 
         void sendDestroyTowerMessage(Clickable sender)
         {
-            if (ressources.haveEnoughRessources(25) && (sender.parent.hasComponent<Tower>() || sender.parent.hasComponent<RessourceTower>()))
+            if (ressources.haveEnoughRessources(25) && !sender.parent.hasComponent<AfterTimeComponentAdder>() && (sender.parent.hasComponent<Tower>() || sender.parent.hasComponent<RessourceTower>()))
             {
                 SendableNetworkMessage msg = new SendableNetworkMessage("DestroyTower");
                 msg.addInformation("x", sender.parent.getComponent<GridTile>().x);
                 msg.addInformation("y", sender.parent.getComponent<GridTile>().y);
                 msg.addInformation("Player", this.player);
+                bool type = false;
+                if(sender.parent.hasComponent<Tower>())
+                {
+                    type = true;
+                }
+                msg.addInformation("Type", type);
                 Client.sendMessage(msg);
             }
         }
@@ -113,13 +119,19 @@ namespace WhiteSpace.GameClasses
             {
                 if (player == Client.host)
                 {
-                    this.destroyMirroredTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+                    GameObject go = new GameObject(this.parent.sector);
+                    go.addComponent(Transform.createTransformWithSizeOnPosition(new Vector2(800, 0), new Vector2(25, 25)));
+                    go.addComponent(new ColoredBox(Color.White));
+                    go.addComponent(new TwingunShot(this.gameObjects[3 - int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y"))].getComponent<Transform>()));
                 }
 
                 else
                 {
                     ressources.ressources = (int)float.Parse(msg.getInformation("Ressources"));
-                    this.destroyTower(int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y")));
+                    GameObject go = new GameObject(this.parent.sector);
+                    go.addComponent(Transform.createTransformWithSizeOnPosition(new Vector2(0, 0), new Vector2(25, 25)));
+                    go.addComponent(new ColoredBox(Color.White));
+                    go.addComponent(new TwingunShot(this.gameObjects[int.Parse(msg.getInformation("x")), int.Parse(msg.getInformation("y"))].getComponent<Transform>()));
                 }
             }
         }
@@ -130,7 +142,7 @@ namespace WhiteSpace.GameClasses
             if (towerType)
             {
                 AfterTimeComponentAdder adder = new AfterTimeComponentAdder(3000);
-                adder.addToComponentsToAddAfterTime(new Tower(1000, playerOne));
+                adder.addToComponentsToAddAfterTime(new Tower(850, playerOne));
                 o.addComponent(adder);
                 adder.expiredFunctions += delegate
                {
@@ -153,19 +165,8 @@ namespace WhiteSpace.GameClasses
         public void buildMirroredTower(int x, int y, bool playerOne, bool towerType)
         {
             buildTower(this.gameObjects.GetLength(0) - x - 1, y, playerOne, towerType);
-        }
 
-        public void destroyTower(int x, int y)
-        {
-            GameObject o = this.gameObjects[x, y];
-            o.getComponent<Button>().resetDrawers();
-            o.removeComponent<Tower>();
-            o.removeComponent<RessourceTower>();
-        }
 
-        public void destroyMirroredTower(int x, int y)
-        {
-            destroyTower(this.gameObjects.GetLength(0) - x -1, y);
         }
 
         protected override void update(GameTime gameTime)

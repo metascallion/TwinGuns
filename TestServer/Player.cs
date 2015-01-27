@@ -14,6 +14,8 @@ namespace TestServer
         bool player1;
         Server gameServer;
         int towerCosts = 25;
+        int towerDestroy = 20;
+        int attackTowerCosts = 15;
         ThreadStart start;
         Thread ressourceThread;
         public float ressourceGain;
@@ -35,20 +37,30 @@ namespace TestServer
 
         public void OnBuildTowerRequest(ReceiveableNetworkMessage msg)
         {
-            if (Boolean.Parse(msg.getInformation("Player")) == this.player1 && ressources >= towerCosts)
+            if (Boolean.Parse(msg.getInformation("Player")) == this.player1)
             {
-                ressources -= towerCosts;
-                SendableNetworkMessage smsg = new SendableNetworkMessage("BuildTower");
-                smsg.addInformation("x", msg.getInformation("x"));
-                smsg.addInformation("y", msg.getInformation("y"));
-                smsg.addInformation("Player", msg.getInformation("Player"));
-                smsg.addInformation("Type", msg.getInformation("Type"));
-                smsg.addInformation("Ressources", ressources);
-                gameServer.sendMessage(smsg);
-
-                if(Boolean.Parse(msg.getInformation("Type")) == false)
+                if ((Boolean.Parse(msg.getInformation("Type")) && this.ressources >= attackTowerCosts) || (!Boolean.Parse(msg.getInformation("Type")) && this.ressources >= towerCosts))
                 {
-                    ressourceGain += ressourceGainPerTower;
+                    if (Boolean.Parse(msg.getInformation("Type")) == false)
+                    {
+                        ressources -= towerCosts;
+                    }
+                    else
+                    {
+                        ressources -= attackTowerCosts;
+                    }
+                    SendableNetworkMessage smsg = new SendableNetworkMessage("BuildTower");
+                    smsg.addInformation("x", msg.getInformation("x"));
+                    smsg.addInformation("y", msg.getInformation("y"));
+                    smsg.addInformation("Player", msg.getInformation("Player"));
+                    smsg.addInformation("Type", msg.getInformation("Type"));
+                    smsg.addInformation("Ressources", ressources);
+                    gameServer.sendMessage(smsg);
+
+                    if (Boolean.Parse(msg.getInformation("Type")) == false)
+                    {
+                        ressourceGain += ressourceGainPerTower;
+                    }
                 }
             }
         }
@@ -57,13 +69,25 @@ namespace TestServer
         {
             if (Boolean.Parse(msg.getInformation("Player")) != this.player1)
             {
-                ressources -= towerCosts;
+                if (Boolean.Parse(msg.getInformation("Type")) == false)
+                {
+                    ressources -= towerDestroy;
+                }
+                else
+                {
+                    ressources -= towerDestroy;
+                }
                 SendableNetworkMessage smsg = new SendableNetworkMessage("DestroyTower");
                 smsg.addInformation("x", msg.getInformation("x"));
                 smsg.addInformation("y", msg.getInformation("y"));
                 smsg.addInformation("Player", msg.getInformation("Player"));
                 smsg.addInformation("Ressources", ressources);
                 gameServer.sendMessage(smsg);
+            }
+
+            else if(Boolean.Parse(msg.getInformation("Type")) == false)
+            {
+                ressourceGain -= ressourceGainPerTower;
             }
         }
 

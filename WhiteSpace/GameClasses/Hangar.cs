@@ -192,7 +192,7 @@ namespace WhiteSpace.GameClasses
                     }
 
                     droneStocks[i, stock] = GameObjectFactory.createDrone(this.parent.sector, transform, "Ship", effect, 6, targetTransform);
-                    AfterTimeComponentAdder adder = new AfterTimeComponentAdder(4000);
+                    AfterTimeComponentAdder adder = new AfterTimeComponentAdder(3000);
                     adder.addToComponentsToAddAfterTime(new TextureRegion(ContentLoader.getContent<Texture2D>("Ship"), effect));
                     droneStocks[i, stock].addComponent(adder);
                     break;

@@ -14,13 +14,48 @@ using WhiteSpace.Components.Animation;
 
 namespace WhiteSpace.GameClasses
 {
+    public class TwingunShot : UpdateableComponent
+    {
+        Transform target;
+        public TwingunShot(Transform transform)
+        {
+            this.target = transform;
+        }
+
+        protected override void update(GameTime gameTime)
+        {
+            Transform transform = this.parent.getComponent<Transform>();
+            transform.lookAt(target.Center);
+            transform.translate(transform.transformDirection(direction.right) * 5);
+
+            if (Vector2.Distance(target.Position, this.parent.getComponent<Transform>().Position) < 12)
+            {
+                onTargetHit();
+            }
+        }
+
+        protected void onTargetHit()
+        {
+            new Sound("Explode", false, 0.5f);
+            Transform transform = target.parent.getComponent<Transform>();
+            GameObject go = GameObjectFactory.createTemporaryObjectWithTransform(this.parent.sector, new Vector2(transform.Position.X - 25, transform.Position.Y - 25), new Vector2(50, 50), 300);
+            go.addComponent(new TextureRegion(ContentLoader.getContent<Texture2D>("Explosion")));
+            go.addComponent(Animator.loadAnimator(go.getComponent<TextureRegion>(), "ExplosionAnimator", 10));
+            go.getComponent<Animator>().playAnimation("Explosion", false);
+            this.parent.destroy();
+            target.parent.removeComponent<Tower>();
+            target.parent.removeComponent<RessourceTower>();
+            target.parent.getComponent<Button>().resetDrawers();
+        }
+    }
+
 
     public class Ship : Projectile
     {
         public Ship(Transform transform)
             : base(transform)
         {
-            this.speed = 1;
+            this.speed = 1.5f;
         }
 
         public Ship()
@@ -73,7 +108,7 @@ namespace WhiteSpace.GameClasses
         public BoxCollider collider;
         protected Transform transform;
         protected CharacterControler controller;
-        public int speed;
+        public float speed;
 
         public Projectile()
         {
@@ -114,11 +149,16 @@ namespace WhiteSpace.GameClasses
             }
         }
 
+        bool hit = false;
         private void onColliderHit(BoxCollider collider)
         {
-            if (collider.parent.getComponent<Transform>() == this.target)
+            if (!hit)
             {
-                onTargetHit(collider);
+                if (collider.parent.getComponent<Transform>() == this.target)
+                {
+                    hit = true;
+                    onTargetHit(collider);
+                }
             }
         }
 
