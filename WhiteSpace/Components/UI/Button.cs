@@ -5,6 +5,7 @@ using System.Text;
 using WhiteSpace.Components.Drawables;
 using WhiteSpace.GameLoop;
 using Microsoft.Xna.Framework;
+using WhiteSpace.Temp;
 
 namespace WhiteSpace.Components
 {
@@ -19,28 +20,30 @@ namespace WhiteSpace.Components
     public class Button : Clickable
     {
         public TextDrawer textD;
-        private ColoredBox standartDrawer;
-        private ColoredBox hoverDrawer;
-        private ColoredBox clickedDrawer;
+
+
+        private DrawableComponent standartDrawer;
+        private DrawableComponent hoverDrawer;
+        private DrawableComponent clickedDrawer;
 
         public bool JustReleased { get; protected set; }
 
         protected displaystate state;
 
 
-        public void setStandartDrawer(ColoredBox drawer)
+        public void setStandartDrawer(DrawableComponent drawer)
         {
             this.standartDrawer = drawer;
             displayDrawer();
         }
 
-        public void setHoverDrawer(ColoredBox drawer)
+        public void setHoverDrawer(DrawableComponent drawer)
         {
             this.hoverDrawer = drawer;
             displayDrawer();
         }
 
-        public void setClickedDrawer(ColoredBox drawer)
+        public void setClickedDrawer(DrawableComponent drawer)
         {
             this.clickedDrawer = drawer;
             displayDrawer();
@@ -66,7 +69,7 @@ namespace WhiteSpace.Components
 
         private void deactivateDrawers()
         {
-            this.parent.removeComponent<ColoredBox>();
+            this.parent.removeComponent<DrawableComponent>();
         }
 
         public Button()

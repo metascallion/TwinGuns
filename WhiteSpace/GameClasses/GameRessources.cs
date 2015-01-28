@@ -8,7 +8,7 @@ namespace WhiteSpace.GameClasses
 {
     public class GameRessources
     {
-        public int ressources = 100;
+        public int ressources = 400;
 
         public GameRessources()
         {
