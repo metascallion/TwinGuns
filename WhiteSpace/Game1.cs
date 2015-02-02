@@ -40,6 +40,8 @@ namespace WhiteSpace
             : base()
         {
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 1280;
+            graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
         }
 
@@ -65,6 +67,7 @@ namespace WhiteSpace
             StateMachine<gamestate>.getInstance().changeState(gamestate.main);
             Client.startClient("test");
             Client.connect("localhost", 1111);
+            
             //new SelectionMenu();
             new NetworkGame();
         }
@@ -103,7 +106,7 @@ namespace WhiteSpace
         {
             GraphicsDevice.Clear(Color.Black);
             // TODO: Add your drawing code here
-            spriteBatch.Begin();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             DrawExecuter.executeRegisteredDrawMethods(spriteBatch);
             spriteBatch.End();
 

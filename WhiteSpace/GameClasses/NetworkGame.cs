@@ -32,12 +32,18 @@ namespace WhiteSpace.GameClasses
 
         public NetworkGame()
         {
+            GameObjectFactory.createTexture(gameSector, Vector2.Zero, new Vector2(1280, 720), ContentLoader.getContent<Texture2D>("Background"));
+            GameObjectFactory.createTexture(gameSector, Vector2.Zero, new Vector2(1280, 720), ContentLoader.getContent<Texture2D>("Stars"));
+
+            GameObjectFactory.createTexture(gameSector, new Vector2(0, 720 - 193), new Vector2(1280, 193), ContentLoader.getContent<Texture2D>("Planet"));
+
+
             buildMotherShips();
-            grid = new TowerGrid(4, 3, 30, new Vector2(230, 350), 5, Client.host, ressources);
+            grid = new TowerGrid(4, 3, 40, new Vector2(400, 575), 5, Client.host, ressources);
             GameObject go = new GameObject(gameSector);
             go.addComponent(grid);
 
-            grid2 = new TowerGrid(4, 3, 30, new Vector2(420, 350), 5, !Client.host, ressources);
+            grid2 = new TowerGrid(4, 3, 40, new Vector2(655, 575), 5, !Client.host, ressources);
             GameObject go2 = new GameObject(gameSector);
             go2.addComponent(grid2);
             grid2.addComponent<Button>();
@@ -47,10 +53,22 @@ namespace WhiteSpace.GameClasses
 
         void buildMotherShips()
         {
-            Transform ship1Transform = Transform.createTransformWithSizeOnPosition(new Vector2(), new Vector2(150,350));
-            Transform ship2Transform = Transform.createTransformWithSizeOnPosition(new Vector2(650, 0), new Vector2(150, 350));
-            p1Ship = GameObjectFactory.createMotherShip(gameSector, ship1Transform, ship2Transform, "Ship", Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 25, Client.host, ressources);
-            p2Ship = GameObjectFactory.createMotherShip(gameSector, ship2Transform, ship1Transform, "Ship", Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally, 25, !Client.host, ressources);
+            Transform ship1Transform = Transform.createTransformWithSizeOnPosition(new Vector2(), new Vector2(523, 683));
+            Transform ship2Transform = Transform.createTransformWithSizeOnPosition(new Vector2(Game1.graphics.PreferredBackBufferWidth - 523, 0), new Vector2(523, 683));
+
+
+
+            p1Ship = GameObjectFactory.createMotherShip(gameSector, ship1Transform, ship2Transform, "Mothership", Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 25, Client.host, ressources);
+            GameObjectFactory.createTexture(gameSector, Vector2.Zero, new Vector2(275, 145), ContentLoader.getContent<Texture2D>("Twingun2"));
+            GameObjectFactory.createTexture(gameSector, Vector2.Zero, new Vector2(283, 149), ContentLoader.getContent<Texture2D>("Twingun1"));
+
+            p2Ship = GameObjectFactory.createMotherShip(gameSector, ship2Transform, ship1Transform, "Mothership", Microsoft.Xna.Framework.Graphics.SpriteEffects.FlipHorizontally, 25, !Client.host, ressources);
+            GameObjectFactory.createTexture(gameSector, new Vector2(Game1.graphics.PreferredBackBufferWidth - 275, 0), new Vector2(275, 145), ContentLoader.getContent<Texture2D>("Twingun2"), SpriteEffects.FlipHorizontally);
+            GameObjectFactory.createTexture(gameSector, new Vector2(Game1.graphics.PreferredBackBufferWidth - 283, 0), new Vector2(283, 149), ContentLoader.getContent<Texture2D>("Twingun1"), SpriteEffects.FlipHorizontally);
+
+
+            p1Ship.getComponent<Hangar>().targetTransform = p2Ship.getComponent<Hangar>().transform;
+            p2Ship.getComponent<Hangar>().targetTransform = p1Ship.getComponent<Hangar>().transform;
         }
     }
 }

@@ -14,10 +14,10 @@ namespace TestServer
         public Game()
         {
             gameServer.startServer("test", 1111);
-            Player p1 = new Player(400, true, this.gameServer);
-            p1.ressourceGain = 0.6f;
-            Player p2 = new Player(400, false, this.gameServer);
-            p2.ressourceGain = 0.6f;
+            Player p1 = new Player(100, true, this.gameServer);
+            p1.ressourceGain = 2.0f;
+            Player p2 = new Player(100, false, this.gameServer);
+            p2.ressourceGain = 2.0f;
             gameServer.registerNetworkListenerMethod("OpenHangar", OnOpenHangarRequest);
             gameServer.registerNetworkListenerMethod("Life", OnDamageDealed);
         }

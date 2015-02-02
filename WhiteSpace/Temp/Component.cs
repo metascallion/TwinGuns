@@ -41,10 +41,29 @@ namespace WhiteSpace.Temp
 
     public abstract class DrawableComponent : Component
     {
+        protected int layer = 0;
+
+        public DrawableComponent()
+        {
+
+        }
+
+        public DrawableComponent(int layer)
+        {
+            this.layer = layer;
+        }
         protected abstract void draw(SpriteBatch spriteBatch);
         public override sealed void registerInComponentSector()
         {
-            this.parent.sector.addDrawMethod(this.draw);
+            if (this.layer == 0)
+            {
+                this.parent.sector.addDrawMethod(this.draw);
+            }
+
+            else
+            {
+                this.parent.sector.addLayredDrawMethod(this.draw, this.layer);
+            }
         }
         public override sealed void unregisterInComponentSector()
         {

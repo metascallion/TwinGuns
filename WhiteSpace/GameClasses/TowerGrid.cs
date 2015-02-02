@@ -41,8 +41,8 @@ namespace WhiteSpace.GameClasses
                     b.releaseMethods += sendBuildTowerMessage;
                 }
 
-                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(10, 400), new Vector2(150, 30)), "Ressource Tower", changeToRessouce);
-                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(10, 440), new Vector2(150, 30)), "Attack Tower", changeToAttack);
+                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 640), new Vector2(150, 30)), "Ressource Tower", changeToRessouce);
+                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 680), new Vector2(150, 30)), "Attack Tower", changeToAttack);
             }
 
             else
@@ -157,7 +157,10 @@ namespace WhiteSpace.GameClasses
                 o.getComponent<Button>().setStandartDrawer(new ColoredBox(Color.Blue));
                 o.getComponent<Button>().setHoverDrawer(new ColoredBox(Color.Blue));
                 o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Blue));
-                o.addComponent<RessourceTower>();
+                Transform trans = o.getComponent<Transform>();
+                GameObjectFactory.createTexture(this.parent.sector, trans.Center - new Vector2(25, 60), new Vector2(50, 85), ContentLoader.getContent<Texture2D>("Energietower"));
+                o.destroy();
+                //o.addComponent<RessourceTower>();
             }
         }
 

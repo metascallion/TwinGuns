@@ -14,6 +14,7 @@ namespace WhiteSpace.GameLoop
     public interface IComponentsSector
     {
         void addDrawMethod(Draw drawMethodToAdd);
+        void addLayredDrawMethod(Draw drawMethodToAdd, int layer);
         void addUpdateMethod(Update updateMethodToAdd);
         void removeDrawMethod(Draw drawMethodToRemove);
         void removeUpdateMethod(Update updateToRemove);
@@ -27,6 +28,7 @@ namespace WhiteSpace.GameLoop
        
         public List<Update> updateMethodsToExecute = new List<Update>();
         public List<Draw> drawMethodsToExecute = new List<Draw>();
+        private SortedDictionary<int, List<Draw>> layredMethods = new SortedDictionary<int, List<Draw>>();
 
         public delegate void ProcessState();
         public event ProcessState invalidStateMethodsToExecute;
@@ -38,6 +40,15 @@ namespace WhiteSpace.GameLoop
             {
                 drawMethodsToExecute.Add(drawMethodToAdd);
             }
+        }
+
+        public void addLayredDrawMethod(Draw drawMethodToAdd, int layer)
+        {
+            if(!layredMethods.Keys.Contains(layer))
+            {
+                layredMethods[layer] = new List<Draw>();
+            }
+            layredMethods[layer].Add(drawMethodToAdd);
         }
 
         public void addUpdateMethod(Update updateMethodToAdd)
@@ -106,6 +117,14 @@ namespace WhiteSpace.GameLoop
                      foreach (Draw draw in drawMethodsToExecute)
                      {
                          draw(spriteBatch);
+                     }
+                 }
+
+                 foreach (int key in layredMethods.Keys)
+                 {
+                     foreach (Draw d in layredMethods[key])
+                     {
+                         d(spriteBatch);
                      }
                  }
         }

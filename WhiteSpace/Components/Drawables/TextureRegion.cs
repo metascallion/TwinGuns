@@ -21,13 +21,31 @@ namespace WhiteSpace.Components.Drawables
         {
         }
 
+        public TextureRegion(int layer) : base(layer)
+        {
+
+        }
+
         public TextureRegion(Texture2D texture)
         {
             this.Texture = texture;
             this.VisibleArea = texture.Bounds;
         }
 
+        public TextureRegion(Texture2D texture, int layer) : base (layer)
+        {
+            this.Texture = texture;
+            this.VisibleArea = texture.Bounds;
+        }
+
         public TextureRegion(Texture2D texture, SpriteEffects effect)
+        {
+            this.Texture = texture;
+            this.VisibleArea = texture.Bounds;
+            this.SpriteEffect = effect;
+        }
+
+        public TextureRegion(Texture2D texture, SpriteEffects effect, int layer) : base (layer)
         {
             this.Texture = texture;
             this.VisibleArea = texture.Bounds;

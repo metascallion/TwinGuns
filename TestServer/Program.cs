@@ -12,7 +12,6 @@ namespace TestServer
     {
         public static Server masterServer;
         static Server testServer;
-
         static void Main(string[] args)
         {
             //masterServer = new Server();
@@ -22,7 +21,6 @@ namespace TestServer
             //masterServer.registerNetworkListenerMethod("Join", OnJoinRequest);
             //testServer = new Server();
             //testServer.startServer("test", 1111);
-
             new Game();
             Console.ReadLine();
         }

@@ -9,14 +9,15 @@ using WhiteSpace.Network;
 using WhiteSpace.Temp;
 using WhiteSpace.Components.Drawables;
 using Microsoft.Xna.Framework.Graphics;
+using WhiteSpace.Components.Physics;
 
 
 namespace WhiteSpace.GameClasses
 {
     public class Hangar : UpdateableComponent
     {
-        Transform targetTransform;
-        Transform transform;
+        public Transform targetTransform;
+        public Transform transform;
 
         GameObject[,] droneStocks = new GameObject[3, 3];
 
@@ -31,9 +32,8 @@ namespace WhiteSpace.GameClasses
         {
         }
 
-        public Hangar(Transform target, bool player, GameRessources ressources)
+        public Hangar(bool player, GameRessources ressources)
         {
-            this.targetTransform = target;
             this.player = player;
             this.ressources = ressources;
         }
@@ -43,13 +43,29 @@ namespace WhiteSpace.GameClasses
             ressourceCounter = GameObjectFactory.createLabel(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(400, 30), new Vector2(100, 20)), "0");   
 
             base.start();
-            this.transform = this.parent.getComponent<Transform>();
+            Transform parentTransform = this.parent.getComponent<Transform>();
+
+            if (player == Client.host)
+            {
+                this.transform = Transform.createTransformWithSizeOnPosition(new Vector2(parentTransform.Position.X, 130), new Vector2(180, 250));
+            }
+
+            else
+            {
+                this.transform = Transform.createTransformWithSizeOnPosition(new Vector2(Game1.graphics.PreferredBackBufferWidth - 180, 130), new Vector2(180, 250));
+            }
+
+            GameObject clickArea = GameObjectFactory.createClickableArea(this.parent.sector, this.transform, 0);
+            clickArea.addComponent<BoxCollider>();
+
             if (this.player == Client.host)
             {
-                this.parent.getComponent<Clickable>().releaseMethods += buildHangarButtons;
+                clickArea.getComponent<Clickable>().releaseMethods += buildHangarButtons;
             }
             Client.registerNetworkListenerMethod("BuildDrone", OnBuildDroneMessageEnter);
             Client.registerNetworkListenerMethod("OpenHangar", OnOpenHangarMessageEnter);
+
+            GameObjectFactory.createTexture(this.parent.sector, Vector2.Zero, new Vector2(155, 326), ContentLoader.getContent<Texture2D>("Mothershippipes"), SpriteEffects.None, 5);
         }
 
         public void buildHangarButtons(Clickable sender)
@@ -184,16 +200,16 @@ namespace WhiteSpace.GameClasses
                     Transform transform;
                     if (player == Client.host)
                     {
-                        transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + 40 * i, this.transform.Center.Y + 30 + stock * 40));
+                        transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + 40 * i - stock * 35, this.transform.Position.Y + 60 + stock * 45));
                     }
                     else
                     {
-                        transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + (this.transform.Size.X -25) - 40 * i, this.transform.Center.Y + 30 + 25 + stock * 40));
+                        transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + (this.transform.Size.X -62) - 40 * i + stock * 35, this.transform.Position.Y + 60 + stock * 45));
                     }
 
-                    droneStocks[i, stock] = GameObjectFactory.createDrone(this.parent.sector, transform, "Ship", effect, 6, targetTransform);
+                    droneStocks[i, stock] = GameObjectFactory.createDrone(this.parent.sector, transform, "Drone", effect, 6, targetTransform);
                     AfterTimeComponentAdder adder = new AfterTimeComponentAdder(3000);
-                    adder.addToComponentsToAddAfterTime(new TextureRegion(ContentLoader.getContent<Texture2D>("Ship"), effect));
+                    adder.addToComponentsToAddAfterTime(new TextureRegion(ContentLoader.getContent<Texture2D>("Drone"), effect));
                     droneStocks[i, stock].addComponent(adder);
                     break;
                 }

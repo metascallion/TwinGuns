@@ -13,9 +13,9 @@ namespace TestServer
         float ressources;
         bool player1;
         Server gameServer;
-        int towerCosts = 25;
+        int towerCosts = 20;
         int towerDestroy = 20;
-        int attackTowerCosts = 15;
+        int attackTowerCosts = 25;
         ThreadStart start;
         Thread ressourceThread;
         public float ressourceGain;
@@ -98,7 +98,7 @@ namespace TestServer
                 SendableNetworkMessage smsg = new SendableNetworkMessage("BuildDrone");
                 smsg.addInformation("Player", msg.getInformation("Player"));
                 smsg.addInformation("Index", msg.getInformation("Index"));
-                ressources -= 15;
+                ressources -= 20;
                 smsg.addInformation("Ressources", ressources);
                 gameServer.sendMessage(smsg);
             }

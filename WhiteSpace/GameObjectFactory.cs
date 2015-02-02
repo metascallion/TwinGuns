@@ -32,7 +32,7 @@ namespace WhiteSpace
             GameObject temp = createUnit(sector, transform, textureFile, effect, health);
             temp.addComponent(new BoxCollider());
             temp.addComponent(new Clickable());
-            temp.addComponent(new Hangar(enemyTransform, player, ressources));
+            temp.addComponent(new Hangar(player, ressources));
             temp.addComponent(new HealthRenderer());
             temp.addComponent(new LifeUpdater(player));
             return temp;
@@ -40,7 +40,7 @@ namespace WhiteSpace
 
         public static GameObject createDrone(IComponentsSector sector, Transform transform, string textureFile, SpriteEffects effect, int health, Transform target)
         {
-            Transform droneTransform = Transform.createTransformWithSizeOnPosition(transform.Position, new Vector2(25, 25));
+            Transform droneTransform = Transform.createTransformWithSizeOnPosition(transform.Position, new Vector2(62, 50));
             GameObject temp = createUnit(sector, droneTransform, textureFile, effect, health);
             temp.removeComponent<TextureRegion>();
             temp.addComponent(new BoxCollider());
@@ -68,6 +68,29 @@ namespace WhiteSpace
             GameObject temp = new GameObject(sector);
             temp.addComponent(new OverTimeDestroyer(timeToStay));
             temp.addComponent(Transform.createTransformWithSizeOnPosition(position, size));
+            return temp;
+        }
+
+        public static GameObject createTexture(IComponentsSector sector, Vector2 position, Vector2 size, Texture2D texture)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(Transform.createTransformWithSizeOnPosition(position, size));
+            temp.addComponent(new TextureRegion(texture));
+            return temp;
+        }
+        public static GameObject createTexture(IComponentsSector sector, Vector2 position, Vector2 size, Texture2D texture, SpriteEffects effect)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(Transform.createTransformWithSizeOnPosition(position, size));
+            temp.addComponent(new TextureRegion(texture, effect));
+            return temp;
+        }
+
+        public static GameObject createTexture(IComponentsSector sector, Vector2 position, Vector2 size, Texture2D texture, SpriteEffects effect, int layer)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(Transform.createTransformWithSizeOnPosition(position, size));
+            temp.addComponent(new TextureRegion(texture, effect, layer));
             return temp;
         }
 
@@ -121,6 +144,24 @@ namespace WhiteSpace
             temp.addComponent(new Button(text));
             temp.getComponent<Button>().id = id;
             temp.getComponent<Button>().clickMethods += clickMethod;
+            return temp;
+        }
+
+        public static GameObject createClickableArea(IComponentsSector sector, Transform transform, int id, Button.stateChange clickMethod)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new Clickable());
+            temp.getComponent<Clickable>().id = id;
+            temp.getComponent<Clickable>().clickMethods += clickMethod;
+            return temp;
+        }
+        public static GameObject createClickableArea(IComponentsSector sector, Transform transform, int id)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new Clickable());
+            temp.getComponent<Clickable>().id = id;
             return temp;
         }
 
