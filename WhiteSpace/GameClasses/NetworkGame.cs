@@ -10,14 +10,6 @@ using WhiteSpace.Network;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Components.Drawables;
 
-/*Way to handle unreliability example hangar
- * just send Message with Header HangarUpdate and add InformationContent with header DroneCounter
- * if the client receives a hangarupdate which differs from its current state it just equals its state 
- * by adding drones if it has less drones then the update and open the hangar if it has more drones then
- * the hangars in the update if the hangars have still more then zero drones but less then the client
- * then the client adds the amount of drones it needs to add to have the same amount
- */ 
-
 namespace WhiteSpace.GameClasses
 {
     public class NetworkGame
@@ -32,16 +24,23 @@ namespace WhiteSpace.GameClasses
 
         public NetworkGame()
         {
-            GameObjectFactory.createTexture(gameSector, Vector2.Zero, new Vector2(1280, 720), ContentLoader.getContent<Texture2D>("Background"));
-            GameObjectFactory.createTexture(gameSector, Vector2.Zero, new Vector2(1280, 720), ContentLoader.getContent<Texture2D>("Stars"));
-
+            GameObject back = GameObjectFactory.createTexture(gameSector, new Vector2(0, 0), new Vector2(1280, 720), ContentLoader.getContent<Texture2D>("Background"));
+            GameObject g = GameObjectFactory.createTexture(gameSector, new Vector2(-500, -300), new Vector2(2560, 1440), ContentLoader.getContent<Texture2D>("StarsRotating"));
+            g.addComponent(new Rotator(0.0005f));
+            GameObject gg = GameObjectFactory.createTexture(gameSector, new Vector2(-500, -300), new Vector2(2560, 1440), ContentLoader.getContent<Texture2D>("StarsRotating"), SpriteEffects.FlipHorizontally);
+            gg.addComponent(new Rotator(-0.00025f));
+            GameObjectFactory.createTexture(gameSector, new Vector2(952, 452), new Vector2(114, 115), ContentLoader.getContent<Texture2D>("Planett"), SpriteEffects.None, 2);
             GameObjectFactory.createTexture(gameSector, new Vector2(0, 720 - 193), new Vector2(1280, 193), ContentLoader.getContent<Texture2D>("Planet"));
+            GameObjectFactory.createTexture(gameSector, new Vector2(470, 0), new Vector2(349, 57), ContentLoader.getContent<Texture2D>("GUIpaddleup"), SpriteEffects.None, 29);
+            GameObjectFactory.createTexture(gameSector, new Vector2(0, Game1.graphics.PreferredBackBufferHeight - 51), new Vector2(324, 51), ContentLoader.getContent<Texture2D>("GUIpaddledown"), SpriteEffects.None, 15);
+            GameObjectFactory.createTexture(gameSector, new Vector2(Game1.graphics.PreferredBackBufferWidth - 324, Game1.graphics.PreferredBackBufferHeight - 51), new Vector2(324, 51), ContentLoader.getContent<Texture2D>("GUIpaddledown"), SpriteEffects.FlipHorizontally, 15);
 
 
             buildMotherShips();
 
             GameObjectFactory.createTexture(gameSector, Vector2.Zero, new Vector2(155, 326), ContentLoader.getContent<Texture2D>("Mothershippipes"), SpriteEffects.None, 2);
             GameObjectFactory.createTexture(gameSector, new Vector2(Game1.graphics.PreferredBackBufferWidth - 155, 0), new Vector2(155, 326), ContentLoader.getContent<Texture2D>("Mothershippipes"), SpriteEffects.FlipHorizontally, 2);
+            
             grid = new TowerGrid(4, 3, 40, new Vector2(400, 590), 5, Client.host, ressources);
             GameObject go = new GameObject(gameSector);
             go.addComponent(grid);

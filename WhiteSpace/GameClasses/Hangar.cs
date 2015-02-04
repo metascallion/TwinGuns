@@ -42,7 +42,7 @@ namespace WhiteSpace.GameClasses
 
         public override void start()
         {
-            ressourceCounter = GameObjectFactory.createLabel(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(570, 10), new Vector2(100, 20)), "0");   
+            ressourceCounter = GameObjectFactory.createLabel(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(570, 7), new Vector2(100, 20)), "0", 30);   
 
             base.start();
             Transform parentTransform = this.parent.getComponent<Transform>();

@@ -40,6 +40,8 @@
     <Compile Include="Components\Life.cs" />
     <Compile Include="Components\NetworkMessageReceiver.cs" />
     <Compile Include="Components\OverTimeDestroyer.cs" />
+    <Compile Include="Components\Rotator.cs" />
+    <Compile Include="Components\ScaleMorpher.cs" />
     <Compile Include="Components\UI\Button.cs" />
     <Compile Include="Components\UI\EditableText.cs" />
     <Compile Include="Components\Physics\CharacterController.cs" />
@@ -116,6 +118,18 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Background.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUIpaddleup.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\GUIpaddledown.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\Planett.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\StarsRotating.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\Energietower.PNG">

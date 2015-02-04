@@ -39,6 +39,8 @@ namespace WhiteSpace.GameClasses
                 b.setStandartDrawer(new TextureRegion(ContentLoader.getContent<Texture2D>("gridnormal")));
                 b.setHoverDrawer(new TextureRegion(ContentLoader.getContent<Texture2D>("gridblue")));
                 b.setClickedDrawer(new TextureRegion(ContentLoader.getContent<Texture2D>("gridred")));
+
+                b.hoverMethods += delegate(Clickable sender) { new Sound("Shot", false, 0.5f); };
             }
 
             if(this.player == Client.host)
@@ -48,8 +50,8 @@ namespace WhiteSpace.GameClasses
                     b.releaseMethods += sendBuildTowerMessage;
                 }
 
-                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 640), new Vector2(150, 30)), "Ressource Tower", changeToRessouce);
-                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 680), new Vector2(150, 30)), "Attack Tower", changeToAttack);
+                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 600), new Vector2(150, 30)), "Ressource Tower", changeToRessouce);
+                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 640), new Vector2(150, 30)), "Attack Tower", changeToAttack);
             }
 
             else
@@ -146,6 +148,7 @@ namespace WhiteSpace.GameClasses
         public void buildTower(int x, int y, bool playerOne, bool towerType)
         {
             GameObject o = this.gameObjects[x, y];
+
             if (towerType)
             {
                 AfterTimeComponentAdder adder = new AfterTimeComponentAdder(3000);
@@ -153,16 +156,23 @@ namespace WhiteSpace.GameClasses
                 o.addComponent(adder);
                 adder.expiredFunctions += delegate
                {
-                   o.getComponent<Button>().setStandartDrawer(new ColoredBox(Color.Red));
-                   o.getComponent<Button>().setHoverDrawer(new ColoredBox(Color.Red));
-                   o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Red));
+                   Transform trans = o.getComponent<Transform>();
+                   GameObject tower = GameObjectFactory.createTexture(this.parent.sector, trans.Center - new Vector2(35, 50), new Vector2(65, 62), ContentLoader.getContent<Texture2D>("Attacktower"), SpriteEffects.None, y + 1);
+                   o.addComponent(new Tower(tower));
+
                };
             }
 
             else
             {
+                SpriteEffects effect = SpriteEffects.None;
+                if (!playerOne)
+                {
+                    effect = SpriteEffects.FlipHorizontally;
+                }
+
                 Transform trans = o.getComponent<Transform>();
-                GameObject tower = GameObjectFactory.createTexture(this.parent.sector, trans.Center - new Vector2(25, 75), new Vector2(50, 85), ContentLoader.getContent<Texture2D>("Energietower"), SpriteEffects.None, y + 1);
+                GameObject tower = GameObjectFactory.createTexture(this.parent.sector, trans.Center - new Vector2(25, 75), new Vector2(50, 85), ContentLoader.getContent<Texture2D>("Energietower"), effect, y + 1);
                 o.addComponent(new RessourceTower(tower));
             }
         }
@@ -171,8 +181,6 @@ namespace WhiteSpace.GameClasses
         public void buildMirroredTower(int x, int y, bool playerOne, bool towerType)
         {
             buildTower(this.gameObjects.GetLength(0) - x - 1, y, playerOne, towerType);
-
-
         }
 
         protected override void update(GameTime gameTime)

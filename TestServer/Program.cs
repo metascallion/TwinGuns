@@ -14,13 +14,6 @@ namespace TestServer
         static Server testServer;
         static void Main(string[] args)
         {
-            //masterServer = new Server();
-            //masterServer.startServer("test", 1111);
-            //masterServer.registerNetworkListenerMethod("Host", OnHostRequest);
-            //masterServer.registerNetworkListenerMethod("FindGames", OnFindGamesRequestEnter);
-            //masterServer.registerNetworkListenerMethod("Join", OnJoinRequest);
-            //testServer = new Server();
-            //testServer.startServer("test", 1111);
             new Game();
             Console.ReadLine();
         }

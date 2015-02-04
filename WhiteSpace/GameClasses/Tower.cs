@@ -38,6 +38,7 @@ namespace WhiteSpace.GameClasses
     {
         float kadenz;
         float timeToNextShot;
+        GameObject linkedTower;
 
         public static List<Transform> enemyDronesTransforms = new List<Transform>();
         public static List<Transform> thisDronesTransforms = new List<Transform>();
@@ -47,6 +48,23 @@ namespace WhiteSpace.GameClasses
         Transform target;
 
         bool playerOne;
+
+        public Tower()
+        {
+
+        }
+
+        public Tower(GameObject linkedTower)
+        {
+            this.linkedTower = linkedTower;
+        }
+
+        public override void onDestroy()
+        {
+            base.onDestroy();
+            linkedTower.destroy();
+        }
+
         public static void unregister(Transform transform)
         {
             if(enemyDronesTransforms.Contains(transform))

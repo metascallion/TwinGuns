@@ -19,9 +19,8 @@ C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics Mon
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.csprojResolveAssemblyReference.cache
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Test.wav
 C:\Users\tk\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Ship.png
-C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.exe
-C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.csprojResolveAssemblyReference.cache
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.pdb
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.csprojResolveAssemblyReference.cache
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Attacktower.PNG
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Background.PNG
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Energietower.PNG
@@ -54,3 +53,8 @@ C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\MonoGame.Fram
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\OpenTK.dll
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Tao.Sdl.dll
 C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\FarseerPhysics MonoGame.pdb
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\obj\x86\Debug\WhiteSpace.exe
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\StarsRotating.png
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\Planett.png
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\GUIpaddleup.PNG
+C:\Users\Student\Documents\TwinGuns\WhiteSpace\bin\WindowsGL\Debug\Content\GUIpaddledown.PNG

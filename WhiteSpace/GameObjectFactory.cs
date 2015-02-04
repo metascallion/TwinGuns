@@ -10,6 +10,7 @@ using WhiteSpace.Components.Physics;
 using Microsoft.Xna.Framework;
 using WhiteSpace.GameClasses;
 using Microsoft.Xna.Framework.Graphics;
+using WhiteSpace.Network;
 
 namespace WhiteSpace
 {
@@ -33,6 +34,18 @@ namespace WhiteSpace
             temp.addComponent(new BoxCollider());
             temp.addComponent(new Clickable());
             temp.addComponent(new HealthRenderer(100));
+            temp.getComponent<HealthRenderer>().position.Y = Game1.graphics.PreferredBackBufferHeight - 33;
+
+            if(player != Client.host)
+            {
+                temp.getComponent<HealthRenderer>().position.X += 100;
+            }
+
+            else
+            {
+                temp.getComponent<HealthRenderer>().position.X -= 155;
+            }
+
             temp.addComponent(new LifeUpdater(player));
             return temp;
         }
@@ -178,6 +191,13 @@ namespace WhiteSpace
             GameObject temp = new GameObject(sector);
             temp.addComponent(transform);
             temp.addComponent(new TextDrawer("Font", text));
+            return temp;
+        }
+        public static GameObject createLabel(IComponentsSector sector, Transform transform, string text, int layer)
+        {
+            GameObject temp = new GameObject(sector);
+            temp.addComponent(transform);
+            temp.addComponent(new TextDrawer("Font", text, layer));
             return temp;
         }
 

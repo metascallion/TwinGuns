@@ -12,12 +12,22 @@ namespace WhiteSpace.GameClasses
     public class HealthRenderer : UpdateableComponent
     {
         TextDrawer drawer;
+
+        public Transform boxTransform;
+
         Life life;
         int layer = 0;
+        public Vector2 position;
+
 
         public HealthRenderer(int layer)
         {
             this.layer = layer;
+        }
+
+        public HealthRenderer()
+        {
+
         }
 
         public override void start()
@@ -26,12 +36,17 @@ namespace WhiteSpace.GameClasses
             drawer = new TextDrawer("Font", "", layer);
             Transform trans = this.parent.getComponent<Transform>();
             this.parent.addComponent(drawer);
-            drawer.transform = Transform.createTransformOnPosition(new Vector2(trans.Position.X + trans.Size.X / 2, trans.Position.Y));
+            position = new Vector2(trans.Position.X + trans.Size.X / 2, trans.Position.Y);
+            drawer.transform = Transform.createTransformOnPosition(position);
             life = this.parent.getComponent<Life>();
+
+
         }
+
         protected override void update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            drawer.text = life.Health.ToString();
+            drawer.transform.Position = position;
+            drawer.text = "Life: " + life.Health.ToString();
         }
     }
 }
