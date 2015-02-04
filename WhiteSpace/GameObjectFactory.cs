@@ -32,8 +32,7 @@ namespace WhiteSpace
             GameObject temp = createUnit(sector, transform, textureFile, effect, health);
             temp.addComponent(new BoxCollider());
             temp.addComponent(new Clickable());
-            temp.addComponent(new Hangar(player, ressources));
-            temp.addComponent(new HealthRenderer());
+            temp.addComponent(new HealthRenderer(100));
             temp.addComponent(new LifeUpdater(player));
             return temp;
         }

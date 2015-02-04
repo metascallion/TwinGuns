@@ -13,11 +13,17 @@ namespace WhiteSpace.GameClasses
     {
         TextDrawer drawer;
         Life life;
+        int layer = 0;
+
+        public HealthRenderer(int layer)
+        {
+            this.layer = layer;
+        }
 
         public override void start()
         {
             base.start();
-            drawer = new TextDrawer("Font", "");
+            drawer = new TextDrawer("Font", "", layer);
             Transform trans = this.parent.getComponent<Transform>();
             this.parent.addComponent(drawer);
             drawer.transform = Transform.createTransformOnPosition(new Vector2(trans.Position.X + trans.Size.X / 2, trans.Position.Y));

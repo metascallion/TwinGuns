@@ -16,6 +16,7 @@ namespace WhiteSpace.GameClasses
 {
     public class Hangar : UpdateableComponent
     {
+        public GameObject targetShip;
         public Transform targetTransform;
         public Transform transform;
 
@@ -32,15 +33,16 @@ namespace WhiteSpace.GameClasses
         {
         }
 
-        public Hangar(bool player, GameRessources ressources)
+        public Hangar(bool player, GameRessources ressources, GameObject targetShip)
         {
             this.player = player;
             this.ressources = ressources;
+            this.targetShip = targetShip;
         }
 
         public override void start()
         {
-            ressourceCounter = GameObjectFactory.createLabel(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(400, 30), new Vector2(100, 20)), "0");   
+            ressourceCounter = GameObjectFactory.createLabel(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(570, 10), new Vector2(100, 20)), "0");   
 
             base.start();
             Transform parentTransform = this.parent.getComponent<Transform>();
@@ -64,8 +66,6 @@ namespace WhiteSpace.GameClasses
             }
             Client.registerNetworkListenerMethod("BuildDrone", OnBuildDroneMessageEnter);
             Client.registerNetworkListenerMethod("OpenHangar", OnOpenHangarMessageEnter);
-
-            GameObjectFactory.createTexture(this.parent.sector, Vector2.Zero, new Vector2(155, 326), ContentLoader.getContent<Texture2D>("Mothershippipes"), SpriteEffects.None, 5);
         }
 
         public void buildHangarButtons(Clickable sender)
@@ -230,7 +230,7 @@ namespace WhiteSpace.GameClasses
                     {
                         Tower.enemyDronesTransforms.Add(droneStocks[i, stock].getComponent<Transform>());
                     }
-                    droneStocks[i, stock].addComponent(new Ship(targetTransform));
+                    droneStocks[i, stock].addComponent(new Ship(targetTransform, this.targetShip));
                     droneStocks[i, stock] = null;
                 }
             }

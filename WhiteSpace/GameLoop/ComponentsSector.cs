@@ -73,6 +73,17 @@ namespace WhiteSpace.GameLoop
             {
                 drawMethodsToExecute.Remove(drawMethodToRemove);
             }
+
+            else
+            {
+                foreach(int i in layredMethods.Keys)
+                {
+                    if(layredMethods[i].Contains(drawMethodToRemove))
+                    {
+                        layredMethods[i].Remove(drawMethodToRemove);
+                    }
+                }
+            }
         }
 
         public ComponentsSector(StateType activeState) : base(activeState)

@@ -45,24 +45,24 @@ namespace WhiteSpace.GameClasses
             this.parent.destroy();
             target.parent.removeComponent<Tower>();
             target.parent.removeComponent<RessourceTower>();
-            target.parent.getComponent<Button>().resetDrawers();
         }
     }
 
 
     public class Ship : Projectile
     {
-        public Ship(Transform transform)
+        GameObject targetShip;
+        public Ship(Transform transform, GameObject targetShip)
             : base(transform)
         {
             this.speed = 1.5f;
+            this.targetShip = targetShip;
         }
 
         public Ship()
         {
 
         }
-
         public override void start()
         {
             base.start();
@@ -84,8 +84,8 @@ namespace WhiteSpace.GameClasses
         {
             if (Client.host)
             {
-                this.target.parent.getComponent<Life>().reduceHealth();
-                this.target.parent.getComponent<LifeSender>().sendLife();
+                this.targetShip.getComponent<Life>().reduceHealth();
+                this.targetShip.getComponent<LifeSender>().sendLife();
             }
             this.parent.destroy();
         }

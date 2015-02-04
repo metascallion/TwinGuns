@@ -28,6 +28,13 @@ namespace WhiteSpace.Components.Drawables
             this.TextColor = Color.White;
         }
 
+        public TextDrawer(string fontName, string text, int layer) : base(layer)
+        {
+            this.text = text;
+            this.font = ContentLoader.getContent<SpriteFont>(fontName);
+            this.TextColor = Color.White;
+        }
+
         public override void start()
         {
             base.start();

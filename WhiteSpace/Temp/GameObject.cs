@@ -70,6 +70,7 @@ namespace WhiteSpace.Temp
                 if (children[i] is T)
                 {
                     children[i].unregisterInComponentSector();
+                    children[i].onDestroy();
                     children.Remove(children[i]);
                     return;
                 }
@@ -111,7 +112,6 @@ namespace WhiteSpace.Temp
             {
                 children[i].unregisterInComponentSector();
                 children[i].onDestroy();
-
             }
 
             for (int i = 0; i < this.children.Count; i++)

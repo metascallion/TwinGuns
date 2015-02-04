@@ -34,6 +34,13 @@ namespace WhiteSpace.GameClasses
             base.start();
             this.addComponent<Button>();
 
+            foreach (Button b in this.getComponents<Button>())
+            {
+                b.setStandartDrawer(new TextureRegion(ContentLoader.getContent<Texture2D>("gridnormal")));
+                b.setHoverDrawer(new TextureRegion(ContentLoader.getContent<Texture2D>("gridblue")));
+                b.setClickedDrawer(new TextureRegion(ContentLoader.getContent<Texture2D>("gridred")));
+            }
+
             if(this.player == Client.host)
             {
                 foreach (Button b in this.getComponents<Button>())
@@ -154,13 +161,9 @@ namespace WhiteSpace.GameClasses
 
             else
             {
-                o.getComponent<Button>().setStandartDrawer(new ColoredBox(Color.Blue));
-                o.getComponent<Button>().setHoverDrawer(new ColoredBox(Color.Blue));
-                o.getComponent<Button>().setClickedDrawer(new ColoredBox(Color.Blue));
                 Transform trans = o.getComponent<Transform>();
-                GameObjectFactory.createTexture(this.parent.sector, trans.Center - new Vector2(25, 60), new Vector2(50, 85), ContentLoader.getContent<Texture2D>("Energietower"));
-                o.destroy();
-                //o.addComponent<RessourceTower>();
+                GameObject tower = GameObjectFactory.createTexture(this.parent.sector, trans.Center - new Vector2(25, 75), new Vector2(50, 85), ContentLoader.getContent<Texture2D>("Energietower"), SpriteEffects.None, y + 1);
+                o.addComponent(new RessourceTower(tower));
             }
         }
 

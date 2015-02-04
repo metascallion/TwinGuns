@@ -15,6 +15,23 @@ namespace WhiteSpace.GameClasses
 {
     public class RessourceTower : StandardComponent
     {
+        GameObject linkedTower;
+
+        public RessourceTower()
+        {
+
+        }
+
+        public RessourceTower(GameObject linkedTower)
+        {
+            this.linkedTower = linkedTower;
+        }
+
+        public override void onDestroy()
+        {
+            base.onDestroy();
+            linkedTower.destroy();
+        }
     }
 
     public class Tower : UpdateableComponent
