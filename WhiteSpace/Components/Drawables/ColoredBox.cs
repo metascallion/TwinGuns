@@ -23,6 +23,11 @@ namespace WhiteSpace.Components.Drawables
             this.color = color;
         }
 
+        public ColoredBox(Color color, int layer) : base (layer)
+        {
+            this.color = color;
+        }
+
         public ColoredBox()
         {
 

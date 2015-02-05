@@ -14,6 +14,11 @@ namespace TestServer
         static Server testServer;
         static void Main(string[] args)
         {
+            //masterServer = new Server();
+            //masterServer.startServer("test", 1111);
+            //masterServer.registerNetworkListenerMethod("Host", OnHostRequest);
+            //masterServer.registerNetworkListenerMethod("FindGames", OnFindGamesRequestEnter);
+            //masterServer.registerNetworkListenerMethod("Join", OnJoinRequest);
             new Game();
             Console.ReadLine();
         }
@@ -32,11 +37,16 @@ namespace TestServer
         static void OnFindGamesRequestEnter(ReceiveableNetworkMessage msg)
         {
             SendableNetworkMessage smsg = new SendableNetworkMessage("FoundGames");
+            int counter = 0;
             foreach(Lobby l in GameContainer.activeGames)
             {
+                counter++;
                 smsg.addInformationContent("GameName", l.name);
             }
-            masterServer.sendMessageToSingleRecipient(smsg, msg.SenderConnection);
+            if (counter > 0)
+            {
+                masterServer.sendMessageToSingleRecipient(smsg, msg.SenderConnection);
+            }
         }
 
         static void OnJoinRequest(ReceiveableNetworkMessage msg)

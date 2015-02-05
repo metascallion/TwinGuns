@@ -121,50 +121,62 @@ namespace WhiteSpace.GameClasses
                             case "none":
                                 if (player == Client.host)
                                 {
-                                    if (gameObjects[gameObjects.GetLength(0) - 1 - x, y].hasComponent<Tower>() || gameObjects[gameObjects.GetLength(0) - 1 - x, y].hasComponent<Tower>())
+                                    gameObjects[x, y].removeComponent<Tower>();
+                                    gameObjects[x, y].removeComponent<RessourceTower>();
+                                }
+                                else
+                                {
+                                    gameObjects[gameObjects.GetLength(0) - 1 - x, y].removeComponent<Tower>();
+                                    gameObjects[gameObjects.GetLength(0) - 1 - x, y].removeComponent<RessourceTower>();
+                                }
+                                break;
+                            case "attack":
+                                bool owned = false;
+
+                                if(!Client.host)
+                                {
+                                    if(player == this.player)
                                     {
-                                        gameObjects[gameObjects.GetLength(0) - 1 - x, y].getComponent<Tower>().parent.destroy();
-                                        //buildMirroredTower(x, y, player, true);
+                                        owned = true;
                                     }
                                 }
                                 else
                                 {
-                                    if (gameObjects[x, y].hasComponent<Tower>() || gameObjects[x, y].hasComponent<RessourceTower>())
+                                    if(player != this.player)
                                     {
-                                        gameObjects[x, y].getComponent<Tower>().parent.destroy();
-                                        //buildTower(x, y, player, true);
+                                        owned = false;
                                     }
                                 }
-                                break;
-                            case "attack":
+
                                 if (player != Client.host)
                                 {
                                     if (!gameObjects[gameObjects.GetLength(0) - 1 - x, y].hasComponent<Tower>())
                                     {
-                                        buildMirroredTower(x, y, player, true);
+                                        buildMirroredTower(x, y, owned, true);
                                     }
                                 }
                                 else
                                 {
                                     if (!gameObjects[x, y].hasComponent<Tower>())
                                     {
-                                        buildTower(x, y, player, true);
+                                        buildTower(x, y, owned, true);
                                     }
                                 }
                                 break;
                             case "ressource":
+
                                 if (player != Client.host)
                                 {
                                     if (!gameObjects[gameObjects.GetLength(0) - 1 - x, y].hasComponent<RessourceTower>())
                                     {
-                                        buildMirroredTower(x, y, player, false);
+                                        buildMirroredTower(x, y, false, false);
                                     }
                                 }
                                 else
                                 {
                                     if (!gameObjects[x, y].hasComponent<RessourceTower>())
                                     {
-                                        buildTower(x, y, player, false);
+                                        buildTower(x, y, true, false);
                                     }
                                 }
                                 break;

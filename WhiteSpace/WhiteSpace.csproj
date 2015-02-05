@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Components\AfterTimeComponentAdder.cs" />
+    <Compile Include="Components\DroneAmp.cs" />
     <Compile Include="Components\GridTile.cs" />
     <Compile Include="Components\Life.cs" />
     <Compile Include="Components\NetworkMessageReceiver.cs" />

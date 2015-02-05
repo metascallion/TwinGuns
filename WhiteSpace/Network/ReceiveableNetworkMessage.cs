@@ -42,7 +42,15 @@ namespace WhiteSpace.Network
 
         public string getInformation(string key)
         {
-            return this.informations[key];
+            try
+            {
+                return this.informations[key];
+            }
+
+            catch
+            {
+                throw new MissingMemberException("Dosent Contain Information");
+            }
         }
 
         public string[] getInformationContent(string key)

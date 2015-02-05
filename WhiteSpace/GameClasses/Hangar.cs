@@ -21,6 +21,7 @@ namespace WhiteSpace.GameClasses
         public Transform transform;
 
         GameObject[,] droneStocks = new GameObject[3, 3];
+        GameObject[,] droneLights = new GameObject[3, 3];
 
         bool player;
 
@@ -66,6 +67,25 @@ namespace WhiteSpace.GameClasses
             }
             Client.registerNetworkListenerMethod("BuildDrone", OnBuildDroneMessageEnter);
             Client.registerNetworkListenerMethod("OpenHangar", OnOpenHangarMessageEnter);
+
+
+            if (this.player == Client.host)
+            {
+                for (int x = 0; x < droneLights.GetLength(0); x++)
+                {
+                    for (int y = 0; y < droneLights.GetLength(1); y++)
+                    {
+                        GameObject currentLight = new GameObject(this.parent.sector);
+                        Transform trans = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + 85 + 20 * x - y * 35, this.transform.Position.Y + 30 + y * 45));
+                        trans.Size = new Vector2(10, 10);
+                        currentLight.addComponent(trans);
+                        currentLight.addComponent(new ColoredBox(Color.BlanchedAlmond, 10));
+                        currentLight.addComponent(new DroneAmp());
+
+                        droneLights[x, y] = currentLight;
+                    }
+                }
+            }
         }
 
         public void buildHangarButtons(Clickable sender)
@@ -201,6 +221,8 @@ namespace WhiteSpace.GameClasses
                     if (player == Client.host)
                     {
                         transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + 40 * i - stock * 35, this.transform.Position.Y + 60 + stock * 45));
+                        droneLights[i, stock].getComponent<DroneAmp>().time = 3000;
+                        droneLights[i, stock].getComponent<DroneAmp>().hasDrone = true;
                     }
                     else
                     {
@@ -225,6 +247,7 @@ namespace WhiteSpace.GameClasses
                     if (this.player == Client.host)
                     {
                         Tower.thisDronesTransforms.Add(droneStocks[i, stock].getComponent<Transform>());
+                        droneLights[i, stock].getComponent<DroneAmp>().hasDrone = false;
                     }
                     else
                     {

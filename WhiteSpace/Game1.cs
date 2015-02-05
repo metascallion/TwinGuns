@@ -109,7 +109,6 @@ namespace WhiteSpace
             spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
             DrawExecuter.executeRegisteredDrawMethods(spriteBatch);
             spriteBatch.End();
-
             base.Draw(gameTime);
         }
     }

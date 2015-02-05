@@ -76,6 +76,7 @@ namespace TestServer
             {
                 Game game = new Game();
                 SendableNetworkMessage smsg = new SendableNetworkMessage("StartGame");
+                GameContainer.activeGames.Remove(this);
                 smsg.addInformation("GamePort", game.gameServer.config.Port);
                 lobbyServer.sendMessage(smsg);
             }

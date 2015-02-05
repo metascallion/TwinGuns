@@ -23,7 +23,7 @@ namespace TestServer
         Server gameServer;
         int towerCosts = 20;
         int towerDestroy = 20;
-        int attackTowerCosts = 25;
+        int attackTowerCosts = 20;
         ThreadStart start;
         Thread ressourceThread;
         public float ressourceGain;
@@ -54,6 +54,15 @@ namespace TestServer
                     towers[x, y] = tower.none;
                 }
             }
+
+            new Thread(new ThreadStart(updateTowerAfterTime)).Start();
+        }
+
+        private void updateTowerAfterTime()
+        {
+            Thread.Sleep(3000);
+            sendTowerUpdate();
+            updateTowerAfterTime();
         }
 
         private void sendTowerUpdate()
@@ -109,7 +118,7 @@ namespace TestServer
 
         public void OnDestroyTowerRequest(ReceiveableNetworkMessage msg)
         {
-            if (Boolean.Parse(msg.getInformation("Player")) != this.player1)
+            if (Boolean.Parse(msg.getInformation("Player")) == this.player1)
             {
                 if (Boolean.Parse(msg.getInformation("Type")) == false)
                 {
@@ -122,7 +131,7 @@ namespace TestServer
                 int x = int.Parse(msg.getInformation("x"));
                 int y = int.Parse(msg.getInformation("y"));
 
-                towers[x, y] = tower.none;
+                towers[towers.GetLength(0) - x - 1, y] = tower.none;
                 sendTowerUpdate();
                 SendableNetworkMessage smsg = new SendableNetworkMessage("DestroyTower");
                 smsg.addInformation("x", msg.getInformation("x"));
