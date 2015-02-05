@@ -100,6 +100,12 @@ namespace WhiteSpace.Components.Animation
             }
         }
 
+        public override void start()
+        {
+            base.start();
+            this.parent.getComponent<TextureRegion>().dontDrawBeforeAnimation();
+        }
+
         protected override void update(GameTime gameTime)
         {
             if(this.play)

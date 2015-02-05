@@ -27,6 +27,7 @@ namespace WhiteSpace.GameClasses
             this.ressources = ressources;
             Client.registerNetworkListenerMethod("BuildTower", OnBuildTowerMessage);
             Client.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerMessage);
+            Client.registerNetworkListenerMethod("TowerUpdate", OnTowerUpdateMessage);
         }
 
         public override void start()
@@ -105,6 +106,74 @@ namespace WhiteSpace.GameClasses
             }
         }
 
+        void OnTowerUpdateMessage(ReceiveableNetworkMessage msg)
+        {
+            bool player = Boolean.Parse(msg.getInformation("player"));
+
+            if (player == this.player)
+            {
+                for (int x = 0; x < this.gameObjects.GetLength(0); x++)
+                {
+                    for (int y = 0; y < this.gameObjects.GetLength(1); y++)
+                    {
+                        switch (msg.getInformation(x.ToString() + y.ToString()))
+                        {
+                            case "none":
+                                if (player == Client.host)
+                                {
+                                    if (gameObjects[gameObjects.GetLength(0) - 1 - x, y].hasComponent<Tower>() || gameObjects[gameObjects.GetLength(0) - 1 - x, y].hasComponent<Tower>())
+                                    {
+                                        gameObjects[gameObjects.GetLength(0) - 1 - x, y].getComponent<Tower>().parent.destroy();
+                                        //buildMirroredTower(x, y, player, true);
+                                    }
+                                }
+                                else
+                                {
+                                    if (gameObjects[x, y].hasComponent<Tower>() || gameObjects[x, y].hasComponent<RessourceTower>())
+                                    {
+                                        gameObjects[x, y].getComponent<Tower>().parent.destroy();
+                                        //buildTower(x, y, player, true);
+                                    }
+                                }
+                                break;
+                            case "attack":
+                                if (player != Client.host)
+                                {
+                                    if (!gameObjects[gameObjects.GetLength(0) - 1 - x, y].hasComponent<Tower>())
+                                    {
+                                        buildMirroredTower(x, y, player, true);
+                                    }
+                                }
+                                else
+                                {
+                                    if (!gameObjects[x, y].hasComponent<Tower>())
+                                    {
+                                        buildTower(x, y, player, true);
+                                    }
+                                }
+                                break;
+                            case "ressource":
+                                if (player != Client.host)
+                                {
+                                    if (!gameObjects[gameObjects.GetLength(0) - 1 - x, y].hasComponent<RessourceTower>())
+                                    {
+                                        buildMirroredTower(x, y, player, false);
+                                    }
+                                }
+                                else
+                                {
+                                    if (!gameObjects[x, y].hasComponent<RessourceTower>())
+                                    {
+                                        buildTower(x, y, player, false);
+                                    }
+                                }
+                                break;
+                        }
+                    }
+                }
+            }
+        }
+
         void OnBuildTowerMessage(ReceiveableNetworkMessage msg)
         {
             if (Boolean.Parse(msg.getInformation("Player")) == this.player)
@@ -152,13 +221,12 @@ namespace WhiteSpace.GameClasses
             if (towerType)
             {
                 AfterTimeComponentAdder adder = new AfterTimeComponentAdder(3000);
-                adder.addToComponentsToAddAfterTime(new Tower(850, playerOne));
                 o.addComponent(adder);
                 adder.expiredFunctions += delegate
                {
                    Transform trans = o.getComponent<Transform>();
                    GameObject tower = GameObjectFactory.createTexture(this.parent.sector, trans.Center - new Vector2(35, 50), new Vector2(65, 62), ContentLoader.getContent<Texture2D>("Attacktower"), SpriteEffects.None, y + 1);
-                   o.addComponent(new Tower(tower));
+                   o.addComponent(new Tower(850, playerOne, tower));
 
                };
             }

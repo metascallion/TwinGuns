@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using WhiteSpace.GameLoop;
 using WhiteSpace;
 using WhiteSpace.Temp;
+using Microsoft.Xna.Framework.Graphics;
 using System.Threading;
 
 namespace WhiteSpace.Components

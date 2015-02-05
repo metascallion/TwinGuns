@@ -54,9 +54,15 @@ namespace WhiteSpace.GameClasses
 
         }
 
-        public Tower(GameObject linkedTower)
+        public Tower(float kadenz, bool playerOne, GameObject linkedTower)
         {
+            this.kadenz = kadenz;
+            this.timeToNextShot = kadenz;
             this.linkedTower = linkedTower;
+            if (playerOne)
+            {
+                this.playerOne = playerOne;
+            }
         }
 
         public override void onDestroy()
@@ -75,17 +81,6 @@ namespace WhiteSpace.GameClasses
             else
             {
                 thisDronesTransforms.Remove(transform);
-            }
-        }
-
-        public Tower(float kadenz, bool playerOne)
-        {
-            this.kadenz = kadenz;
-            this.timeToNextShot = kadenz;
-
-            if(playerOne)
-            {
-                this.playerOne = playerOne;
             }
         }
 

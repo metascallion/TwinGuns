@@ -58,6 +58,11 @@ namespace WhiteSpace.Components.Drawables
             this.transform = this.parent.getComponent<Transform>();
         }
 
+        public void dontDrawBeforeAnimation()
+        {
+            this.VisibleArea = Rectangle.Empty;
+        }
+
         protected override void draw(SpriteBatch spriteBatch)
         {
             Vector2 origin = new Vector2(this.VisibleArea.Width / 2, this.VisibleArea.Height / 2);
