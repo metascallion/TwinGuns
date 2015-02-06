@@ -1,0 +1,8 @@
+Ressources 2000
+Health 100
+RessourceGain 2
+RessourceGainPerTower 0,2
+AttackTower 20
+RessourceTower 20
+Drone 20
+TowerDestroy 20

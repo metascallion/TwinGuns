@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WhiteSpace.Network;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using WhiteSpace.Components;
 
 namespace WhiteSpace.GameClasses

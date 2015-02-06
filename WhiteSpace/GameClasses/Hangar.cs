@@ -6,11 +6,12 @@ using WhiteSpace.Components;
 using WhiteSpace.GameLoop;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Network;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using WhiteSpace.Components.Drawables;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Components.Physics;
-
+using WhiteSpace.Input;
+using WhiteSpace.Content;
 
 namespace WhiteSpace.GameClasses
 {
@@ -43,7 +44,7 @@ namespace WhiteSpace.GameClasses
 
         public override void start()
         {
-            ressourceCounter = GameObjectFactory.createLabel(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(570, 7), new Vector2(100, 20)), "0", 30);   
+            ressourceCounter = GameObjectFactory.createLabel(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(555, 7), new Vector2(100, 20)), "0", 30);   
 
             base.start();
             Transform parentTransform = this.parent.getComponent<Transform>();
@@ -64,6 +65,7 @@ namespace WhiteSpace.GameClasses
             if (this.player == Client.host)
             {
                 clickArea.getComponent<Clickable>().releaseMethods += buildHangarButtons;
+                buildHangarButtons(clickArea.getComponent<Clickable>());
             }
             Client.registerNetworkListenerMethod("BuildDrone", OnBuildDroneMessageEnter);
             Client.registerNetworkListenerMethod("OpenHangar", OnOpenHangarMessageEnter);
@@ -91,22 +93,31 @@ namespace WhiteSpace.GameClasses
         public void buildHangarButtons(Clickable sender)
         {
             sector = new ComponentsSector<gamestate>(gamestate.game);
-            Transform t1 = Transform.createTransformWithSizeOnPosition(new Vector2(160, 200), new Vector2(50, 30));
+
+            Transform background = Transform.createTransformWithSizeOnPosition(new Vector2(200, 170), new Vector2(110, 140));
+            GameObject go = new GameObject(sector);
+            go.addComponent(background);
+            go.addComponent(new ColoredBox(Color.SlateGray));
+
+            Transform t0 = Transform.createTransformWithSizeOnPosition(new Vector2(200, 170), new Vector2(110, 20));
+            GameObjectFactory.createLabel(sector, t0, "Drone [20 R]");
+
+            Transform t1 = Transform.createTransformWithSizeOnPosition(new Vector2(200, 200), new Vector2(50, 30));
             GameObject b1 = GameObjectFactory.createButton(sector, t1, "+", 0, sendBuildDroneMessage);
 
-            Transform t2 = Transform.createTransformWithSizeOnPosition(new Vector2(160, 240), new Vector2(50, 30));
+            Transform t2 = Transform.createTransformWithSizeOnPosition(new Vector2(200, 240), new Vector2(50, 30));
             GameObject b2 = GameObjectFactory.createButton(sector, t2, "+", 1, sendBuildDroneMessage);
 
-            Transform t3 = Transform.createTransformWithSizeOnPosition(new Vector2(160, 280), new Vector2(50, 30));
+            Transform t3 = Transform.createTransformWithSizeOnPosition(new Vector2(200, 280), new Vector2(50, 30));
             GameObject b3 = GameObjectFactory.createButton(sector, t3, "+", 2, sendBuildDroneMessage);
 
-            Transform t4 = Transform.createTransformWithSizeOnPosition(new Vector2(220, 200), new Vector2(50, 30));
+            Transform t4 = Transform.createTransformWithSizeOnPosition(new Vector2(260, 200), new Vector2(50, 30));
             GameObject b4 = GameObjectFactory.createButton(sector, t4, "open", 0, sendOpenHangarMessage);
 
-            Transform t5 = Transform.createTransformWithSizeOnPosition(new Vector2(220, 240), new Vector2(50, 30));
+            Transform t5 = Transform.createTransformWithSizeOnPosition(new Vector2(260, 240), new Vector2(50, 30));
             GameObject b5 = GameObjectFactory.createButton(sector, t5, "open", 1, sendOpenHangarMessage);
 
-            Transform t6 = Transform.createTransformWithSizeOnPosition(new Vector2(220, 280), new Vector2(50, 30));
+            Transform t6 = Transform.createTransformWithSizeOnPosition(new Vector2(260, 280), new Vector2(50, 30));
             GameObject b6 = GameObjectFactory.createButton(sector, t6, "open", 2, sendOpenHangarMessage);
 
             StateMachine<gamestate>.getInstance().changeState(gamestate.game);
@@ -147,7 +158,7 @@ namespace WhiteSpace.GameClasses
                 sendOpenHangarMessage(new Clickable());
             }
 
-            ressourceCounter.getComponent<TextDrawer>().text = "Ressources: " + ressources.ressources.ToString();
+            ressourceCounter.getComponent<TextDrawer>().text = "R: " + ressources.ressources.ToString() + " / Increase: " + Math.Round(ressources.ressourceGain, 1); 
         }
 
         public void sendBuildDroneMessage(Clickable sender)

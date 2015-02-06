@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using WhiteSpace.Components;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using WhiteSpace.GameLoop;
 using WhiteSpace.Components.Drawables;
 using WhiteSpace.Components.Physics;
@@ -11,6 +11,7 @@ using Microsoft.Xna.Framework;
 using WhiteSpace.GameClasses;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Network;
+using WhiteSpace.Content;
 
 namespace WhiteSpace
 {

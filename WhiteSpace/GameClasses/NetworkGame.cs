@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using WhiteSpace.GameLoop;
 using WhiteSpace.Components;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Network;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Components.Drawables;
+using WhiteSpace.Content;
 
 namespace WhiteSpace.GameClasses
 {
@@ -27,7 +28,7 @@ namespace WhiteSpace.GameClasses
             GameObject back = GameObjectFactory.createTexture(gameSector, new Vector2(0, 0), new Vector2(1280, 720), ContentLoader.getContent<Texture2D>("Background"));
             GameObject g = GameObjectFactory.createTexture(gameSector, new Vector2(-500, -300), new Vector2(2560, 1440), ContentLoader.getContent<Texture2D>("StarsRotating"));
             g.addComponent(new Rotator(0.0005f));
-            GameObject gg = GameObjectFactory.createTexture(gameSector, new Vector2(-500, -300), new Vector2(2560, 1440), ContentLoader.getContent<Texture2D>("StarsRotating"), SpriteEffects.FlipHorizontally);
+            GameObject gg = GameObjectFactory.createTexture(gameSector, new Vector2(-500, -300), new Vector2(2560, 1440), ContentLoader.getContent<Texture2D>("StarsRotating"), SpriteEffects.FlipVertically);
             gg.addComponent(new Rotator(-0.00025f));
             GameObjectFactory.createTexture(gameSector, new Vector2(952, 452), new Vector2(114, 115), ContentLoader.getContent<Texture2D>("Planett"), SpriteEffects.None, 2);
             GameObjectFactory.createTexture(gameSector, new Vector2(0, 720 - 193), new Vector2(1280, 193), ContentLoader.getContent<Texture2D>("Planet"));

@@ -21,27 +21,29 @@ namespace TestServer
         float ressources;
         bool player1;
         Server gameServer;
-        int towerCosts = 20;
-        int towerDestroy = 20;
-        int attackTowerCosts = 20;
         ThreadStart start;
         Thread ressourceThread;
         public float ressourceGain;
         public float ressourceGainPerTower = 0.3f;
         public tower[,] towers = new tower[4, 3];
+        int health;
 
-        public Player(int ressources, bool player1, Server gameServer)
+        public Player(int ressources, int health, bool player1, Server gameServer)
         {
             this.ressources = ressources;
+            this.health = health;
             this.player1 = player1;
             this.gameServer = gameServer;
             gameServer.registerNetworkListenerMethod("BuildTower", OnBuildTowerRequest);
             gameServer.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerRequest);
             gameServer.registerNetworkListenerMethod("BuildDrone", OnBuildDroneRequest);
+            gameServer.registerNetworkListenerMethod("Life", OnDamageDealed);
 
             start = new ThreadStart(this.higherRessources);
             ressourceThread = new Thread(start);
             ressourceThread.Start();
+
+            new Thread(new ThreadStart(sendHealthUpdate)).Start();
             initializeTowers();
         }
 
@@ -85,7 +87,7 @@ namespace TestServer
         {
             if (Boolean.Parse(msg.getInformation("Player")) == this.player1)
             {
-                if ((Boolean.Parse(msg.getInformation("Type")) && this.ressources >= attackTowerCosts) || (!Boolean.Parse(msg.getInformation("Type")) && this.ressources >= towerCosts))
+                if ((Boolean.Parse(msg.getInformation("Type")) && this.ressources >= Game.attackTowerCosts) || (!Boolean.Parse(msg.getInformation("Type")) && this.ressources >= Game.ressourceTowerCosts))
                 {
                     int x = int.Parse(msg.getInformation("x"));
                     int y = int.Parse(msg.getInformation("y"));
@@ -93,24 +95,17 @@ namespace TestServer
                     if (Boolean.Parse(msg.getInformation("Type")) == false)
                     {
                         towers[x, y] = tower.ressource;
-                        ressources -= towerCosts;
+                        ressources -= Game.ressourceTowerCosts;
                     }
                     else
                     {
                         towers[x, y] = tower.attack;
-                        ressources -= attackTowerCosts;
+                        ressources -= Game.attackTowerCosts;
                     }
-                    SendableNetworkMessage smsg = new SendableNetworkMessage("BuildTower");
-                    smsg.addInformation("x", msg.getInformation("x"));
-                    smsg.addInformation("y", msg.getInformation("y"));
-                    smsg.addInformation("Player", msg.getInformation("Player"));
-                    smsg.addInformation("Type", msg.getInformation("Type"));
-                    smsg.addInformation("Ressources", ressources);
-                    //gameServer.sendMessage(smsg);
                     sendTowerUpdate();
                     if (Boolean.Parse(msg.getInformation("Type")) == false)
                     {
-                        ressourceGain += ressourceGainPerTower;
+                        ressourceGain += Game.ressourceGainPerTower;
                     }
                 }
             }
@@ -122,28 +117,25 @@ namespace TestServer
             {
                 if (Boolean.Parse(msg.getInformation("Type")) == false)
                 {
-                    ressources -= towerDestroy;
-                }
-                else
-                {
-                    ressources -= towerDestroy;
+                    ressourceGain -= ressourceGainPerTower;
                 }
                 int x = int.Parse(msg.getInformation("x"));
                 int y = int.Parse(msg.getInformation("y"));
 
                 towers[towers.GetLength(0) - x - 1, y] = tower.none;
                 sendTowerUpdate();
-                SendableNetworkMessage smsg = new SendableNetworkMessage("DestroyTower");
-                smsg.addInformation("x", msg.getInformation("x"));
-                smsg.addInformation("y", msg.getInformation("y"));
-                smsg.addInformation("Player", msg.getInformation("Player"));
-                smsg.addInformation("Ressources", ressources);
-                //gameServer.sendMessage(smsg);
             }
 
-            else if(Boolean.Parse(msg.getInformation("Type")) == false)
+            else
             {
-                ressourceGain -= ressourceGainPerTower;
+                if (Boolean.Parse(msg.getInformation("Type")) == false)
+                {
+                    ressources -= Game.ressourceTowerCosts;
+                }
+                else
+                {
+                    ressources -= Game.attackTowerCosts;
+                }
             }
         }
 
@@ -151,20 +143,22 @@ namespace TestServer
         {
             if (Boolean.Parse(msg.getInformation("Player")) == player1)
             {
-                SendableNetworkMessage smsg = new SendableNetworkMessage("BuildDrone");
-                smsg.addInformation("Player", msg.getInformation("Player"));
-                smsg.addInformation("Index", msg.getInformation("Index"));
-                ressources -= 20;
-                smsg.addInformation("Ressources", ressources);
-                gameServer.sendMessage(smsg);
+                if (ressources >= Game.droneCosts)
+                {
+                    SendableNetworkMessage smsg = new SendableNetworkMessage("BuildDrone");
+                    smsg.addInformation("Player", msg.getInformation("Player"));
+                    smsg.addInformation("Index", msg.getInformation("Index"));
+                    ressources -= Game.droneCosts;
+                    smsg.addInformation("Ressources", ressources);
+                    gameServer.sendMessage(smsg);
+                }
             }
         }
 
         public void higherRessources()
         {
-
             Thread.Sleep(1000);
-            Console.WriteLine(this.ressources += ressourceGain);
+            ressources += ressourceGain;
             sendRessourceUpdate();
             higherRessources();
         }
@@ -173,11 +167,28 @@ namespace TestServer
         public void sendRessourceUpdate()
         {
             SendableNetworkMessage msg = new SendableNetworkMessage("RessourceUpdate");
-
             msg.addInformation("Ressources", this.ressources);
+            msg.addInformation("RessourceGain", this.ressourceGain);
             msg.addInformation("Player", this.player1);
-
             gameServer.sendMessage(msg);
+        }
+
+        public void OnDamageDealed(ReceiveableNetworkMessage msg)
+        {
+            if(Boolean.Parse(msg.getInformation("Player")) == this.player1)
+            {
+                this.health--;
+            }
+        }
+
+        private void sendHealthUpdate()
+        {
+            Thread.Sleep(1000);
+            SendableNetworkMessage smsg = new SendableNetworkMessage("Life");
+            smsg.addInformation("Player", this.player1);
+            smsg.addInformation("Health", this.health);
+            gameServer.sendMessage(smsg);
+            sendHealthUpdate();
         }
     }
 }

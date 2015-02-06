@@ -35,21 +35,22 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\AfterTimeComponentAdder.cs" />
-    <Compile Include="Components\DroneAmp.cs" />
-    <Compile Include="Components\GridTile.cs" />
-    <Compile Include="Components\Life.cs" />
-    <Compile Include="Components\NetworkMessageReceiver.cs" />
-    <Compile Include="Components\OverTimeDestroyer.cs" />
-    <Compile Include="Components\Rotator.cs" />
-    <Compile Include="Components\ScaleMorpher.cs" />
-    <Compile Include="Components\UI\Button.cs" />
-    <Compile Include="Components\UI\EditableText.cs" />
-    <Compile Include="Components\Physics\CharacterController.cs" />
-    <Compile Include="Components\Sound.cs" />
-    <Compile Include="Components\Drawables\ColoredBox.cs" />
-    <Compile Include="Components\Drawables\TextDrawer.cs" />
-    <Compile Include="Components\Drawables\TextureRegion.cs" />
+    <Compile Include="Engine\Components\AfterTimeComponentAdder.cs" />
+    <Compile Include="GameClasses\DroneAmp.cs" />
+    <Compile Include="GameClasses\GridTile.cs" />
+    <Compile Include="Engine\Components\Life.cs" />
+    <Compile Include="Engine\Components\NetworkMessageReceiver.cs" />
+    <Compile Include="Engine\Components\OverTimeDestroyer.cs" />
+    <Compile Include="Engine\Components\Rotator.cs" />
+    <Compile Include="Engine\Components\ScaleMorpher.cs" />
+    <Compile Include="Engine\Components\UI\Button.cs" />
+    <Compile Include="Engine\Components\UI\EditableText.cs" />
+    <Compile Include="Engine\Components\Physics\CharacterController.cs" />
+    <Compile Include="Engine\Components\Sound.cs" />
+    <Compile Include="Engine\Components\Drawables\ColoredBox.cs" />
+    <Compile Include="Engine\Components\Drawables\TextDrawer.cs" />
+    <Compile Include="Engine\Components\Drawables\TextureRegion.cs" />
+    <Compile Include="Engine\Content\ContentRepository.cs" />
     <Compile Include="Game1.cs" />
     <Compile Include="GameClasses\LifeSender.cs" />
     <Compile Include="GameClasses\Grid.cs" />
@@ -66,30 +67,30 @@
     <Compile Include="GameClasses\MatchmakingMenu.cs" />
     <Compile Include="GameClasses\Tower.cs" />
     <Compile Include="GameClasses\TowerGrid.cs" />
-    <Compile Include="GameLoop\CollisionDetection.cs" />
-    <Compile Include="GameLoop\ComponentsSector.cs" />
+    <Compile Include="Engine\GameLoop\CollisionDetection.cs" />
+    <Compile Include="Engine\GameLoop\ComponentsSector.cs" />
     <Compile Include="GameObjectFactory.cs" />
-    <Compile Include="Network\Client.cs" />
-    <Compile Include="Network\NetworkMessage.cs" />
-    <Compile Include="Network\ReceiveableNetworkMessage.cs" />
-    <Compile Include="Network\SendableNetworkMessage.cs" />
-    <Compile Include="Network\Server.cs" />
-    <Compile Include="StateMachine\StateListener.cs" />
-    <Compile Include="StateMachine\StateMachine.cs" />
+    <Compile Include="Engine\Network\Client.cs" />
+    <Compile Include="Engine\Network\NetworkMessage.cs" />
+    <Compile Include="Engine\Network\ReceiveableNetworkMessage.cs" />
+    <Compile Include="Engine\Network\SendableNetworkMessage.cs" />
+    <Compile Include="Engine\Network\Server.cs" />
+    <Compile Include="Engine\StateMachine\StateListener.cs" />
+    <Compile Include="Engine\StateMachine\StateMachine.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GameLoop\DrawExecuter.cs" />
-    <Compile Include="GameLoop\UpdateExecuter.cs" />
-    <Compile Include="Components\Animation\Animation.cs" />
-    <Compile Include="Components\Animation\Animator.cs" />
-    <Compile Include="Components\Clickable.cs" />
-    <Compile Include="ContentLoader.cs" />
-    <Compile Include="Components\Transform.cs" />
-    <Compile Include="Components\Animation\SpriteSheet.cs" />
-    <Compile Include="Components\Physics\BoxCollider.cs" />
-    <Compile Include="Temp\Component.cs" />
-    <Compile Include="Temp\GameObject.cs" />
-    <Compile Include="Temp\KeyboardInput.cs" />
+    <Compile Include="Engine\GameLoop\DrawExecuter.cs" />
+    <Compile Include="Engine\GameLoop\UpdateExecuter.cs" />
+    <Compile Include="Engine\Components\Animation\Animation.cs" />
+    <Compile Include="Engine\Components\Animation\Animator.cs" />
+    <Compile Include="Engine\Components\Clickable.cs" />
+    <Compile Include="Engine\Content\ContentLoader.cs" />
+    <Compile Include="Engine\Components\Transform.cs" />
+    <Compile Include="Engine\Components\Animation\SpriteSheet.cs" />
+    <Compile Include="Engine\Components\Physics\BoxCollider.cs" />
+    <Compile Include="Engine\Composite\Component.cs" />
+    <Compile Include="Engine\Composite\GameObject.cs" />
+    <Compile Include="Engine\Input\KeyboardInput.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="CSCore">
@@ -121,13 +122,58 @@
     <Content Include="Content\Background.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\createactive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\createhover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\createnormal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\creditsactive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\creditshover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\creditsnormal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\exitactive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\exithover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\exitnormal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\GUIpaddleup.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\GUIpaddledown.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\optionsactive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\optionshover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\optionsnormal.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Planett.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\playactive.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\playhover.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Content\playnormal.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Content\StarsRotating.png">
@@ -189,6 +235,9 @@
     <Content Include="Content\Twingun2.PNG">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Content\UIBackground.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\Walcycle.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -207,7 +256,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Components\GameObjects\" />
+    <Folder Include="Engine\Components\GameObjects\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

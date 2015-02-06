@@ -8,7 +8,8 @@ namespace WhiteSpace.GameClasses
 {
     public class GameRessources
     {
-        public int ressources = 400;
+        public int ressources = 100;
+        public float ressourceGain = 2;
 
         public GameRessources()
         {
@@ -34,6 +35,7 @@ namespace WhiteSpace.GameClasses
             if(Boolean.Parse(msg.getInformation("Player")) == Client.host)
             {
                 this.ressources = (int)float.Parse(msg.getInformation("Ressources"));
+                this.ressourceGain = float.Parse(msg.getInformation("RessourceGain"));
             }
         }
     }

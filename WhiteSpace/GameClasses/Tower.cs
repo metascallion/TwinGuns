@@ -7,7 +7,7 @@ using WhiteSpace.GameLoop;
 using WhiteSpace.Components.Physics;
 using WhiteSpace.Components.Drawables;
 using Microsoft.Xna.Framework;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using WhiteSpace.Network;
 
 

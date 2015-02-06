@@ -7,10 +7,11 @@ using WhiteSpace.GameLoop;
 using WhiteSpace.Components.Physics;
 using WhiteSpace.Components.Drawables;
 using Microsoft.Xna.Framework;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using WhiteSpace.Network;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Components.Animation;
+using WhiteSpace.Content;
 
 namespace WhiteSpace.GameClasses
 {
@@ -73,7 +74,7 @@ namespace WhiteSpace.GameClasses
         {
             new Sound("Explode", false, 0.65f);
             Transform transform = this.parent.getComponent<Transform>();
-            GameObject go = GameObjectFactory.createTemporaryObjectWithTransform(this.parent.sector, new Vector2(transform.Position.X - 25, transform.Position.Y - 25), new Vector2(50, 50), 300);
+            GameObject go = GameObjectFactory.createTemporaryObjectWithTransform(this.parent.sector, new Vector2(transform.Center.X - 25, transform.Center.Y - 25), new Vector2(50, 50), 300);
             go.addComponent(new TextureRegion(ContentLoader.getContent<Texture2D>("Explosion")));
             go.addComponent(Animator.loadAnimator(go.getComponent<TextureRegion>(), "ExplosionAnimator", 10));
             go.getComponent<Animator>().playAnimation("Explosion", false);

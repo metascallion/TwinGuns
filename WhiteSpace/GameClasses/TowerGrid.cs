@@ -4,13 +4,15 @@ using System.Linq;
 using System.Text;
 using WhiteSpace.GameLoop;
 using WhiteSpace.Components;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Network;
 using Microsoft.Xna.Framework.Graphics;
 using WhiteSpace.Components.Drawables;
 using System.Threading;
 using WhiteSpace.Components.Physics;
+using WhiteSpace.Input;
+using WhiteSpace.Content;
 
 namespace WhiteSpace.GameClasses
 {
@@ -51,8 +53,8 @@ namespace WhiteSpace.GameClasses
                     b.releaseMethods += sendBuildTowerMessage;
                 }
 
-                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 600), new Vector2(150, 30)), "Ressource Tower", changeToRessouce);
-                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 640), new Vector2(150, 30)), "Attack Tower", changeToAttack);
+                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 600), new Vector2(200, 30)), "Ressource Tower [20 R]", changeToRessouce);
+                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 640), new Vector2(200, 30)), "Attack Tower [20 R]", changeToAttack);
             }
 
             else
@@ -135,16 +137,16 @@ namespace WhiteSpace.GameClasses
 
                                 if(!Client.host)
                                 {
-                                    if(player == this.player)
+                                    if(player == Client.host)
                                     {
                                         owned = true;
                                     }
                                 }
                                 else
                                 {
-                                    if(player != this.player)
+                                    if(player == Client.host)
                                     {
-                                        owned = false;
+                                        owned = true;
                                     }
                                 }
 

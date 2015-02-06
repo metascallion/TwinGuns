@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Storage;
 using Microsoft.Xna.Framework.GamerServices;
 using WhiteSpace.GameLoop;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using WhiteSpace.Components.Drawables;
 using WhiteSpace.Components.Animation;
 using WhiteSpace.Network;
@@ -19,6 +19,8 @@ using Microsoft.Xna.Framework.Media;
 using System.Reflection.Emit;
 using WhiteSpace.GameClasses;
 using System.Reflection;
+using WhiteSpace.Input;
+using WhiteSpace.Content;
 
 
 #endregion

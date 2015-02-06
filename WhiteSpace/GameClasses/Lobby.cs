@@ -6,7 +6,7 @@ using WhiteSpace.Components;
 using WhiteSpace.GameLoop;
 using Microsoft.Xna.Framework;
 using WhiteSpace.Network;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using WhiteSpace.Components.Drawables;
 
 namespace WhiteSpace.GameClasses

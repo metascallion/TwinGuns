@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using WhiteSpace.Components;
 using WhiteSpace.Components.Drawables;
-using WhiteSpace.Temp;
+using WhiteSpace.Composite;
 using Microsoft.Xna.Framework;
 
 namespace WhiteSpace.GameClasses
