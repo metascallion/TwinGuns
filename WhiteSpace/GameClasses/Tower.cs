@@ -132,7 +132,7 @@ namespace WhiteSpace.GameClasses
            {
                if (transform.parent != null)
                {
-                   float distance = Math.Abs(transform.parent.getComponent<Ship>().target.Position.X - transform.Position.X);
+                   float distance = Math.Abs(transform.parent.getComponent<Ship>().target.position.X - transform.position.X);
                    
                    if (distance < closestDistance)
                    {
@@ -147,7 +147,7 @@ namespace WhiteSpace.GameClasses
 
         private void spawnShot()
         {
-            Transform transform = Transform.createTransformWithSizeOnPosition(this.parent.getComponent<Transform>().Position, new Vector2(7, 7));
+            Transform transform = Transform.createTransformWithSizeOnPosition(this.parent.getComponent<Transform>().position, new Vector2(7, 7));
 
             if (!firstTargetFound)
             {

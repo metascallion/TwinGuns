@@ -27,6 +27,9 @@ namespace WhiteSpace.Components
 
         public int id;
 
+        public bool active = true;
+        public bool lastActive = true;
+
         public Clickable()
         {
         }
@@ -39,7 +42,14 @@ namespace WhiteSpace.Components
 
         protected override void update(GameTime gameTime)
         {
-            checkState();
+            if (active && lastActive)
+            {
+                checkState();
+            }
+            else
+            {
+                lastActive = active;
+            }
         }
 
         private void checkState()

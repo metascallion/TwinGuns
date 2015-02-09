@@ -52,7 +52,7 @@ namespace WhiteSpace.Components.Drawables
         protected override void draw(SpriteBatch batch)
         {
             Vector2 origin = new Vector2(this.texture.Width / 2, this.texture.Height / 2);
-            batch.Draw(texture, new Rectangle((int)(this.transform.Position.X + transform.Size.X / 2), (int)(this.transform.Position.Y + transform.Size.Y / 2), (int)this.transform.Size.X, (int)this.transform.Size.Y), null, Color.White, transform.Rotation, origin, SpriteEffects.None, 0);
+            batch.Draw(texture, new Rectangle((int)(this.transform.position.X + transform.Size.X / 2), (int)(this.transform.position.Y + transform.Size.Y / 2), (int)this.transform.Size.X, (int)this.transform.Size.Y), null, Color.White, transform.Rotation, origin, SpriteEffects.None, 0);
         }
     }
 }

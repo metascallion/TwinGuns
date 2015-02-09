@@ -17,18 +17,18 @@ namespace WhiteSpace.Components
 
     public class Transform : StandardComponent
     {
-        public Vector2 Position{get; set;}
+        public Vector2 position;
 
         public Vector2 Center
         {
             get
             {
-                return this.Position + this.Size * 0.5f;
+                return this.position + this.Size * 0.5f;
             }
 
-            private set
+            set
             {
-
+                this.position = value - this.Size * 0.5f;
             }
         }
 
@@ -41,7 +41,7 @@ namespace WhiteSpace.Components
 
         public void lookAt(Vector2 targetLocation)
         {
-            Vector2 direction = targetLocation - new Vector2(this.Position.X + this.Size.X / 2, this.Position.Y + this.Size.Y / 2);
+            Vector2 direction = targetLocation - new Vector2(this.position.X + this.Size.X / 2, this.position.Y + this.Size.Y / 2);
             direction.Normalize();
             float angle = (float)Math.Atan2(direction.X, direction.Y);
             float radian = (float)Math.Atan2(Math.Cos(angle), (float)Math.Sin(angle));
@@ -50,7 +50,7 @@ namespace WhiteSpace.Components
 
         public Transform(Vector2 position, float rotation, Vector2 size)
         {
-            this.Position = position;
+            this.position = position;
             this.Rotation = rotation;
             this.Size = size;
         }
@@ -123,22 +123,22 @@ namespace WhiteSpace.Components
 
         public void translate(Vector2 direction)
         {
-            this.Position = new Vector2(this.Position.X + direction.X, this.Position.Y + direction.Y);
+            this.position = new Vector2(this.position.X + direction.X, this.position.Y + direction.Y);
         }
 
         public void translate(float x, float y)
         {
-            this.Position = new Vector2(this.Position.X + x, this.Position.Y + y);
+            this.position = new Vector2(this.position.X + x, this.position.Y + y);
         }
 
         public void translateOnXAxis(float value)
         {
-            this.Position = new Vector2(this.Position.X + value, this.Position.Y);
+            this.position = new Vector2(this.position.X + value, this.position.Y);
         }
 
         public void translateOnYAxis(float value)
         {
-            this.Position = new Vector2(this.Position.X, this.Position.Y + value);
+            this.position = new Vector2(this.position.X, this.position.Y + value);
         }
 
         public void scale(Vector2 scaleFactor)
@@ -158,7 +158,7 @@ namespace WhiteSpace.Components
 
         public Rectangle getRect()
         {
-            return new Rectangle((int)this.Position.X, (int)this.Position.Y, (int)this.Size.X, (int)this.Size.Y);
+            return new Rectangle((int)this.position.X, (int)this.position.Y, (int)this.Size.X, (int)this.Size.Y);
         }
     }
 }

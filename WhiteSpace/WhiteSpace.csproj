@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Engine\Components\AfterTimeComponentAdder.cs" />
+    <Compile Include="Engine\Input\MouseInput.cs" />
     <Compile Include="GameClasses\DroneAmp.cs" />
     <Compile Include="GameClasses\GridTile.cs" />
     <Compile Include="Engine\Components\Life.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="GameClasses\GameRessources.cs" />
     <Compile Include="GameClasses\SelectionMenu.cs" />
     <Compile Include="GameClasses\MatchmakingMenu.cs" />
+    <Compile Include="GameClasses\ShiftedGrid.cs" />
     <Compile Include="GameClasses\Tower.cs" />
     <Compile Include="GameClasses\TowerGrid.cs" />
     <Compile Include="Engine\GameLoop\CollisionDetection.cs" />

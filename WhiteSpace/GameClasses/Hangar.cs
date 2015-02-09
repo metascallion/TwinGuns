@@ -51,7 +51,7 @@ namespace WhiteSpace.GameClasses
 
             if (player == Client.host)
             {
-                this.transform = Transform.createTransformWithSizeOnPosition(new Vector2(parentTransform.Position.X, 130), new Vector2(180, 250));
+                this.transform = Transform.createTransformWithSizeOnPosition(new Vector2(parentTransform.position.X, 130), new Vector2(180, 250));
             }
 
             else
@@ -78,7 +78,7 @@ namespace WhiteSpace.GameClasses
                     for (int y = 0; y < droneLights.GetLength(1); y++)
                     {
                         GameObject currentLight = new GameObject(this.parent.sector);
-                        Transform trans = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + 85 + 20 * x - y * 35, this.transform.Position.Y + 30 + y * 45));
+                        Transform trans = Transform.createTransformOnPosition(new Vector2(this.transform.position.X + 85 + 20 * x - y * 35, this.transform.position.Y + 30 + y * 45));
                         trans.Size = new Vector2(10, 10);
                         currentLight.addComponent(trans);
                         currentLight.addComponent(new ColoredBox(Color.BlanchedAlmond, 10));
@@ -231,13 +231,13 @@ namespace WhiteSpace.GameClasses
                     Transform transform;
                     if (player == Client.host)
                     {
-                        transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + 40 * i - stock * 35, this.transform.Position.Y + 60 + stock * 45));
+                        transform = Transform.createTransformOnPosition(new Vector2(this.transform.position.X + 40 * i - stock * 35, this.transform.position.Y + 60 + stock * 45));
                         droneLights[i, stock].getComponent<DroneAmp>().time = 3000;
                         droneLights[i, stock].getComponent<DroneAmp>().hasDrone = true;
                     }
                     else
                     {
-                        transform = Transform.createTransformOnPosition(new Vector2(this.transform.Position.X + (this.transform.Size.X -62) - 40 * i + stock * 35, this.transform.Position.Y + 60 + stock * 45));
+                        transform = Transform.createTransformOnPosition(new Vector2(this.transform.position.X + (this.transform.Size.X -62) - 40 * i + stock * 35, this.transform.position.Y + 60 + stock * 45));
                     }
 
                     droneStocks[i, stock] = GameObjectFactory.createDrone(this.parent.sector, transform, "Drone", effect, 6, targetTransform);

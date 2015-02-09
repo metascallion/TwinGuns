@@ -27,7 +27,7 @@ namespace WhiteSpace.Components
             {
                 growPercent += speed;
                 this.parent.getComponent<Transform>().Size *= 1 + speed;
-                this.parent.getComponent<Transform>().Position = this.parent.getComponent<Transform>().Position - new Vector2(speed / 2, speed / 2);
+                this.parent.getComponent<Transform>().position = this.parent.getComponent<Transform>().position - new Vector2(speed / 2, speed / 2);
 
                 if(growPercent >= maxGrowPercent)
                 {
@@ -39,7 +39,7 @@ namespace WhiteSpace.Components
             {
                 growPercent -= speed;
                 this.parent.getComponent<Transform>().Size *= 1 - speed;
-                this.parent.getComponent<Transform>().Position = this.parent.getComponent<Transform>().Position + new Vector2(speed / 2, speed / 2);
+                this.parent.getComponent<Transform>().position = this.parent.getComponent<Transform>().position + new Vector2(speed / 2, speed / 2);
 
                 if(growPercent <= 0)
                 {

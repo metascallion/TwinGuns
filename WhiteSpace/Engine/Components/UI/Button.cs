@@ -30,7 +30,6 @@ namespace WhiteSpace.Components
 
         protected displaystate state;
 
-
         public void setStandartDrawer(DrawableComponent drawer)
         {
             this.standartDrawer = drawer;
@@ -45,6 +44,14 @@ namespace WhiteSpace.Components
 
         public void setClickedDrawer(DrawableComponent drawer)
         {
+            this.clickedDrawer = drawer;
+            displayDrawer();
+        }
+
+        public void setAllDrawers(DrawableComponent drawer)
+        {
+            this.standartDrawer = drawer;
+            this.hoverDrawer = drawer;
             this.clickedDrawer = drawer;
             displayDrawer();
         }
@@ -149,6 +156,11 @@ namespace WhiteSpace.Components
             this.parent.removeComponent(textD);
             this.parent.addComponent(textD);
             JustReleased = false;
+
+            if(!active)
+            {
+                activateStandartDrawer();
+            }
             base.update(gameTime);
         }
 

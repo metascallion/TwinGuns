@@ -60,6 +60,9 @@ namespace WhiteSpace
             IsMouseVisible = true;
             KeyboardInput.updateKeyStates();
             KeyboardInput.start();
+
+            MouseInput.updateKeyStates();
+            MouseInput.start();
         }
 
         protected override void LoadContent()

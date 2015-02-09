@@ -42,11 +42,11 @@ namespace WhiteSpace.GameClasses
             GameObjectFactory.createTexture(gameSector, Vector2.Zero, new Vector2(155, 326), ContentLoader.getContent<Texture2D>("Mothershippipes"), SpriteEffects.None, 2);
             GameObjectFactory.createTexture(gameSector, new Vector2(Game1.graphics.PreferredBackBufferWidth - 155, 0), new Vector2(155, 326), ContentLoader.getContent<Texture2D>("Mothershippipes"), SpriteEffects.FlipHorizontally, 2);
             
-            grid = new TowerGrid(4, 3, 40, new Vector2(400, 590), 5, Client.host, ressources);
+            grid = new TowerGrid(5, 7, 40, new Vector2(300, 450), 5, Client.host, ressources, 20);
             GameObject go = new GameObject(gameSector);
             go.addComponent(grid);
 
-            grid2 = new TowerGrid(4, 3, 40, new Vector2(655, 590), 5, !Client.host, ressources);
+            grid2 = new TowerGrid(5, 7, 40, new Vector2(750, 450), 5, !Client.host, ressources, -20);
             GameObject go2 = new GameObject(gameSector);
             go2.addComponent(grid2);
             grid2.addComponent<Button>();

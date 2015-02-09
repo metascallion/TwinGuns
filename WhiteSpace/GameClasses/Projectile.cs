@@ -29,7 +29,7 @@ namespace WhiteSpace.GameClasses
             transform.lookAt(target.Center);
             transform.translate(transform.transformDirection(direction.right) * 5);
 
-            if (Vector2.Distance(target.Position, this.parent.getComponent<Transform>().Position) < 12)
+            if (Vector2.Distance(target.position, this.parent.getComponent<Transform>().position) < 12)
             {
                 onTargetHit();
             }
@@ -39,7 +39,7 @@ namespace WhiteSpace.GameClasses
         {
             new Sound("Explode", false, 0.5f);
             Transform transform = target.parent.getComponent<Transform>();
-            GameObject go = GameObjectFactory.createTemporaryObjectWithTransform(this.parent.sector, new Vector2(transform.Position.X - 25, transform.Position.Y - 25), new Vector2(50, 50), 300);
+            GameObject go = GameObjectFactory.createTemporaryObjectWithTransform(this.parent.sector, new Vector2(transform.position.X - 25, transform.position.Y - 25), new Vector2(50, 50), 300);
             go.addComponent(new TextureRegion(ContentLoader.getContent<Texture2D>("Explosion")));
             go.addComponent(Animator.loadAnimator(go.getComponent<TextureRegion>(), "ExplosionAnimator", 10));
             go.getComponent<Animator>().playAnimation("Explosion", false);
@@ -67,7 +67,7 @@ namespace WhiteSpace.GameClasses
         public override void start()
         {
             base.start();
-            transform.lookAt(new Vector2(target.Center.X, this.parent.getComponent<Transform>().Position.Y));
+            transform.lookAt(new Vector2(target.Center.X, this.parent.getComponent<Transform>().position.Y));
         }
 
         public override void onDestroy()

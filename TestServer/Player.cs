@@ -9,11 +9,14 @@ using System.Threading;
 namespace TestServer
 {
 
-    public enum tower
+    public enum towertype
     {
         none,
         attack,
-        ressource
+        ressource,
+        shield,
+        energy,
+        defense
     }
 
     public class Player
@@ -25,7 +28,7 @@ namespace TestServer
         Thread ressourceThread;
         public float ressourceGain;
         public float ressourceGainPerTower = 0.3f;
-        public tower[,] towers = new tower[4, 3];
+        public towertype[,] towers = new towertype[5, 7];
         int health;
 
         public Player(int ressources, int health, bool player1, Server gameServer)
@@ -42,7 +45,6 @@ namespace TestServer
             start = new ThreadStart(this.higherRessources);
             ressourceThread = new Thread(start);
             ressourceThread.Start();
-
             new Thread(new ThreadStart(sendHealthUpdate)).Start();
             initializeTowers();
         }
@@ -53,7 +55,7 @@ namespace TestServer
             {
                 for(int y = 0; y < towers.GetLength(1); y++)
                 {
-                    towers[x, y] = tower.none;
+                    towers[x, y] = towertype.none;
                 }
             }
 
@@ -87,28 +89,21 @@ namespace TestServer
         {
             if (Boolean.Parse(msg.getInformation("Player")) == this.player1)
             {
-                if ((Boolean.Parse(msg.getInformation("Type")) && this.ressources >= Game.attackTowerCosts) || (!Boolean.Parse(msg.getInformation("Type")) && this.ressources >= Game.ressourceTowerCosts))
+                towertype tower = (towertype)Enum.Parse(typeof(towertype), msg.getInformation("TowerType"));
+                if(this.ressources >= getCosts(tower))
                 {
                     int x = int.Parse(msg.getInformation("x"));
                     int y = int.Parse(msg.getInformation("y"));
-
-                    if (Boolean.Parse(msg.getInformation("Type")) == false)
-                    {
-                        towers[x, y] = tower.ressource;
-                        ressources -= Game.ressourceTowerCosts;
-                    }
-                    else
-                    {
-                        towers[x, y] = tower.attack;
-                        ressources -= Game.attackTowerCosts;
-                    }
+                    this.ressources -= getCosts(tower);
+                    towers[x, y] = tower;
                     sendTowerUpdate();
-                    if (Boolean.Parse(msg.getInformation("Type")) == false)
-                    {
-                        ressourceGain += Game.ressourceGainPerTower;
-                    }
                 }
             }
+        }
+
+        private int getCosts(towertype type)
+        {
+            return Game.costs[type];
         }
 
         public void OnDestroyTowerRequest(ReceiveableNetworkMessage msg)
@@ -122,7 +117,7 @@ namespace TestServer
                 int x = int.Parse(msg.getInformation("x"));
                 int y = int.Parse(msg.getInformation("y"));
 
-                towers[towers.GetLength(0) - x - 1, y] = tower.none;
+                towers[towers.GetLength(0) - x - 1, y] = towertype.none;
                 sendTowerUpdate();
             }
 

@@ -38,6 +38,7 @@ namespace WhiteSpace.GameLoop
             }
 
             KeyboardInput.updateKeyStates();
+            MouseInput.updateKeyStates();
         }
     }
 }

@@ -53,8 +53,8 @@ namespace WhiteSpace.Components.Physics
             body = BodyFactory.CreateRectangle(CollisionDetection.world, transform.Size.X * pixelToUnit, transform.Size.Y * pixelToUnit, 1);
             body.BodyType = BodyType.Kinematic;
             this.Size = transform.Size * pixelToUnit;
-            this.Position = new Vector2(transform.Position.X + transform.Size.X / 2, transform.Position.Y + transform.Size.Y / 2);
-            this.transform.Position = this.Position;
+            this.Position = new Vector2(transform.position.X + transform.Size.X / 2, transform.position.Y + transform.Size.Y / 2);
+            this.transform.position = this.Position;
             ColliderContainer.colliders.Add(this.body, this);
             this.body.OnCollision += onCollisionEnter;
         }
@@ -63,7 +63,7 @@ namespace WhiteSpace.Components.Physics
         {
             if (follow)
             {
-                this.transform.Position = this.Position;
+                this.transform.position = this.Position;
             }
             this.body.Rotation = this.transform.Rotation;
         }

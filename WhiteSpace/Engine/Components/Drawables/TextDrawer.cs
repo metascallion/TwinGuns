@@ -43,7 +43,7 @@ namespace WhiteSpace.Components.Drawables
         }
         protected override void draw(SpriteBatch batch)
         {
-            batch.DrawString(font, this.text, this.transform.Position, this.TextColor);
+            batch.DrawString(font, this.text, this.transform.position, this.TextColor);
         }
     }
 }

@@ -21,6 +21,9 @@ namespace TestServer
         public static int droneCosts;
         public static int towerDestroyCosts;
 
+
+        public static Dictionary<towertype, int> costs = new Dictionary<towertype, int>();
+
         public Game()
         {
             gameServer.startServer("test", 1111);
@@ -30,8 +33,8 @@ namespace TestServer
             health = int.Parse(balanceParser.ReadLine().Split(' ')[1]);
             ressourceGain = float.Parse(balanceParser.ReadLine().Split(' ')[1]);
             ressourceGainPerTower = float.Parse(balanceParser.ReadLine().Split(' ')[1]);
-            attackTowerCosts = int.Parse(balanceParser.ReadLine().Split(' ')[1]);
-            ressourceTowerCosts = int.Parse(balanceParser.ReadLine().Split(' ')[1]);
+            costs[towertype.attack] = int.Parse(balanceParser.ReadLine().Split(' ')[1]);
+            costs[towertype.ressource] = int.Parse(balanceParser.ReadLine().Split(' ')[1]);
             droneCosts = int.Parse(balanceParser.ReadLine().Split(' ')[1]);
             towerDestroyCosts = int.Parse(balanceParser.ReadLine().Split(' ')[1]);
 

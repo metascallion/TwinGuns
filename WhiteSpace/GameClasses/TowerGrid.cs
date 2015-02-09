@@ -13,23 +13,127 @@ using System.Threading;
 using WhiteSpace.Components.Physics;
 using WhiteSpace.Input;
 using WhiteSpace.Content;
+using Microsoft.Xna.Framework.Input;
 
 namespace WhiteSpace.GameClasses
 {
-    class TowerGrid : Grid
+    public  enum towertype
+    {
+        none,
+        attack,
+        ressource,
+        shield,
+        energy,
+        defense
+    }
+
+    public enum towerselectionstate
+    {
+        active,
+        inactive
+    }
+
+    public class TowerTypeSelector : UpdateableComponent
+    {
+        List<GameObject> btns = new List<GameObject>();
+        Vector2 positionOffset;
+        public int x, y;
+        public bool player;
+        towertype currentTypeToBuild;
+        TowerGrid grid;
+
+
+        public TowerTypeSelector()
+        {
+        }
+
+        public TowerTypeSelector(TowerGrid grid)
+        {
+            this.grid = grid;
+        }
+
+        public override void start()
+        {
+            base.start();
+
+            addType(new Vector2(45, 45), Color.Blue, towertype.ressource);
+            addType(new Vector2(-45, -45), Color.Red, towertype.attack);
+        }
+
+        protected override void update(GameTime gameTime)
+        {
+            if(MouseInput.wasKeyJustReleased(mousebutton.left))
+            {
+                grid.reverseBtnActive(null);
+            }
+        }
+
+        private void addType(Vector2 position, Color color, towertype typeToSet)
+        {
+            Transform btnTransform = Transform.createTransformWithSizeOnPosition(position, new Vector2(25, 25));
+            btnTransform.Center = btnTransform.position;
+
+            GameObject btn = GameObjectFactory.createButton(this.parent.sector, btnTransform);
+            btn.getComponent<Button>().setAllDrawers(new ColoredBox(color, 100));
+            btn.getComponent<Button>().releaseMethods += (Clickable Sender) => { this.currentTypeToBuild = typeToSet; sendBuildTowerMessage(Sender); grid.reverseBtnActive(Sender); resetPosition(Sender); };
+
+            
+            btns.Add(btn);
+        }
+
+        public void setPosition(Vector2 position)
+        {
+            for(int i = 0; i < btns.Count(); i++)
+            {
+                Transform transform = btns[i].getComponent<Transform>();
+                transform.Center = transform.Center + position;
+            }
+
+            positionOffset = position;
+        }
+
+        public void resetPosition(Clickable sender)
+        {
+            for (int i = 0; i < btns.Count(); i++)
+            {
+                Transform transform = btns[i].getComponent<Transform>();
+                transform.Center = transform.Center - positionOffset;
+            }
+
+            positionOffset = Vector2.Zero;
+
+            StateMachine<towerselectionstate>.getInstance().changeState(towerselectionstate.inactive);
+        }
+
+        void sendBuildTowerMessage(Clickable sender)
+        {
+            if (!sender.parent.hasComponent<Tower>() && !sender.parent.hasComponent<RessourceTower>())
+            {
+                sender.parent.removeComponent<Tower>();
+                SendableNetworkMessage msg = new SendableNetworkMessage("BuildTower");
+                msg.addInformation("x", x);
+                msg.addInformation("y", y);
+                msg.addInformation("Player", this.player);
+                msg.addInformation("TowerType", this.currentTypeToBuild);
+                Client.sendMessage(msg);
+            }
+        }
+    }
+
+
+    public class TowerGrid : ShiftedGrid
     {
         bool player;
-        bool attackTower;
-
         private GameRessources ressources;
+        GameObject towerTypeSelector;
 
-        public TowerGrid(int rows, int cols, int tileSize, Vector2 position, int offset, bool player, GameRessources ressources) : base(rows, cols, tileSize, position, offset)
+        public TowerGrid(int rows, int cols, int tileSize, Vector2 position, int offset, bool player, GameRessources ressources, int shiftOffset) : base(rows, cols, tileSize, position, offset, shiftOffset)
         {
             this.player = player;
             this.ressources = ressources;
             Client.registerNetworkListenerMethod("BuildTower", OnBuildTowerMessage);
             Client.registerNetworkListenerMethod("DestroyTower", OnDestroyTowerMessage);
-            Client.registerNetworkListenerMethod("TowerUpdate", OnTowerUpdateMessage);
+            Client.registerNetworkListenerMethod("TowerUpdate", OnTowerUpdateMessage);  
         }
 
         public override void start()
@@ -48,13 +152,22 @@ namespace WhiteSpace.GameClasses
 
             if(this.player == Client.host)
             {
+                towerTypeSelector = new GameObject(new ComponentsSector<towerselectionstate>(towerselectionstate.active));
+                towerTypeSelector.addComponent(new TowerTypeSelector(this));
+                towerTypeSelector.getComponent<TowerTypeSelector>().player = this.player;
+
                 foreach (Button b in this.getComponents<Button>())
                 {
-                    b.releaseMethods += sendBuildTowerMessage;
+                    b.releaseMethods += (Clickable sender) => 
+                    {
+                        towerTypeSelector.getComponent<TowerTypeSelector>().resetPosition(null);
+                        towerTypeSelector.getComponent<TowerTypeSelector>().setPosition(b.parent.getComponent<Transform>().Center);
+                        towerTypeSelector.getComponent<TowerTypeSelector>().x = b.parent.getComponent<GridTile>().x;
+                        towerTypeSelector.getComponent<TowerTypeSelector>().y = b.parent.getComponent<GridTile>().y;
+                        StateMachine<towerselectionstate>.getInstance().changeState(towerselectionstate.active);
+                        reverseBtnActive(sender);
+                    };
                 }
-
-                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 600), new Vector2(200, 30)), "Ressource Tower [20 R]", changeToRessouce);
-                GameObjectFactory.createButton(this.parent.sector, Transform.createTransformWithSizeOnPosition(new Vector2(150, 640), new Vector2(200, 30)), "Attack Tower [20 R]", changeToAttack);
             }
 
             else
@@ -66,27 +179,11 @@ namespace WhiteSpace.GameClasses
             }
         }
 
-        void changeToRessouce(Clickable sender)
+        public void reverseBtnActive(Clickable sender)
         {
-            this.attackTower = false;
-        }
-
-        void changeToAttack(Clickable sender)
-        {
-            this.attackTower = true;
-        }
-
-        void sendBuildTowerMessage(Clickable sender)
-        {
-            if (!sender.parent.hasComponent<Tower>() && !sender.parent.hasComponent<RessourceTower>())
+            foreach (Button btn in this.getComponents<Button>())
             {
-                sender.parent.removeComponent<Tower>();
-                SendableNetworkMessage msg = new SendableNetworkMessage("BuildTower");
-                msg.addInformation("x", sender.parent.getComponent<GridTile>().x);
-                msg.addInformation("y", sender.parent.getComponent<GridTile>().y);
-                msg.addInformation("Player", this.player);
-                msg.addInformation("Type", this.attackTower);
-                Client.sendMessage(msg);
+                btn.active = !btn.active;
             }
         }
 
@@ -107,6 +204,7 @@ namespace WhiteSpace.GameClasses
                 Client.sendMessage(msg);
             }
         }
+
 
         void OnTowerUpdateMessage(ReceiveableNetworkMessage msg)
         {

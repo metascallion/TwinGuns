@@ -36,7 +36,7 @@ namespace WhiteSpace.GameClasses
             drawer = new TextDrawer("Font", "", layer);
             Transform trans = this.parent.getComponent<Transform>();
             this.parent.addComponent(drawer);
-            position = new Vector2(trans.Position.X + trans.Size.X / 2, trans.Position.Y);
+            position = new Vector2(trans.position.X + trans.Size.X / 2, trans.position.Y);
             drawer.transform = Transform.createTransformOnPosition(position);
             life = this.parent.getComponent<Life>();
 
@@ -45,7 +45,7 @@ namespace WhiteSpace.GameClasses
 
         protected override void update(Microsoft.Xna.Framework.GameTime gameTime)
         {
-            drawer.transform.Position = position;
+            drawer.transform.position = position;
             drawer.text = "Life: " + life.Health.ToString();
         }
     }

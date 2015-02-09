@@ -43,7 +43,7 @@ namespace WhiteSpace.Components.Physics
 
         protected override void update(GameTime gameTime)
         {
-            collider.transform.Position = collider.Position;
+            collider.transform.position = collider.Position;
         }
     }
 }
